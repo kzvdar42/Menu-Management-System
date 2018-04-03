@@ -1,0 +1,10 @@
+.idea/
+**/.idea/
+.idea/workspace.xml
+**/.DS_Store
+.DS_Store
+*/__pycashe__/
+*.pyc
+*.pyo
+data/
+data/*
