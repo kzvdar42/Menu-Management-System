@@ -20,6 +20,7 @@
             android:name=".RestaurantMenuActivity"
             android:label="@string/restaurants_label"
             android:theme="@style/AppTheme" />
+        <activity android:name=".UserOrderListActivity"></activity>
     </application>
 
 </manifest>
