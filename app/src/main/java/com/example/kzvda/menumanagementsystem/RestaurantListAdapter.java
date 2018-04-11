@@ -48,7 +48,7 @@ public class RestaurantListAdapter extends RecyclerView.Adapter<RestaurantListAd
 
         // create a new view
         RelativeLayout v = (RelativeLayout) LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.recycle_view_item, parent, false);
+                .inflate(R.layout.restaurant_list_recycle_view_item, parent, false);
         return new ViewHolder(v);
 
     }

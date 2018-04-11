@@ -7,29 +7,39 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.view.View;
 
 public class RestaurantMenuActivity extends AppCompatActivity {
 
+    private static final String DESCRIPTION = "Lorem ipsum dolor sit amet," +
+            "consectetur adipiscing elit, sed do" +
+            "eiusmod tempor incididunt ut" +
+            "labore et dolore magna aliqua.";
     private RecyclerView mRecyclerView;
     private RecyclerView.Adapter mAdapter;
     private RecyclerView.LayoutManager mLayoutManager;
+    private int restaurant;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_restaurant_menu);
         Toolbar toolbar = findViewById(R.id.toolbar);
-        toolbar.setTitle("Cacio e Vino");
+        Intent intent = getIntent();
+        restaurant = intent.getIntExtra(RestaurantListActivity.EXTRA_MESSAGE, 0);
+        String [] title = {"Cacio e Vino", "OMC", "Wrap & Go"};
+        toolbar.setTitle(title[restaurant]);
         setSupportActionBar(toolbar);
 
-        Intent intent = getIntent();
-        int message = intent.getIntExtra(RestaurantListActivity.EXTRA_MESSAGE, 0);
-        String [] title = {"Cacio e Vino", "OMC", "Wrap & Go"};
-        toolbar.setTitle(title[message]);
 
+        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
         ActionBar actionbar = getSupportActionBar();
         actionbar.setDisplayHomeAsUpEnabled(true);
-        actionbar.setHomeAsUpIndicator(R.drawable.ic_arrow_back);
 
         // setting up the recycler view
         mRecyclerView = findViewById(R.id.menu_recycler_view);
@@ -41,17 +51,29 @@ public class RestaurantMenuActivity extends AppCompatActivity {
         mLayoutManager = new LinearLayoutManager(this);
         mRecyclerView.setLayoutManager(mLayoutManager);
 
-        // specify an adapter (see also next example)
-        Object[][] myDataset = new Object[3][2];
-        myDataset[0][0] = R.drawable.cacio_e_vino;
-        myDataset[0][1] = "Cacio E Vino";
-        myDataset[1][1] = "OMC";
-        myDataset[1][0] = R.drawable.omc;
-        myDataset[2][1] = "Wrap & Go";
-        myDataset[2][0] = R.drawable.wrap_and_go;
+        // specify an adapter
+        Object[][] myDataset = new Object[3][4];
+        myDataset[0][0] = R.drawable.ic_launcher_background;
+        myDataset[0][1] = "Pizza Diavola";
+        myDataset[0][2] = DESCRIPTION;
+        myDataset[0][3] = "300 P";
+        myDataset[1][0] = R.drawable.ic_launcher_background;
+        myDataset[1][1] = "Pizza Margherita";
+        myDataset[1][2] = DESCRIPTION;
+        myDataset[1][3] = "300 P";
+        myDataset[2][0] = R.drawable.ic_launcher_background;
+        myDataset[2][1] = "Noodles soup";
+        myDataset[2][2] = DESCRIPTION;
+        myDataset[2][3] = "300 P";
 
-        mAdapter = new RestaurantListAdapter(myDataset, getResources());
+        mAdapter = new RestaurantMenuAdapter(myDataset);
         mRecyclerView.setAdapter(mAdapter);
+    }
+
+    public void onClick(View v) {
+        Intent intent = new Intent(this, RestaurantInfoActivity.class);
+        intent.putExtra(RestaurantListActivity.EXTRA_MESSAGE, restaurant);
+        startActivity(intent);
     }
 
 }
