@@ -3,4 +3,8 @@
     <string name="settings_label">Settings</string>
     <string name="order_list_label">Order list</string>
     <string name="restaurants_label">Restaurants</string>
+    <string name="empty_description">"Lorem ipsum dolor sit amet," +
+            "consectetur adipiscing elit, sed do" +
+            "eiusmod tempor incididunt ut" +
+            "labore et dolore magna aliqua."</string>
 </resources>
