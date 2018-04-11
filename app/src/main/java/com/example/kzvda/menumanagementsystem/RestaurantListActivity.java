@@ -1,6 +1,6 @@
 package com.example.kzvda.menumanagementsystem;
 
-import android.content.ClipData;
+import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -14,10 +14,8 @@ import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.View;
 
-import java.lang.reflect.Array;
-
 public class RestaurantListActivity extends AppCompatActivity {
-
+    public static final String EXTRA_MESSAGE = "com.example.myfirstapp.MESSAGE";
     private DrawerLayout mDrawerLayout;
     private RecyclerView mRecyclerView;
     private RecyclerView.Adapter mAdapter;
@@ -29,6 +27,7 @@ public class RestaurantListActivity extends AppCompatActivity {
         setContentView(R.layout.activity_restaurant_list);
         Toolbar myToolbar = findViewById(R.id.my_toolbar);
         setSupportActionBar(myToolbar);
+        myToolbar.setTitle(R.string.restaurants_label);
 
         ActionBar actionbar = getSupportActionBar();
         actionbar.setDisplayHomeAsUpEnabled(true);
@@ -77,6 +76,8 @@ public class RestaurantListActivity extends AppCompatActivity {
                     }
                 });
 
+
+        // setting up the recycler view
         mRecyclerView = findViewById(R.id.restaurants_recycler_view);
         // use this setting to improve performance if you know that changes
         // in content do not change the layout size of the RecyclerView
@@ -95,7 +96,7 @@ public class RestaurantListActivity extends AppCompatActivity {
         myDataset[2][1] = "Wrap & Go";
         myDataset[2][0] = R.drawable.wrap_and_go;
 
-        mAdapter = new MyAdapter(myDataset, getResources());
+        mAdapter = new RestaurantListAdapter(myDataset, getResources());
         mRecyclerView.setAdapter(mAdapter);
 
     }
@@ -111,5 +112,13 @@ public class RestaurantListActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
+    public void onClick(View v) {
+        int itemPosition = mRecyclerView.indexOfChild(v);
+        Intent intent = new Intent(this, RestaurantMenuActivity.class);
+        intent.putExtra(EXTRA_MESSAGE, itemPosition);
+        startActivity(intent);
+    }
 
 }
+
+

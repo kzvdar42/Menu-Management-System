@@ -15,7 +15,7 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
+public class RestaurantListAdapter extends RecyclerView.Adapter<RestaurantListAdapter.ViewHolder> {
     private Resources res;
     private Object[][] mDataset;
 
@@ -35,7 +35,7 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
     }
 
     // Provide a suitable constructor (depends on the kind of dataset)
-    public MyAdapter(Object[][] myDataset, Resources res) {
+    public RestaurantListAdapter(Object[][] myDataset, Resources res) {
         mDataset = myDataset;
         this.res = res;
     }
@@ -43,8 +43,8 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
     // Create new views (invoked by the layout manager)
     @NonNull
     @Override
-    public MyAdapter.ViewHolder onCreateViewHolder(@NonNull final ViewGroup parent,
-                                                   int viewType) {
+    public RestaurantListAdapter.ViewHolder onCreateViewHolder(@NonNull final ViewGroup parent,
+                                                               int viewType) {
 
         // create a new view
         RelativeLayout v = (RelativeLayout) LayoutInflater.from(parent.getContext())
