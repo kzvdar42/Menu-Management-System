@@ -18,6 +18,7 @@ public class RestaurantMenuActivity extends AppCompatActivity {
     private RecyclerView mRecyclerView;
     private RecyclerView.Adapter mAdapter;
     private RecyclerView.LayoutManager mLayoutManager;
+    private int restaurant;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -25,9 +26,9 @@ public class RestaurantMenuActivity extends AppCompatActivity {
         setContentView(R.layout.activity_restaurant_menu);
         Toolbar toolbar = findViewById(R.id.toolbar);
         Intent intent = getIntent();
-        int message = intent.getIntExtra(RestaurantListActivity.EXTRA_MESSAGE, 0);
+        restaurant = intent.getIntExtra(RestaurantListActivity.EXTRA_MESSAGE, 0);
         String [] title = {"Cacio e Vino", "OMC", "Wrap & Go"};
-        toolbar.setTitle(title[message]);
+        toolbar.setTitle(title[restaurant]);
         setSupportActionBar(toolbar);
 
 
@@ -39,8 +40,6 @@ public class RestaurantMenuActivity extends AppCompatActivity {
         });
         ActionBar actionbar = getSupportActionBar();
         actionbar.setDisplayHomeAsUpEnabled(true);
-        actionbar.setHomeButtonEnabled(true);
-//        actionbar.setHomeAsUpIndicator(R.drawable.ic_arrow_back);
 
         // setting up the recycler view
         mRecyclerView = findViewById(R.id.menu_recycler_view);
@@ -69,6 +68,12 @@ public class RestaurantMenuActivity extends AppCompatActivity {
 
         mAdapter = new RestaurantMenuAdapter(myDataset);
         mRecyclerView.setAdapter(mAdapter);
+    }
+
+    public void onClick(View v) {
+        Intent intent = new Intent(this, RestaurantInfoActivity.class);
+        intent.putExtra(RestaurantListActivity.EXTRA_MESSAGE, restaurant);
+        startActivity(intent);
     }
 
 }

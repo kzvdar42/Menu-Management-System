@@ -15,7 +15,7 @@ import android.view.MenuItem;
 import android.view.View;
 
 public class RestaurantListActivity extends AppCompatActivity {
-    public static final String EXTRA_MESSAGE = "com.example.myfirstapp.MESSAGE";
+    public static final String EXTRA_MESSAGE = "com.example.kzvda.menumanagementsystem.MESSAGE";
     private DrawerLayout mDrawerLayout;
     private RecyclerView mRecyclerView;
     private RecyclerView.Adapter mAdapter;
@@ -27,7 +27,6 @@ public class RestaurantListActivity extends AppCompatActivity {
         setContentView(R.layout.activity_restaurant_list);
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        toolbar.setTitle("Restaurants");
 
         ActionBar actionbar = getSupportActionBar();
         actionbar.setDisplayHomeAsUpEnabled(true);
@@ -66,8 +65,6 @@ public class RestaurantListActivity extends AppCompatActivity {
                     public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
                         // set item as selected to persist highlight
                         menuItem.setChecked(true);
-                        View view = menuItem.getActionView();
-                        view.setRotation((float)2.0);
                         // close drawer when item is tapped
                         mDrawerLayout.closeDrawers();
 
