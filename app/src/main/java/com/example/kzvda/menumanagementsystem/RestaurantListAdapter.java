@@ -15,9 +15,12 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import java.util.HashMap;
+import java.util.Map;
+
 public class RestaurantListAdapter extends RecyclerView.Adapter<RestaurantListAdapter.ViewHolder> {
     private Resources res;
-    private Object[][] mDataset;
+    private Map<Integer, HashMap<String, Object>> mDataset;
 
     // Provide a reference to the views for each data item
     // Complex data items may need more than one view per item, and
@@ -35,8 +38,8 @@ public class RestaurantListAdapter extends RecyclerView.Adapter<RestaurantListAd
     }
 
     // Provide a suitable constructor (depends on the kind of dataset)
-    public RestaurantListAdapter(Object[][] myDataset, Resources res) {
-        mDataset = myDataset;
+    public RestaurantListAdapter(Map<Integer, HashMap<String, Object>> mDataset, Resources res) {
+        this.mDataset = mDataset;
         this.res = res;
     }
 
@@ -59,17 +62,17 @@ public class RestaurantListAdapter extends RecyclerView.Adapter<RestaurantListAd
         // - get element from your dataset at this position
         // - replace the contents of the view with that element
         RoundedBitmapDrawable dr =
-                RoundedBitmapDrawableFactory.create(res, drawableToBitmap(res.getDrawable((int)mDataset[position][0])));
+                RoundedBitmapDrawableFactory.create(res, drawableToBitmap(res.getDrawable((int)mDataset.get(position).get("icon"))));
         dr.setCircular(true);
         holder.mImageView.setImageDrawable(dr);
-        holder.mName.setText( (String) mDataset[position][1]);
+        holder.mName.setText( (String) mDataset.get(position).get("name"));
 
     }
 
     // Return the size of your dataset (invoked by the layout manager)
     @Override
     public int getItemCount() {
-        return mDataset.length;
+        return mDataset.size();
     }
 
     public static Bitmap drawableToBitmap (Drawable drawable) {

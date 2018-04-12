@@ -52,21 +52,7 @@ public class RestaurantMenuActivity extends AppCompatActivity {
         mRecyclerView.setLayoutManager(mLayoutManager);
 
         // specify an adapter
-        Object[][] myDataset = new Object[3][4];
-        myDataset[0][0] = R.drawable.ic_launcher_background;
-        myDataset[0][1] = "Pizza Diavola";
-        myDataset[0][2] = DESCRIPTION;
-        myDataset[0][3] = "300 P";
-        myDataset[1][0] = R.drawable.ic_launcher_background;
-        myDataset[1][1] = "Pizza Margherita";
-        myDataset[1][2] = DESCRIPTION;
-        myDataset[1][3] = "300 P";
-        myDataset[2][0] = R.drawable.ic_launcher_background;
-        myDataset[2][1] = "Noodles soup";
-        myDataset[2][2] = DESCRIPTION;
-        myDataset[2][3] = "300 P";
-
-        mAdapter = new RestaurantMenuAdapter(myDataset);
+        mAdapter = new RestaurantMenuAdapter(Data.getData(), restaurant);
         mRecyclerView.setAdapter(mAdapter);
     }
 

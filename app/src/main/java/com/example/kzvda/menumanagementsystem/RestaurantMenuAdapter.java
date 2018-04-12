@@ -8,6 +8,9 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import java.util.HashMap;
+import java.util.Map;
+
 public class RestaurantMenuAdapter extends RecyclerView.Adapter<RestaurantMenuAdapter.ViewHolder>{
 
     private Object[][] mDataset;
@@ -28,8 +31,8 @@ public class RestaurantMenuAdapter extends RecyclerView.Adapter<RestaurantMenuAd
         }
     }
 
-    public RestaurantMenuAdapter (Object[][] mDataset){
-        this.mDataset = mDataset;
+    public RestaurantMenuAdapter (Map<Integer, HashMap<String, Object>> mDataset, int restaurant){
+        this.mDataset = (Object[][]) mDataset.get(restaurant).get("menu");
     }
 
 

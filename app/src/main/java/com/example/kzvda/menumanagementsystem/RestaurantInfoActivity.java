@@ -1,5 +1,7 @@
 package com.example.kzvda.menumanagementsystem;
 
+import android.content.Intent;
+import android.net.Uri;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
@@ -9,8 +11,13 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import java.util.HashMap;
+import java.util.Map;
+
 public class RestaurantInfoActivity extends AppCompatActivity {
     private boolean notificationsIsOn;
+    private Map<Integer, HashMap<String, Object>> mDataset;
+    private int restaurant;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -18,6 +25,8 @@ public class RestaurantInfoActivity extends AppCompatActivity {
         Toolbar toolbar = findViewById(R.id.toolbar);
         toolbar.setTitle("");
         setSupportActionBar(toolbar);
+
+        mDataset = Data.getData();
 
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
@@ -30,36 +39,41 @@ public class RestaurantInfoActivity extends AppCompatActivity {
         ImageView imageView = findViewById(R.id.imageView);
         TextView name = findViewById(R.id.restaurant_info_name);
         TextView subname = findViewById(R.id.restaurant_info_subname);
-        int restaurant = getIntent().getIntExtra(MainActivity.EXTRA_MESSAGE,0);
-        switch (restaurant) {
-            case 0:
-                imageView.setImageResource(R.drawable.cacio_e_vino);
-                name.setText("Cacio e Vino");
-                subname.setText("Italian Restaurant");
-                break;
-            case 1:
-                imageView.setImageResource(R.drawable.omc);
-                name.setText("OMC");
-                subname.setText("Canteen in University building");
-                break;
-            case 2:
-                imageView.setImageResource(R.drawable.wrap_and_go);
-                name.setText("Wrap and Go");
-                subname.setText("Шаурмичная");
-                break;
-        }
+        restaurant = getIntent().getIntExtra(MainActivity.EXTRA_MESSAGE,0);
+        imageView.setImageResource((int)mDataset.get(restaurant).get("icon"));
+        name.setText((String)mDataset.get(restaurant).get("name"));
+        subname.setText((String)mDataset.get(restaurant).get("subname"));
     }
 
-    private void onClick(View v){
+    protected void onClick(View v){
         int viewId = v.getId();
-        if (viewId == R.id.floatingActionButton) {
-            if (notificationsIsOn) {
-                ((FloatingActionButton) v).setImageResource(R.drawable.ic_notification_off);
-                notificationsIsOn = false;
-            } else {
-                ((FloatingActionButton) v).setImageResource(R.drawable.ic_notification_on);
-                notificationsIsOn = true;
-            }
+        Intent intent;
+        switch (viewId) {
+            case R.id.floatingActionButton:
+                if (notificationsIsOn) {
+                    ((FloatingActionButton) v).setImageResource(R.drawable.ic_notification_off);
+                    notificationsIsOn = false;
+                } else {
+                    ((FloatingActionButton) v).setImageResource(R.drawable.ic_notification_on);
+                    notificationsIsOn = true;
+                }
+                break;
+            case R.id.restaurant_info_location_button:
+                Uri gmmIntentUri = Uri.parse((String)mDataset.get(restaurant).get("location"));
+                intent = new Intent(Intent.ACTION_VIEW, gmmIntentUri);
+                intent.setPackage("com.google.android.apps.maps");
+                startActivity(intent);
+                break;
+            case R.id.restaurant_info_website_button:
+                String url = (String)mDataset.get(restaurant).get("website");
+                intent = new Intent(Intent.ACTION_VIEW);
+                intent.setData(Uri.parse(url));
+                startActivity(intent);
+                break;
+            case R.id.restaurant_info_call_button:
+                intent = new Intent(Intent.ACTION_DIAL,Uri.parse("tel:"+mDataset.get(restaurant).get("phone_num")));
+                startActivity(intent);
+                break;
 
         }
     }

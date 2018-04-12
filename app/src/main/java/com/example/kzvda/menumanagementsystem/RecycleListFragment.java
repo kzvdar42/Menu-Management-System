@@ -36,15 +36,8 @@ public class RecycleListFragment extends Fragment {
         mRecyclerView.setLayoutManager(mLayoutManager);
 
         // specify an adapter (see also next example)
-        Object[][] myDataset = new Object[3][2];
-        myDataset[0][0] = R.drawable.cacio_e_vino;
-        myDataset[0][1] = "Cacio E Vino";
-        myDataset[1][1] = "OMC";
-        myDataset[1][0] = R.drawable.omc;
-        myDataset[2][1] = "Wrap & Go";
-        myDataset[2][0] = R.drawable.wrap_and_go;
 
-        mAdapter = new RestaurantListAdapter(myDataset, getResources());
+        mAdapter = new RestaurantListAdapter(Data.getData(), getResources());
         mRecyclerView.setAdapter(mAdapter);
         return rootView;
     }
