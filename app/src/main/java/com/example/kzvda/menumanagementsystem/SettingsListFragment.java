@@ -11,7 +11,7 @@ public class SettingsListFragment extends RecycleListFragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
-        View rootView = inflater.inflate(R.layout.fragment_restaurant_list, container, false);
+        View rootView = inflater.inflate(R.layout.fragment_recycle_view, container, false);
 
         // setting up the recycler view
         mRecyclerView = rootView.findViewById(R.id.restaurants_recycler_view);
