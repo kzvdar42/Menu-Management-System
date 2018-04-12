@@ -4,7 +4,6 @@ import android.content.Intent;
 import android.content.res.Configuration;
 import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
-import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
@@ -16,7 +15,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.View;
 
-public class RestaurantListActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity {
     public static final String EXTRA_MESSAGE = "com.example.kzvda.menumanagementsystem.MESSAGE";
     private DrawerLayout mDrawerLayout;
     private DrawerLayout mDrawer;
@@ -111,7 +110,7 @@ public class RestaurantListActivity extends AppCompatActivity {
     public void onClick(View v) {
         int itemPosition = currentFragment.mRecyclerView.indexOfChild(v);
         Intent intent = new Intent(this, RestaurantMenuActivity.class);
-        intent.putExtra(RestaurantListActivity.EXTRA_MESSAGE, itemPosition);
+        intent.putExtra(MainActivity.EXTRA_MESSAGE, itemPosition);
         startActivity(intent);
     }
 

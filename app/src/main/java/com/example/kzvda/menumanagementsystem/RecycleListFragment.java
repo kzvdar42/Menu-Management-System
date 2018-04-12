@@ -10,15 +10,14 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-public class RestaurantListFragment extends Fragment {
+public class RecycleListFragment extends Fragment {
 
-    public RecyclerView mRecyclerView;
-    private RecyclerView.Adapter mAdapter;
-    private RecyclerView.LayoutManager mLayoutManager;
+    protected RecyclerView mRecyclerView;
+    protected RecyclerView.Adapter mAdapter;
+    protected RecyclerView.LayoutManager mLayoutManager;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
-
         super.onCreate(savedInstanceState);
     }
 
@@ -49,9 +48,5 @@ public class RestaurantListFragment extends Fragment {
         mAdapter = new RestaurantListAdapter(myDataset, getResources());
         mRecyclerView.setAdapter(mAdapter);
         return rootView;
-    }
-
-    protected RecyclerView getRecycleView(){
-        return mRecyclerView;
     }
 }

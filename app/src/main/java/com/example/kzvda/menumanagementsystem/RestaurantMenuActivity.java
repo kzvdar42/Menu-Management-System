@@ -26,7 +26,7 @@ public class RestaurantMenuActivity extends AppCompatActivity {
         setContentView(R.layout.activity_restaurant_menu);
         Toolbar toolbar = findViewById(R.id.toolbar);
         Intent intent = getIntent();
-        restaurant = intent.getIntExtra(RestaurantListActivity.EXTRA_MESSAGE, 0);
+        restaurant = intent.getIntExtra(MainActivity.EXTRA_MESSAGE, 0);
         String [] title = {"Cacio e Vino", "OMC", "Wrap & Go"};
         toolbar.setTitle(title[restaurant]);
         setSupportActionBar(toolbar);
@@ -72,7 +72,7 @@ public class RestaurantMenuActivity extends AppCompatActivity {
 
     public void onClick(View v) {
         Intent intent = new Intent(this, RestaurantInfoActivity.class);
-        intent.putExtra(RestaurantListActivity.EXTRA_MESSAGE, restaurant);
+        intent.putExtra(MainActivity.EXTRA_MESSAGE, restaurant);
         startActivity(intent);
     }
 

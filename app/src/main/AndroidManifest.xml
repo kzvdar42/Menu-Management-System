@@ -10,7 +10,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name=".RestaurantListActivity"
+            android:name=".MainActivity"
             android:label="@string/restaurants_label">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -21,7 +21,6 @@
         <activity
             android:name=".RestaurantMenuActivity"
             android:theme="@style/AppTheme" />
-        <activity android:name=".UserOrderListActivity"></activity>
         <activity android:name=".RestaurantInfoActivity"></activity>
     </application>
 

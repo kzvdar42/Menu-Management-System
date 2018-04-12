@@ -14,12 +14,14 @@
 
         <include layout="@layout/toolbar" />
 
-        <android.support.v7.widget.RecyclerView
-            android:id="@+id/restaurants_recycler_view"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+        <!-- The main content view where fragments are loaded -->
+        <FrameLayout
+            android:id="@+id/flContent"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior"
             android:layout_below="@id/toolbar"
-            android:scrollbars="vertical" />
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+
     </RelativeLayout>
 
     <!-- Container for contents of drawer - use NavigationView to make configuration easier -->

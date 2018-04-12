@@ -8,9 +8,13 @@
             android:title="@string/restaurants_label"
             android:checked="true" />
         <item
-            android:id="@+id/nav_order_list"
+            android:id="@+id/nav_administrator_page"
             android:icon="@drawable/ic_order_list_disable"
-            android:title="@string/order_list_label" />
+            android:title="@string/administrator_page_label" />
+        <item
+            android:id="@+id/nav_manage"
+            android:icon="@drawable/ic_order_list_disable"
+            android:title="@string/manage_label" />
         <item
         android:id="@+id/nav_settings"
         android:icon="@drawable/ic_settings_disable"
