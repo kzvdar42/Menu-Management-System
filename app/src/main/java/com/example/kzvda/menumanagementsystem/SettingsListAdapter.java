@@ -4,25 +4,27 @@ import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-public class SettingsListAdapter extends RecyclerView.Adapter<SettingsListAdapter.ViewHolder>{
+import java.util.LinkedList;
 
-    private Object[] mDataset;
+public class SettingsListAdapter extends RecyclerView.Adapter<SettingsListAdapter.ViewHolder> {
+
+    private LinkedList<Object[]> mDataset;
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
         // each data item is just a string in this case
         private TextView mName;
+
         private ViewHolder(RelativeLayout v) {
             super(v);
-            mName =(TextView) v.getChildAt(0);
+            mName = (TextView) v.getChildAt(0);
 
         }
     }
 
-    public SettingsListAdapter (Object[] mDataset){
+    public SettingsListAdapter(LinkedList<Object[]> mDataset) {
         this.mDataset = mDataset;
     }
 
@@ -41,11 +43,12 @@ public class SettingsListAdapter extends RecyclerView.Adapter<SettingsListAdapte
     public void onBindViewHolder(@NonNull SettingsListAdapter.ViewHolder holder, int position) {
         // - get element from your dataset at this position
         // - replace the contents of the view with that element
-        holder.mName.setText( (String) mDataset[position]);
+        holder.mName.setText((int) mDataset.get(position)[0]);
+        holder.itemView.setId((int) mDataset.get(position)[1]);
     }
 
     @Override
     public int getItemCount() {
-        return mDataset.length;
+        return mDataset.size();
     }
 }

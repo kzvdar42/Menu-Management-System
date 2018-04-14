@@ -1,11 +1,9 @@
 package com.example.kzvda.menumanagementsystem;
 
 import android.annotation.SuppressLint;
-
 import java.util.HashMap;
+import java.util.LinkedList;
 import java.util.Map;
-
-import javax.security.auth.Destroyable;
 
 public class Data {
     private static final String DESCRIPTION = "Lorem ipsum dolor sit amet," +
@@ -13,17 +11,7 @@ public class Data {
             "eiusmod tempor incididunt ut" +
             "labore et dolore magna aliqua.";
 
-    private int currentRest;
-
-    public int getCurrentRest() {
-        return currentRest;
-    }
-
-    public void setCurrentRest(int currentRest) {
-        this.currentRest = currentRest;
-    }
-
-    public static @SuppressLint("UseSparseArrays") Map<Integer, HashMap<String,Object>> getData() {
+    public static Map<Integer, HashMap<String,Object>> getData() {
         @SuppressLint("UseSparseArrays") Map<Integer, HashMap<String,Object>> hashMap = new HashMap<>();
         HashMap<String, Object> innerHashMap = new HashMap<>();
         innerHashMap.put("name","Cacio e Vino");
@@ -100,6 +88,56 @@ public class Data {
 
         hashMap.put(2, innerHashMap);
         return hashMap;
+    }
 
+    public static LinkedList<User> getUsers() {
+        LinkedList<User> ds = new LinkedList<>();
+        ds.add(new User(0,"Turk Turklton", "+79991560413"));
+        ds.add(new User(1,"Robert Kelso", "666"));
+        ds.add(new User(2,"John Dorian", "42"));
+        return ds;
+    }
+
+    public static LinkedList<Object[]> getSettingsList() {
+        LinkedList<Object[]> settingsList = new LinkedList<>();
+        Object[] setting = new Object[3];
+        setting[0] = R.string.change_personal_info;
+        setting[1] = new boolean[]{true, true, true};
+        setting[2] = 1;
+        settingsList.add(setting);
+        setting = new Object[3];
+        setting[0] = R.string.manage_notifications;
+        setting[1] = new boolean[]{true, false, false};
+        setting[2] = 2;
+        settingsList.add(setting);
+        setting = new Object[3];
+        setting[0] = R.string.support;
+        setting[1] = new boolean[]{true, true, false};
+        setting[2] = 3;
+        settingsList.add(setting);
+        setting = new Object[3];
+        setting[0] = R.string.delete_account;
+        setting[1] = new boolean[]{true, true, true};
+        setting[2] = 4;
+        settingsList.add(setting);
+        setting = new Object[3];
+        setting[0] = R.string.log_out;
+        setting[1] = new boolean[]{true, true, true};
+        setting[2] = 5;
+        settingsList.add(setting);
+
+        return settingsList;
+    }
+
+    public static User getUser() {
+        return getUsers().get(0);
+    }
+
+    public static User getAdmin() {
+        return getUsers().get(1);
+    }
+
+    public static User getModer() {
+        return getUsers().get(2);
     }
 }

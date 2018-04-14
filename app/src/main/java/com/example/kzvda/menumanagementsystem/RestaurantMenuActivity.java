@@ -2,7 +2,6 @@ package com.example.kzvda.menumanagementsystem;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -10,14 +9,6 @@ import android.support.v7.widget.Toolbar;
 import android.view.View;
 
 public class RestaurantMenuActivity extends AppCompatActivity {
-
-    private static final String DESCRIPTION = "Lorem ipsum dolor sit amet," +
-            "consectetur adipiscing elit, sed do" +
-            "eiusmod tempor incididunt ut" +
-            "labore et dolore magna aliqua.";
-    private RecyclerView mRecyclerView;
-    private RecyclerView.Adapter mAdapter;
-    private RecyclerView.LayoutManager mLayoutManager;
     private int restaurant;
 
     @Override
@@ -38,21 +29,20 @@ public class RestaurantMenuActivity extends AppCompatActivity {
                 finish();
             }
         });
-        ActionBar actionbar = getSupportActionBar();
-        actionbar.setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         // setting up the recycler view
-        mRecyclerView = findViewById(R.id.menu_recycler_view);
+        RecyclerView mRecyclerView = findViewById(R.id.menu_recycler_view);
         // use this setting to improve performance if you know that changes
         // in content do not change the layout size of the RecyclerView
         mRecyclerView.setHasFixedSize(true);
 
         // use a linear layout manager
-        mLayoutManager = new LinearLayoutManager(this);
+        RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(this);
         mRecyclerView.setLayoutManager(mLayoutManager);
 
         // specify an adapter
-        mAdapter = new RestaurantMenuAdapter(Data.getData(), restaurant);
+        RecyclerView.Adapter mAdapter = new RestaurantMenuAdapter(Data.getData(), restaurant);
         mRecyclerView.setAdapter(mAdapter);
     }
 

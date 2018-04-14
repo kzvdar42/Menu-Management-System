@@ -1,10 +1,59 @@
 <resources>
+
     <string name="app_name">Menu Management System</string>
-    <string name="settings_label">Settings</string>
+    <string name="empty_description">"Lorem ipsum dolor sit amet,
+        consectetur adipiscing elit, sed do eiusmod tempor incididunt
+        ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis
+        nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+        consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
+        cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat
+        non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. </string>
+
+    #Drawer
+    #Labels
     <string name="restaurants_label">Restaurants</string>
     <string name="administrator_page_label">Administrator page</string>
     <string name="manage_label">Manage</string>
-    <string name="empty_description">"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. </string>
+    <string name="settings_label">Settings</string>
+    #Smth
     <string name="drawer_open">Open navigation drawer</string>
     <string name="drawer_close">Close navigation drawer</string>
+    <string name="login">Login</string>
+
+
+    #Restaurant info activity
+    #Button labels
+    <string name="call_label">Call</string>
+    <string name="location_label">Location</string>
+    <string name="website_label">Website</string>
+    #Image description
+    <string name="call_icon_desc">Call icon</string>
+    <string name="location_icon_desc">Location icon</string>
+    <string name="website_icon_desc">Website icon</string>
+
+
+    #Registration activity
+    #Input hints
+    <string name="phone_number">Phone number</string>
+    <string name="password">Password</string>
+    <string name="repeat_password">Repeat password</string>
+    <string name="username">Username</string>
+    #Radiobutton labels
+    <string name="user">User</string>
+    <string name="administrator">Administrator</string>
+    #Button label
+    <string name="create_account">Create account</string>
+
+    #Settings
+    #Labels
+    <string name="change_personal_info">Change personal info</string>
+    <string name="manage_notifications">Manage notifications</string>
+    <string name="support">Support</string>
+    <string name="delete_account">Delete account</string>
+    <string name="log_out">Log out</string>
+    #Dialogs
+    <string name="are_you_sure">Are you sure?</string>
+    <string name="delete_account_comfirmation">This action will delete all your information.</string>
+
+
 </resources>

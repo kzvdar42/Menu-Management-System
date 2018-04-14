@@ -21,7 +21,9 @@
         <activity
             android:name=".RestaurantMenuActivity"
             android:theme="@style/AppTheme" />
-        <activity android:name=".RestaurantInfoActivity"></activity>
+        <activity android:name=".RestaurantInfoActivity" />
+        <activity android:name=".RegistrationActivity" />
+        <activity android:name=".ChangePersonalInfo" />
     </application>
 
 </manifest>

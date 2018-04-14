@@ -1,18 +1,21 @@
 package com.example.kzvda.menumanagementsystem;
 
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v7.widget.LinearLayoutManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import java.util.LinkedList;
+
 public class SettingsListFragment extends RecycleListFragment {
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
         View rootView = inflater.inflate(R.layout.fragment_recycle_view, container, false);
-
+        int currentUserType = getArguments().getInt("userType");
         // setting up the recycler view
         mRecyclerView = rootView.findViewById(R.id.restaurants_recycler_view);
         // use this setting to improve performance if you know that changes
@@ -24,15 +27,17 @@ public class SettingsListFragment extends RecycleListFragment {
         mRecyclerView.setLayoutManager(mLayoutManager);
 
         // specify an adapter (see also next example)
-        Object[] myDataset = new Object[5];
-        myDataset[0] = "Change personal info";
-        myDataset[1] = "Manage notifications";
-        myDataset[2] = "Support";
-        myDataset[3] = "Delete account";
-        myDataset[4] = "Log out";
+        LinkedList<Object[]> currentSettings = new LinkedList<>();
+        for (Object[] objects : Data.getSettingsList()) {
+            boolean[] forUser = (boolean[]) objects[1];
+            if (forUser[currentUserType]) {
+                Object[] ob = {objects[0], objects[2]};
+                currentSettings.add(ob);
+            }
 
-        mAdapter = new SettingsListAdapter(myDataset);
-        mRecyclerView.setAdapter(mAdapter);
+            mAdapter = new SettingsListAdapter(currentSettings);
+            mRecyclerView.setAdapter(mAdapter);
+        }
         return rootView;
     }
 }
