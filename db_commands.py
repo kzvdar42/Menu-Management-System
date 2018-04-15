@@ -83,6 +83,42 @@ def add_moderator_user(login, password):
     return True
 
 
+def is_user_exists(login):
+    try:
+        res = execute_command("SElECT * "
+                              "FROM users "
+                              "WHERE login = '{}'".format(login))
+        return res is not None and len(res) > 0
+    except Exception as e:
+        print("ERROR in is_user_exists:", e)
+        return False
+
+
+def check_user(login, password):
+    try:
+        res = execute_command("SELECT * "
+                              "FROM users "
+                              "WHERE login = '{}' AND password = '{}'".format(login, password))
+        return len(res) > 0
+    except Exception as e:
+        print("Error in check_user:", e)
+        return False
+
+
+def get_user_id(login):
+    try:
+        res = execute_command("SELECT id "
+                              "FROM users "
+                              "WHERE login = '{}'".format(login))
+        if len(res) == 0:
+            return None
+        else:
+            return res[0]
+    except Exception as e:
+        print("ERROR in get_user_id:", e)
+        return False
+
+
 def confirm_user(id):
     try:
         execute_command("UPDATE users "
@@ -106,6 +142,20 @@ def is_admin(id):
         print("ERROR in is_admin:", e)
         return False
     return False
+
+
+def is_verified(id):
+    try:
+        res = execute_command("SELECT id "
+                              "FROM users "
+                              "WHERE id = {} AND rights = 1 AND confirmed = 1".format(id))
+        if res is not None and res[0] == id:
+            return True
+    except Exception as e:
+        print("ERROR in is_admin:", e)
+        return False
+    return False
+
 
 
 def add_rest(owner_id):
