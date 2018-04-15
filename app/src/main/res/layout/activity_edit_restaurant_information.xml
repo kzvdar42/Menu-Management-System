@@ -18,78 +18,72 @@
 
         <RelativeLayout
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center">
+            android:layout_height="wrap_content">
 
             <android.support.design.widget.TextInputLayout
-                android:id="@+id/inputLayoutUsername"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content">
-
-                <EditText
-                    android:id="@+id/setUsername"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:ems="13"
-                    android:hint="@string/username"
-                    android:inputType="textPersonName"
-                    android:theme="@style/AppTheme" />
-
-            </android.support.design.widget.TextInputLayout>
-
-            <android.support.design.widget.TextInputLayout
-                android:id="@+id/inputLayoutPhoneNumber"
+                android:id="@+id/inputLayoutTitle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_below="@id/inputLayoutUsername"
-                android:paddingTop="12dp">
+                android:layout_below="@id/toolbar">
 
                 <EditText
-                    android:id="@+id/setPhoneNumber"
+                    android:id="@+id/restaurant_name"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:ems="13"
-                    android:hint="@string/phone_number"
-                    android:inputType="phone"
-                    android:theme="@style/AppTheme" />
+                    android:ems="15"
+                    android:hint="@string/restaurant_name"
+                    android:inputType="text" />
 
             </android.support.design.widget.TextInputLayout>
 
             <android.support.design.widget.TextInputLayout
-                android:id="@+id/inputLayoutPassword"
+                android:id="@+id/inputLayoutSubtitile"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_below="@id/inputLayoutPhoneNumber"
-                android:paddingTop="12dp">
+                android:layout_below="@id/inputLayoutTitle">
 
                 <EditText
-                    android:id="@+id/setPassword"
+                    android:id="@+id/subtitle"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:ems="13"
-                    android:hint="@string/password"
-                    android:inputType="textPassword"
-                    android:theme="@style/AppTheme" />
+                    android:ems="15"
+                    android:hint="@string/subtitle"
+                    android:inputType="text" />
 
             </android.support.design.widget.TextInputLayout>
 
             <android.support.design.widget.TextInputLayout
-                android:id="@+id/inputLayoutRepeatPassword"
+                android:id="@+id/inputLayoutDescription"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_below="@id/inputLayoutPassword"
-                android:paddingTop="12dp">
+                android:layout_below="@id/inputLayoutSubtitile">
 
                 <EditText
-                    android:id="@+id/repeatPassword"
+                    android:id="@+id/description"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:ems="13"
-                    android:hint="@string/repeat_password"
-                    android:inputType="textPassword"
-                    android:theme="@style/AppTheme" />
+                    android:ems="15"
+                    android:hint="@string/description"
+                    android:inputType="textMultiLine" />
 
             </android.support.design.widget.TextInputLayout>
+
+            <android.support.design.widget.TextInputLayout
+                android:id="@+id/inputLayoutLocation"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/inputLayoutDescription">
+
+                <EditText
+                    android:id="@+id/location"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:ems="15"
+                    android:hint="@string/location"
+                    android:inputType="text" />
+
+            </android.support.design.widget.TextInputLayout>
+
 
         </RelativeLayout>
     </android.support.v7.widget.CardView>
@@ -102,7 +96,7 @@
         android:layout_gravity="bottom|end"
         android:layout_margin="16dp"
         android:onClick="onClick"
-        android:text="@string/update" />
+        android:text="@string/send" />
 
 
 </merge>

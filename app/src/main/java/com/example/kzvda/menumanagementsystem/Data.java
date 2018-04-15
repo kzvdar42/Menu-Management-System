@@ -90,14 +90,6 @@ public class Data {
         return hashMap;
     }
 
-    public static LinkedList<User> getUsers() {
-        LinkedList<User> ds = new LinkedList<>();
-        ds.add(new User(0,"Turk Turklton", "+79991560413"));
-        ds.add(new User(1,"Robert Kelso", "666"));
-        ds.add(new User(2,"John Dorian", "42"));
-        return ds;
-    }
-
     public static LinkedList<Object[]> getSettingsList() {
         LinkedList<Object[]> settingsList = new LinkedList<>();
         Object[] setting = new Object[3];
@@ -129,15 +121,25 @@ public class Data {
         return settingsList;
     }
 
-    public static User getUser() {
-        return getUsers().get(0);
-    }
+    public static LinkedList<Object[]> getAdminPageList() {
+        LinkedList<Object[]> settingsList = new LinkedList<>();
+        Object[] setting = new Object[2];
+        setting[0] = R.string.change_menu;
+        setting[1] = 6;
+        settingsList.add(setting);
+        setting = new Object[2];
+        setting[0] = R.string.send_notification;
+        setting[1] = 7;
+        settingsList.add(setting);
+        setting = new Object[2];
+        setting[0] = R.string.edit_restaurant_info;
+        setting[1] = 8;
+        settingsList.add(setting);
+        setting = new Object[2];
+        setting[0] = R.string.manage_templates;
+        setting[1] = 9;
+        settingsList.add(setting);
 
-    public static User getAdmin() {
-        return getUsers().get(1);
-    }
-
-    public static User getModer() {
-        return getUsers().get(2);
+        return settingsList;
     }
 }

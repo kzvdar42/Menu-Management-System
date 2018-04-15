@@ -5,9 +5,11 @@ import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
+import android.net.Uri;
 import android.support.annotation.NonNull;
 import android.support.v4.graphics.drawable.RoundedBitmapDrawable;
 import android.support.v4.graphics.drawable.RoundedBitmapDrawableFactory;
+import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
@@ -29,10 +31,12 @@ public class RestaurantListAdapter extends RecyclerView.Adapter<RestaurantListAd
         // each data item is just a string in this case
         public ImageView mImageView;
         public TextView mName;
-        public ViewHolder(RelativeLayout v) {
+
+        public ViewHolder(CardView v) {
             super(v);
-            mImageView =(ImageView) v.getChildAt(0);
-            mName = (TextView) v.getChildAt(1);
+            RelativeLayout rv = (RelativeLayout) v.getChildAt(0);
+            mImageView = (ImageView) rv.getChildAt(0);
+            mName = (TextView) rv.getChildAt(1);
 
         }
     }
@@ -50,7 +54,7 @@ public class RestaurantListAdapter extends RecyclerView.Adapter<RestaurantListAd
                                                                int viewType) {
 
         // create a new view
-        RelativeLayout v = (RelativeLayout) LayoutInflater.from(parent.getContext())
+        CardView v = (CardView) LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.restaurant_list_recycle_view_item, parent, false);
         return new ViewHolder(v);
 
@@ -65,7 +69,7 @@ public class RestaurantListAdapter extends RecyclerView.Adapter<RestaurantListAd
                 RoundedBitmapDrawableFactory.create(res, drawableToBitmap(res.getDrawable((int)mDataset.get(position).get("icon"))));
         dr.setCircular(true);
         holder.mImageView.setImageDrawable(dr);
-        holder.mName.setText( (String) mDataset.get(position).get("name"));
+        holder.mName.setText((String) mDataset.get(position).get("name"));
 
     }
 
@@ -75,17 +79,17 @@ public class RestaurantListAdapter extends RecyclerView.Adapter<RestaurantListAd
         return mDataset.size();
     }
 
-    public static Bitmap drawableToBitmap (Drawable drawable) {
+    public static Bitmap drawableToBitmap(Drawable drawable) {
         Bitmap bitmap;
 
         if (drawable instanceof BitmapDrawable) {
             BitmapDrawable bitmapDrawable = (BitmapDrawable) drawable;
-            if(bitmapDrawable.getBitmap() != null) {
+            if (bitmapDrawable.getBitmap() != null) {
                 return bitmapDrawable.getBitmap();
             }
         }
 
-        if(drawable.getIntrinsicWidth() <= 0 || drawable.getIntrinsicHeight() <= 0) {
+        if (drawable.getIntrinsicWidth() <= 0 || drawable.getIntrinsicHeight() <= 0) {
             bitmap = Bitmap.createBitmap(1, 1, Bitmap.Config.ARGB_8888); // Single color bitmap will be created of 1x1 pixel
         } else {
             bitmap = Bitmap.createBitmap(drawable.getIntrinsicWidth(), drawable.getIntrinsicHeight(), Bitmap.Config.ARGB_8888);

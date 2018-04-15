@@ -9,7 +9,7 @@ import android.widget.TextView;
 
 import java.util.LinkedList;
 
-public class SettingsListAdapter extends RecyclerView.Adapter<SettingsListAdapter.ViewHolder> {
+public class SimpleListAdapter extends RecyclerView.Adapter<SimpleListAdapter.ViewHolder> {
 
     private LinkedList<Object[]> mDataset;
 
@@ -24,7 +24,7 @@ public class SettingsListAdapter extends RecyclerView.Adapter<SettingsListAdapte
         }
     }
 
-    public SettingsListAdapter(LinkedList<Object[]> mDataset) {
+    public SimpleListAdapter(LinkedList<Object[]> mDataset) {
         this.mDataset = mDataset;
     }
 
@@ -32,15 +32,15 @@ public class SettingsListAdapter extends RecyclerView.Adapter<SettingsListAdapte
     // Create new views (invoked by the layout manager)
     @NonNull
     @Override
-    public SettingsListAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public SimpleListAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         // create a new view
         RelativeLayout v = (RelativeLayout) LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.settings_recycle_view_item, parent, false);
-        return new SettingsListAdapter.ViewHolder(v);
+                .inflate(R.layout.simple_recycle_view_item, parent, false);
+        return new SimpleListAdapter.ViewHolder(v);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull SettingsListAdapter.ViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull SimpleListAdapter.ViewHolder holder, int position) {
         // - get element from your dataset at this position
         // - replace the contents of the view with that element
         holder.mName.setText((int) mDataset.get(position)[0]);

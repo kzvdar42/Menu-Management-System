@@ -22,6 +22,8 @@
 
 
     #Restaurant info activity
+    #Name
+    <string name="registration_label">Registration</string>
     #Button labels
     <string name="call_label">Call</string>
     <string name="location_label">Location</string>
@@ -44,6 +46,23 @@
     #Button label
     <string name="create_account">Create account</string>
 
+    #Administrator page
+    #Labels
+    <string name="change_menu">Change menu</string>
+    <string name="send_notification">Send notification</string>
+    <string name="edit_restaurant_info">Edit restaurant information</string>
+    <string name="manage_templates">Manage templates</string>
+
+
+    #Hints for input
+    <string name="title">Title</string>
+    <string name="text">Text</string>
+    <string name="send">Send</string>
+    <string name="subtitle">Subtitle</string>
+    <string name="description">Description</string>
+    <string name="location">Location</string>
+    <string name="restaurant_name">Restaurant name</string>
+
     #Settings
     #Labels
     <string name="change_personal_info">Change personal info</string>
@@ -54,6 +73,11 @@
     #Dialogs
     <string name="are_you_sure">Are you sure?</string>
     <string name="delete_account_comfirmation">This action will delete all your information.</string>
+
+
+    #Change personal information
+    #button label
+    <string name="update">Update</string>
 
 
 </resources>

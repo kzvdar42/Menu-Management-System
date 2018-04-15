@@ -1,17 +1,19 @@
 package com.example.kzvda.menumanagementsystem;
 
+import android.content.Context;
 import android.content.Intent;
-import android.graphics.drawable.Drawable;
+import android.content.SharedPreferences;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
-import android.widget.ImageView;
+import android.view.ViewGroup;
 import android.widget.RadioButton;
 import android.widget.TextView;
 
 import java.util.HashMap;
+import java.util.Map;
 
 public class RegistrationActivity extends AppCompatActivity {
 
@@ -20,6 +22,7 @@ public class RegistrationActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_registration);
         Toolbar toolbar = findViewById(R.id.toolbar);
+        toolbar.setTitle(R.string.registration_label);
         setSupportActionBar(toolbar);
 
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
@@ -34,27 +37,46 @@ public class RegistrationActivity extends AppCompatActivity {
     }
 
     public void onClick(View v) {
-        Drawable photo = ((ImageView) findViewById(R.id.setPhoto)).getDrawable();
-        String username = ((TextView)findViewById(R.id.setUsername)).getText().toString();
-        String password = ((TextView)findViewById(R.id.setPassword)).getText().toString();
-        String repeatedPassword = ((TextView)findViewById(R.id.repeatPassword)).getText().toString();
-        String phoneNumber = ((TextView)findViewById(R.id.setPhoneNumber)).getText().toString();
+        String username = ((TextView) findViewById(R.id.setUsername)).getText().toString();
+        String password = ((TextView) findViewById(R.id.setPassword)).getText().toString();
+        String repeatedPassword = ((TextView) findViewById(R.id.repeatPassword)).getText().toString();
+        String phoneNumber = ((TextView) findViewById(R.id.setPhoneNumber)).getText().toString();
         boolean isUser = ((RadioButton) findViewById(R.id.isUser)).isChecked();
 
-        if (password.equals(repeatedPassword)) {
-            HashMap<String, Object> user = new HashMap<>();
+        SharedPreferences sharedPref = this.getSharedPreferences("user", Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPref.edit();
+        if (password.length() != 6 && password.equals(repeatedPassword)) {
             if (isUser) {
-                user.put("type",0);
+                editor.putInt("usertype", 0);
             } else {
-                user.put("type",1);
+                editor.putInt("usertype", 1);
+                int restaurant = 0;
+                String restaurantName = ((TextView) findViewById(R.id.setRestaurantName)).getText().toString();
+                Map<Integer, HashMap<String,Object>> data = Data.getData();
+                for (int i=0;i<data.size();i++){
+                    if (data.get(i).get("name").equals(restaurantName)){
+                        restaurant = i;
+                    }
+                }
+                editor.putInt("restaurant",restaurant);
             }
-            user.put("username",username);
-            user.put("phone_num",phoneNumber);
-//            user.put("photo", photo);
+            editor.putString("username", username);
+            editor.putString("phone_num", phoneNumber);
+            editor.apply();
+
             Intent intent = new Intent(this, MainActivity.class);
             intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-            intent.putExtra(MainActivity.EXTRA_MESSAGE,user);
             startActivity(intent);
+        }
+    }
+
+    public void onRadioButtonClick(View v) {
+        boolean isUser = ((RadioButton) findViewById(R.id.isUser)).isChecked();
+        View restaurantName = findViewById(R.id.inputLayoutRestaurantName);
+        if (isUser) {
+            restaurantName.setVisibility(View.GONE);
+        } else {
+            restaurantName.setVisibility(View.VISIBLE);
         }
     }
 }

@@ -1,17 +1,13 @@
 package com.example.kzvda.menumanagementsystem;
 
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.res.Configuration;
-import android.graphics.Bitmap;
-import android.graphics.Canvas;
-import android.graphics.drawable.BitmapDrawable;
-import android.graphics.drawable.Drawable;
 import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.FragmentManager;
-import android.support.v4.graphics.drawable.RoundedBitmapDrawable;
-import android.support.v4.graphics.drawable.RoundedBitmapDrawableFactory;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBar;
@@ -23,11 +19,8 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-
-import java.util.HashMap;
 
 public class MainActivity extends AppCompatActivity {
     public static final String EXTRA_MESSAGE = "com.example.kzvda.menumanagementsystem.MESSAGE";
@@ -35,8 +28,8 @@ public class MainActivity extends AppCompatActivity {
     private Toolbar toolbar;
     private ActionBarDrawerToggle drawerToggle;
     private RecycleListFragment currentFragment;
-    private User user;
     private NavigationView navigationView;
+    SharedPreferences sharedPref;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -63,12 +56,8 @@ public class MainActivity extends AppCompatActivity {
         mDrawer.addDrawerListener(drawerToggle);
         selectDrawerItem(navigationView.getMenu().getItem(0));
 
-        try {
-            user = new User((HashMap) getIntent().getExtras().get(EXTRA_MESSAGE));
-        } catch (NullPointerException e) {
-            user = null;
-//            user = Data.getAdmin();
-        }
+
+        sharedPref = this.getSharedPreferences("user", Context.MODE_PRIVATE);
         updateView();
 
     }
@@ -77,19 +66,12 @@ public class MainActivity extends AppCompatActivity {
         boolean[][] DRAWER_MENU = {{true, false, false, true}, {true, true, false, true}, {true, false, true, true}, {true, false, false, false}};
         Menu menu = navigationView.getMenu();
         LinearLayout nav_header = (LinearLayout) navigationView.getHeaderView(0);
-        int userType = 3;
-        if (user == null) {
-            ((ImageView) nav_header.getChildAt(0)).setImageDrawable(roundDrawable(getDrawable(R.drawable.ic_launcher_foreground)));
-            ((TextView) nav_header.getChildAt(1)).setText(R.string.login);
-            nav_header.getChildAt(1).setEnabled(true);
-
-        } else {
-            userType = user.getType();
-            ((ImageView) nav_header.getChildAt(0)).setImageDrawable(roundDrawable(getDrawable(R.drawable.ic_launcher_foreground)));
-            ((TextView) nav_header.getChildAt(1)).setText(user.getUsername());
-        }
+        int usertype = sharedPref.getInt("usertype",3);
+        String text = sharedPref.getString("username",getString(R.string.login));
+        ((TextView) nav_header.getChildAt(0)).setText(text);
+        nav_header.getChildAt(0).setEnabled(usertype == 3);
         for (int i = 0; i < 4; i++) {
-            menu.getItem(i).setVisible(DRAWER_MENU[userType][i]);
+            menu.getItem(i).setVisible(DRAWER_MENU[usertype][i]);
         }
     }
 
@@ -114,23 +96,21 @@ public class MainActivity extends AppCompatActivity {
         // Create a new fragment and specify the fragment to show based on nav item clicked
         currentFragment = null;
         Class fragmentClass;
-        Bundle bundle = new Bundle();
         switch (menuItem.getItemId()) {
             case R.id.nav_restaurants:
                 fragmentClass = RecycleListFragment.class;
                 break;
+            case R.id.nav_administrator_page:
+                fragmentClass = AdministratorPageFragment.class;
+                break;
             case R.id.nav_settings:
                 fragmentClass = SettingsListFragment.class;
-                if (user != null) {
-                    bundle.putInt("userType", user.getType());
-                }
                 break;
             default:
                 fragmentClass = RecycleListFragment.class;
         }
         try {
             currentFragment = (RecycleListFragment) fragmentClass.newInstance();
-            currentFragment.setArguments(bundle);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -167,7 +147,7 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(intent);
                 break;
             case 1:
-                intent = new Intent(this, ChangePersonalInfo.class);
+                intent = new Intent(this, ChangePersonalInfoActivity.class);
                 startActivity(intent);
                 break;
             case 4:
@@ -177,6 +157,7 @@ public class MainActivity extends AppCompatActivity {
                         .setCancelable(true)
                         .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int id) {
+                                sharedPref.edit().clear().apply();
                                 Intent intent = new Intent(getApplicationContext(), MainActivity.class);
                                 intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                                 startActivity(intent);
@@ -191,6 +172,7 @@ public class MainActivity extends AppCompatActivity {
                         .setCancelable(true)
                         .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int id) {
+                                sharedPref.edit().clear().apply();
                                 Intent intent = new Intent(getApplicationContext(), MainActivity.class);
                                 intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                                 startActivity(intent);
@@ -198,6 +180,14 @@ public class MainActivity extends AppCompatActivity {
                         })
                         .setNegativeButton("No", null)
                         .show();
+                break;
+            case 7:
+                intent = new Intent(this, SendNotificationActivity.class);
+                startActivity(intent);
+                break;
+            case 8:
+                intent = new Intent(this, EditRestaurantInformationActivity.class);
+                startActivity(intent);
                 break;
 
         }
@@ -230,35 +220,6 @@ public class MainActivity extends AppCompatActivity {
         super.onConfigurationChanged(newConfig);
         // Pass any configuration change to the drawer toggles
         drawerToggle.onConfigurationChanged(newConfig);
-    }
-
-    public Drawable roundDrawable(Drawable dr) {
-        RoundedBitmapDrawable drawable =
-                RoundedBitmapDrawableFactory.create(getResources(), drawableToBitmap(dr));
-        drawable.setCircular(true);
-        return drawable;
-    }
-
-    private static Bitmap drawableToBitmap(Drawable drawable) {
-        Bitmap bitmap;
-
-        if (drawable instanceof BitmapDrawable) {
-            BitmapDrawable bitmapDrawable = (BitmapDrawable) drawable;
-            if (bitmapDrawable.getBitmap() != null) {
-                return bitmapDrawable.getBitmap();
-            }
-        }
-
-        if (drawable.getIntrinsicWidth() <= 0 || drawable.getIntrinsicHeight() <= 0) {
-            bitmap = Bitmap.createBitmap(1, 1, Bitmap.Config.ARGB_8888); // Single color bitmap will be created of 1x1 pixel
-        } else {
-            bitmap = Bitmap.createBitmap(drawable.getIntrinsicWidth(), drawable.getIntrinsicHeight(), Bitmap.Config.ARGB_8888);
-        }
-
-        Canvas canvas = new Canvas(bitmap);
-        drawable.setBounds(0, 0, canvas.getWidth(), canvas.getHeight());
-        drawable.draw(canvas);
-        return bitmap;
     }
 
 }

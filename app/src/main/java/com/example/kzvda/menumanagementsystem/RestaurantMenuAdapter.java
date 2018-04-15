@@ -1,6 +1,7 @@
 package com.example.kzvda.menumanagementsystem;
 
 import android.support.annotation.NonNull;
+import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
@@ -21,12 +22,13 @@ public class RestaurantMenuAdapter extends RecyclerView.Adapter<RestaurantMenuAd
         private TextView mName;
         private TextView mDescription;
         private TextView mPrice;
-        private ViewHolder(RelativeLayout v) {
+        private ViewHolder(CardView v) {
             super(v);
-            mImageView =(ImageView) v.getChildAt(0);
-            mName = (TextView) v.getChildAt(1);
-            mDescription = (TextView) v.getChildAt(2);
-            mPrice = (TextView) v.getChildAt(3);
+            RelativeLayout rv = (RelativeLayout) v.getChildAt(0);
+            mImageView =(ImageView) rv.getChildAt(0);
+            mName = (TextView) rv.getChildAt(1);
+            mDescription = (TextView) rv.getChildAt(2);
+            mPrice = (TextView) rv.getChildAt(3);
 
         }
     }
@@ -41,7 +43,7 @@ public class RestaurantMenuAdapter extends RecyclerView.Adapter<RestaurantMenuAd
     @Override
     public RestaurantMenuAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         // create a new view
-        RelativeLayout v = (RelativeLayout) LayoutInflater.from(parent.getContext())
+        CardView v = (CardView) LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.restaurant_menu_recycle_view_item, parent, false);
         return new RestaurantMenuAdapter.ViewHolder(v);
     }

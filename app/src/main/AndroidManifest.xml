@@ -23,7 +23,9 @@
             android:theme="@style/AppTheme" />
         <activity android:name=".RestaurantInfoActivity" />
         <activity android:name=".RegistrationActivity" />
-        <activity android:name=".ChangePersonalInfo" />
+        <activity android:name=".ChangePersonalInfoActivity" />
+        <activity android:name=".SendNotificationActivity" />
+        <activity android:name=".EditRestaurantInformationActivity"></activity>
     </application>
 
 </manifest>
