@@ -9,7 +9,6 @@
     android:clickable="true"
     android:focusable="true"
     android:foreground="?android:attr/selectableItemBackground"
-    android:onClick="onClick"
     card_view:cardElevation="2dp">
 
     <android.widget.RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
