@@ -1,6 +1,8 @@
 package com.example.kzvda.menumanagementsystem;
 
 import android.annotation.SuppressLint;
+import android.content.Context;
+
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.Map;
@@ -88,6 +90,14 @@ public class Data {
 
         hashMap.put(2, innerHashMap);
         return hashMap;
+    }
+
+
+    public static void setDB(Context context) {
+        DBHelper db = new DBHelper(context);
+        Event event = new Event(0,"Wrap",DESCRIPTION,300,null);
+        db.addEvent(event);
+        event = new Event(0,"Wrap",DESCRIPTION,300,null);
     }
 
     public static LinkedList<Object[]> getSettingsList() {

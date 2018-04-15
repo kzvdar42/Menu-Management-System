@@ -9,6 +9,8 @@ import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.TextView;
 
@@ -34,6 +36,7 @@ public class RegistrationActivity extends AppCompatActivity {
         ActionBar actionbar = getSupportActionBar();
         actionbar.setDisplayHomeAsUpEnabled(true);
 
+
     }
 
     public void onClick(View v) {
@@ -52,13 +55,13 @@ public class RegistrationActivity extends AppCompatActivity {
                 editor.putInt("usertype", 1);
                 int restaurant = 0;
                 String restaurantName = ((TextView) findViewById(R.id.setRestaurantName)).getText().toString();
-                Map<Integer, HashMap<String,Object>> data = Data.getData();
-                for (int i=0;i<data.size();i++){
-                    if (data.get(i).get("name").equals(restaurantName)){
+                Map<Integer, HashMap<String, Object>> data = Data.getData();
+                for (int i = 0; i < data.size(); i++) {
+                    if (data.get(i).get("name").equals(restaurantName)) {
                         restaurant = i;
                     }
                 }
-                editor.putInt("restaurant",restaurant);
+                editor.putInt("restaurant", restaurant);
             }
             editor.putString("username", username);
             editor.putString("phone_num", phoneNumber);
@@ -77,6 +80,40 @@ public class RegistrationActivity extends AppCompatActivity {
             restaurantName.setVisibility(View.GONE);
         } else {
             restaurantName.setVisibility(View.VISIBLE);
+        }
+    }
+
+    public void changeFragment(View v) {
+        boolean isUser = ((RadioButton) findViewById(R.id.isUser)).isChecked();
+        View repeatPasswordView = findViewById(R.id.inputLayoutRepeatPassword);
+        View phoneNumberView = findViewById(R.id.inputLayoutPhoneNumber);
+        View radioButtonGroup = findViewById(R.id.radioGroup);
+        View restaurantNameView = findViewById(R.id.inputLayoutRestaurantName);
+        TextView startOfText = findViewById(R.id.start_of_text);
+        TextView endOfText = findViewById(R.id.end_of_text);
+        Button button = findViewById(R.id.button);
+
+        if (repeatPasswordView.getVisibility() == View.VISIBLE) {
+            repeatPasswordView.setVisibility(View.GONE);
+            radioButtonGroup.setVisibility(View.GONE);
+            restaurantNameView.setVisibility(View.GONE);
+            phoneNumberView.setVisibility(View.GONE);
+            getSupportActionBar().setTitle(R.string.login);
+            button.setText(R.string.login);
+            startOfText.setText(R.string.dont_have_an_account);
+            endOfText.setText(R.string.create_new_account);
+
+        } else {
+            repeatPasswordView.setVisibility(View.VISIBLE);
+            radioButtonGroup.setVisibility(View.VISIBLE);
+            if (!isUser) {
+                restaurantNameView.setVisibility(View.VISIBLE);
+            }
+            phoneNumberView.setVisibility(View.VISIBLE);
+            getSupportActionBar().setTitle(R.string.registration_label);
+            button.setText(R.string.create_account);
+            startOfText.setText(R.string.already_have_an_account);
+            endOfText.setText(R.string.log_in);
         }
     }
 }

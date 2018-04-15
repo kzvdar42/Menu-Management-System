@@ -96,7 +96,7 @@
         android:layout_gravity="bottom|end"
         android:layout_margin="16dp"
         android:onClick="onClick"
-        android:text="@string/send" />
+        android:text="@string/update" />
 
 
 </merge>

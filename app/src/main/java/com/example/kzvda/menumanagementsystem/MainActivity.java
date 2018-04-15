@@ -67,7 +67,7 @@ public class MainActivity extends AppCompatActivity {
         Menu menu = navigationView.getMenu();
         LinearLayout nav_header = (LinearLayout) navigationView.getHeaderView(0);
         int usertype = sharedPref.getInt("usertype",3);
-        String text = sharedPref.getString("username",getString(R.string.login));
+        String text = sharedPref.getString("username",getString(R.string.register_login));
         ((TextView) nav_header.getChildAt(0)).setText(text);
         nav_header.getChildAt(0).setEnabled(usertype == 3);
         for (int i = 0; i < 4; i++) {

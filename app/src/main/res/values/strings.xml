@@ -19,6 +19,7 @@
     <string name="drawer_open">Open navigation drawer</string>
     <string name="drawer_close">Close navigation drawer</string>
     <string name="login">Login</string>
+    <string name="register_login">Register/Login</string>
 
 
     #Restaurant info activity
@@ -45,6 +46,11 @@
     <string name="administrator">Administrator</string>
     #Button label
     <string name="create_account">Create account</string>
+    #TextView
+    <string name="already_have_an_account">Already have an account?</string>
+    <string name="log_in"><u>Log in.</u></string>
+    <string name="dont_have_an_account">Don\'t have an account?</string>
+    <string name="create_new_account"><u>Create new account.</u></string>
 
     #Administrator page
     #Labels
