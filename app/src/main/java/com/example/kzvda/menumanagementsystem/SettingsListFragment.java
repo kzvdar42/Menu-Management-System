@@ -4,14 +4,20 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import java.util.LinkedList;
 
-public class SettingsListFragment extends RecycleListFragment {
+public class SettingsListFragment extends Fragment {
+
+    protected RecyclerView mRecyclerView;
+    protected SimpleListAdapter mAdapter;
+    protected LinearLayoutManager mLayoutManager;
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -33,7 +39,7 @@ public class SettingsListFragment extends RecycleListFragment {
         LinkedList<Object[]> currentSettings = new LinkedList<>();
         for (Object[] objects : Data.getSettingsList()) {
             boolean[] forUser = (boolean[]) objects[1];
-            if (forUser[sharedPref.getInt("usertype",0)]) {
+            if (forUser[sharedPref.getInt("usertype", 0)]) {
                 Object[] ob = {objects[0], objects[2]};
                 currentSettings.add(ob);
             }

@@ -17,12 +17,16 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.example.kzvda.menumanagementsystem.db.Model.MenuModel;
+import com.example.kzvda.menumanagementsystem.db.Model.RestaurantModel;
+
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class RestaurantListAdapter extends RecyclerView.Adapter<RestaurantListAdapter.ViewHolder> {
     private Resources res;
-    private Map<Integer, HashMap<String, Object>> mDataset;
+    private List<? extends RestaurantModel> mDataset;
 
     // Provide a reference to the views for each data item
     // Complex data items may need more than one view per item, and
@@ -42,8 +46,7 @@ public class RestaurantListAdapter extends RecyclerView.Adapter<RestaurantListAd
     }
 
     // Provide a suitable constructor (depends on the kind of dataset)
-    public RestaurantListAdapter(Map<Integer, HashMap<String, Object>> mDataset, Resources res) {
-        this.mDataset = mDataset;
+    public RestaurantListAdapter(Resources res) {
         this.res = res;
     }
 
@@ -66,17 +69,19 @@ public class RestaurantListAdapter extends RecyclerView.Adapter<RestaurantListAd
         // - get element from your dataset at this position
         // - replace the contents of the view with that element
         RoundedBitmapDrawable dr =
-                RoundedBitmapDrawableFactory.create(res, drawableToBitmap(res.getDrawable((int)mDataset.get(position).get("icon"))));
+                RoundedBitmapDrawableFactory.create(res, drawableToBitmap(res.getDrawable(mDataset.get(position).getPhotoSrc())));
         dr.setCircular(true);
         holder.mImageView.setImageDrawable(dr);
-        holder.mName.setText((String) mDataset.get(position).get("name"));
+        holder.mName.setText(mDataset.get(position).getName());
 
     }
 
     // Return the size of your dataset (invoked by the layout manager)
     @Override
     public int getItemCount() {
-        return mDataset.size();
+        if (mDataset != null)
+            return mDataset.size();
+        else return 0;
     }
 
     public static Bitmap drawableToBitmap(Drawable drawable) {
@@ -99,5 +104,10 @@ public class RestaurantListAdapter extends RecyclerView.Adapter<RestaurantListAd
         drawable.setBounds(0, 0, canvas.getWidth(), canvas.getHeight());
         drawable.draw(canvas);
         return bitmap;
+    }
+
+    public void setProductList(final List<? extends RestaurantModel> menuList) {
+        mDataset = menuList;
+        notifyDataSetChanged();
     }
 }

@@ -1,5 +1,6 @@
 package com.example.kzvda.menumanagementsystem;
 
+import android.arch.lifecycle.ViewModelProviders;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
@@ -12,8 +13,8 @@ import android.view.ViewGroup;
 public class RecycleListFragment extends Fragment {
 
     protected RecyclerView mRecyclerView;
-    protected RecyclerView.Adapter mAdapter;
-    protected RecyclerView.LayoutManager mLayoutManager;
+    protected RestaurantListAdapter mAdapter;
+    protected LinearLayoutManager mLayoutManager;
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -32,8 +33,12 @@ public class RecycleListFragment extends Fragment {
 
         // specify an adapter (see also next example)
 
-        mAdapter = new RestaurantListAdapter(Data.getData(), getResources());
+        mAdapter = new RestaurantListAdapter(getResources());
         mRecyclerView.setAdapter(mAdapter);
+        ViewModel mViewModel = ViewModelProviders.of(this).get(ViewModel.class);
+        mViewModel.getRestaurantsList().observe(this, words -> {
+            mAdapter.setProductList(words);
+        });
         return rootView;
     }
 }

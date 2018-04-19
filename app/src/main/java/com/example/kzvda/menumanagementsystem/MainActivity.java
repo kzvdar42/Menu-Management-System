@@ -7,6 +7,7 @@ import android.content.SharedPreferences;
 import android.content.res.Configuration;
 import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
+import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
@@ -19,6 +20,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -27,7 +29,7 @@ public class MainActivity extends AppCompatActivity {
     private DrawerLayout mDrawer;
     private Toolbar toolbar;
     private ActionBarDrawerToggle drawerToggle;
-    private RecycleListFragment currentFragment;
+    private Fragment currentFragment;
     private NavigationView navigationView;
     SharedPreferences sharedPref;
 
@@ -66,8 +68,8 @@ public class MainActivity extends AppCompatActivity {
         boolean[][] DRAWER_MENU = {{true, false, false, true}, {true, true, false, true}, {true, false, true, true}, {true, false, false, false}};
         Menu menu = navigationView.getMenu();
         LinearLayout nav_header = (LinearLayout) navigationView.getHeaderView(0);
-        int usertype = sharedPref.getInt("usertype",3);
-        String text = sharedPref.getString("username",getString(R.string.register_login));
+        int usertype = sharedPref.getInt("usertype", 3);
+        String text = sharedPref.getString("username", getString(R.string.register_login));
         ((TextView) nav_header.getChildAt(0)).setText(text);
         nav_header.getChildAt(0).setEnabled(usertype == 3);
         for (int i = 0; i < 4; i++) {
@@ -110,7 +112,7 @@ public class MainActivity extends AppCompatActivity {
                 fragmentClass = RecycleListFragment.class;
         }
         try {
-            currentFragment = (RecycleListFragment) fragmentClass.newInstance();
+            currentFragment = (Fragment) fragmentClass.newInstance();
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -141,7 +143,7 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(intent);
                 break;
             case R.id.restaurant_list_item:
-                int itemPosition = currentFragment.mRecyclerView.indexOfChild(v);
+                int itemPosition = ((RecycleListFragment) currentFragment).mRecyclerView.indexOfChild(v);
                 intent = new Intent(this, RestaurantMenuActivity.class);
                 intent.putExtra(MainActivity.EXTRA_MESSAGE, itemPosition);
                 startActivity(intent);

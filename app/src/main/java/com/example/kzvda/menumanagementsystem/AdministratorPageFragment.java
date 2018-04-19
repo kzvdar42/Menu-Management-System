@@ -2,14 +2,20 @@ package com.example.kzvda.menumanagementsystem;
 
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import java.util.LinkedList;
 
-public class AdministratorPageFragment extends RecycleListFragment {
+public class AdministratorPageFragment extends Fragment {
+
+    protected RecyclerView mRecyclerView;
+    protected SimpleListAdapter mAdapter;
+    protected LinearLayoutManager mLayoutManager;
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
