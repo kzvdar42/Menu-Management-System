@@ -144,6 +144,20 @@ def is_admin(id):
     return False
 
 
+def is_moderator(id):
+    try:
+        res = execute_command("SELECT id "
+                              "FROM users "
+                              "WHERE id = {} AND rights = 2".format(id))
+        if res is not None and res[0] == id:
+            return True
+    except Exception as e:
+        print("ERROR in is_moderator:", e)
+        return False
+    return False
+
+
+
 def is_verified(id):
     try:
         res = execute_command("SELECT id "
@@ -155,7 +169,6 @@ def is_verified(id):
         print("ERROR in is_admin:", e)
         return False
     return False
-
 
 
 def add_rest(owner_id):

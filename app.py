@@ -2,7 +2,7 @@ from flask import Flask, request, Response, send_from_directory
 from flask_cors import CORS
 import os
 import json
-from verification import registration, login, delete_account
+from verification import registration, login, delete_account, confirm_admin
 from rest_req import rest_list, rest_menu
 import db_commands as db
 import simple_responses as s_resp
@@ -42,6 +42,8 @@ def api_request():
         return rest_menu(data)
     elif data["type"] == "delete_acc":
         return delete_account(data)
+    elif data["type"] == "confirm_admin":
+        return confirm_admin(data)
     else:
         return s_resp.error_response("Unknown")
 
