@@ -1,6 +1,7 @@
 import threading
 import os
 import pymysql
+import time
 
 
 def create_connection():
@@ -9,7 +10,6 @@ def create_connection():
         return conn
     except Exception as e:
         print("ERROR in create connection:", e)
-
     return None
 
 
@@ -157,7 +157,6 @@ def is_moderator(id):
     return False
 
 
-
 def is_verified(id):
     try:
         res = execute_command("SELECT id "
@@ -169,6 +168,29 @@ def is_verified(id):
         print("ERROR in is_admin:", e)
         return False
     return False
+
+
+def rest_list():
+    result = []
+    try:
+        res = execute_command_fetchall("SELECT id, owner_id, rest_name, sub_name, description, phone_num, location, web_site, open_time, close_time, main_photo_src "
+                              "FROM rest")
+        for rest in res:
+            result.append({'id': rest[0],
+                           "owner_id": rest[1],
+                           "rest_name": rest[1],
+                           "sub_name": rest[1],
+                           "description": rest[2],
+                           "phone_num": rest[3],
+                           "location": rest[4],
+                           "web_site": rest[5],
+                           "open_time": rest[6],
+                           "close_time": rest[7],
+                           "main_photo_src": rest[8]})
+    except Exception as e:
+        print("Exception in rest_list", e)
+        return None
+    return result
 
 
 def add_rest(owner_id):
@@ -367,7 +389,7 @@ def is_dish_owner(rest_id, dish_id):
 def set_dish_name(dish_id, name):
     try:
         execute_command("UPDATE dish "
-                        "SET name = '{}' "
+                        "SET dish_name = '{}' "
                         "WHERE id = {}".format(name, dish_id))
     except Exception as e:
         print("ERROR in set_dish_name:", e)
@@ -442,3 +464,22 @@ def is_dish_on(dish_id):
     except Exception as e:
         print("ERROR in is_sidh_on:", e)
     return False
+
+
+def get_rest_menu(rest_id):
+    result = []
+    try:
+        res = execute_command_fetchall("SELECT id, dish_name, description, photo_src, price "
+                                       "FROM dish "
+                                       "WHERE rest_id = {} AND onoff = 1".format(rest_id))
+        for dish in res:
+            result.append({"id": dish[0],
+                           "dish_name": dish[1],
+                           "description": dish[2],
+                           "photo_src": dish[3],
+                           "price": dish[4]})
+    except Exception as e:
+        print("Exception in get_rest_menu", e)
+        return None
+    return result
+

@@ -39,7 +39,7 @@ def api_request():
     elif data["type"] == "rest_list":
         return rest_list(data)
     elif data["type"] == "rest_menu":
-        return rest_menu(data)
+        return rest_menu()
     elif data["type"] == "delete_acc":
         return delete_account(data)
     elif data["type"] == "confirm_admin":
