@@ -30,6 +30,7 @@ def api_request():
         data = json.loads(request.data)
     except:
         return s_resp.error_response(info="json is not valid")
+    print(data)
     if "type" not in data:
         return s_resp.error_response("type is empty")
     if data["type"] == "registration":
