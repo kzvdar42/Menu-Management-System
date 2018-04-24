@@ -6,7 +6,7 @@ import time
 
 def create_connection():
     try:
-        conn = pymysql.connect("178.62.77.190", "root", "mms", "menuManagmentSystem", use_unicode=True, charset='utf8')
+        conn = pymysql.connect("178.62.77.190", "usr", "12341234", "menuManagmentSystem", use_unicode=True, charset='utf8')
         return conn
     except Exception as e:
         print("ERROR in create connection:", e)
