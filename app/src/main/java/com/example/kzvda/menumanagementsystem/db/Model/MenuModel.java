@@ -7,4 +7,5 @@ public interface MenuModel {
     String getDescription();
     int getPhotoSrc();
     int getPrice();
+    boolean isShown();
 }

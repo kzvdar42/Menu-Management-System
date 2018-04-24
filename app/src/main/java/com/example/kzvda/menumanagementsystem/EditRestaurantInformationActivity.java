@@ -1,16 +1,28 @@
 package com.example.kzvda.menumanagementsystem;
 
+import android.arch.lifecycle.ViewModelProviders;
 import android.content.Context;
 import android.content.SharedPreferences;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.EditText;
 
-import java.util.HashMap;
+import com.example.kzvda.menumanagementsystem.ViewModel.ViewModel;
+import com.example.kzvda.menumanagementsystem.db.Entity.RestaurantEntity;
+
+import java.util.Objects;
 
 public class EditRestaurantInformationActivity extends AppCompatActivity {
+
+    RestaurantEntity restaurant;
+    int restaurantId;
+    ViewModel mViewModel;
+    EditText restaurantName;
+    EditText subtitle;
+    EditText description;
+    EditText location;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -20,27 +32,24 @@ public class EditRestaurantInformationActivity extends AppCompatActivity {
         toolbar.setTitle(R.string.edit_restaurant_info);
         setSupportActionBar(toolbar);
 
+        toolbar.setNavigationOnClickListener(v -> finish());
+        Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
 
-        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                finish();
-            }
-        });
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        restaurantName = findViewById(R.id.restaurant_name);
+        subtitle = findViewById(R.id.subtitle);
+        description = findViewById(R.id.description);
+        location = findViewById(R.id.location);
 
         SharedPreferences sharedPref = this.getSharedPreferences("user", Context.MODE_PRIVATE);
-        HashMap<String, Object> restaurant = Data.getData().get(sharedPref.getInt("restaurant", 0));
-
-        EditText restaurantName = findViewById(R.id.restaurant_name);
-        EditText subtitle = findViewById(R.id.subtitle);
-        EditText description = findViewById(R.id.description);
-        EditText location = findViewById(R.id.location);
-
-        restaurantName.setText((String)restaurant.get("name"));
-        subtitle.setText((String)restaurant.get("subname"));
-        description.setText((String)restaurant.get("description"));
-        location.setText((String)restaurant.get("location"));
+        restaurantId = sharedPref.getInt("restaurantId", 0);
+        mViewModel = ViewModelProviders.of(this).get(ViewModel.class);
+        mViewModel.getRestaurant(restaurantId).observe(this, restaurant -> {
+            this.restaurant = restaurant;
+            restaurantName.setText(restaurant.getName());
+            subtitle.setText(restaurant.getSubname());
+            description.setText(restaurant.getDescription());
+            location.setText(restaurant.getLocation());
+        });
 
     }
 

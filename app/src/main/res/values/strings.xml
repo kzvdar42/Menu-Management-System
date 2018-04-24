@@ -24,7 +24,7 @@
 
     #Restaurant info activity
     #Name
-    <string name="registration_label">Registration</string>
+    <string name="restaurant_info">Restaurant info</string>
     #Button labels
     <string name="call_label">Call</string>
     <string name="location_label">Location</string>
@@ -36,6 +36,8 @@
 
 
     #Registration activity
+    #Name
+    <string name="registration_label">Registration</string>
     #Input hints
     <string name="phone_number">Phone number</string>
     <string name="password">Password</string>
@@ -68,6 +70,11 @@
     <string name="description">Description</string>
     <string name="location">Location</string>
     <string name="restaurant_name">Restaurant name</string>
+    <string name="dish_name">Name</string>
+    <string name="price">Price</string>
+    <string name="create">Create</string>
+    <string name="new_dish">New Dish</string>
+    <string name="add_to_templates">Add to templates</string>
 
     #Settings
     #Labels

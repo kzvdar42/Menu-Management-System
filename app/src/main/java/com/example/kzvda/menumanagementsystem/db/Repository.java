@@ -23,22 +23,30 @@ public class Repository {
     }
 
     public LiveData<List<MenuEntity>> getRestaurantMenu(int id) {
-        return mMenuDao.findByRestaurant(id);
+        return mMenuDao.getRestaurantMenu(id);
     }
 
     public LiveData<List<RestaurantEntity>> getRestaurantsList() {
         return mRestaurantDao.getAll();
     }
 
-    public void insert (MenuEntity word) {
-        new insertAsyncTask(mMenuDao).execute(word);
+    public LiveData<List<MenuEntity>> getTemplates(int id) {
+        return mMenuDao.getRestaurantTemplates(id);
     }
 
-    private static class insertAsyncTask extends AsyncTask<MenuEntity, Void, Void> {
+    public LiveData<RestaurantEntity> getRestaurant(int id) {
+        return mRestaurantDao.get(id);
+    }
+
+    public void insertToMenu(MenuEntity dish) {
+        new insertToMenuAsyncTask(mMenuDao).execute(dish);
+    }
+
+    private static class insertToMenuAsyncTask extends AsyncTask<MenuEntity, Void, Void> {
 
         private MenuDao mAsyncTaskDao;
 
-        insertAsyncTask(MenuDao dao) {
+        insertToMenuAsyncTask(MenuDao dao) {
             mAsyncTaskDao = dao;
         }
 
@@ -48,4 +56,25 @@ public class Repository {
             return null;
         }
     }
+
+    public void updateRestaurantList(List<RestaurantEntity> restList) {
+        new updateRestListAsyncTask(mRestaurantDao).execute(restList);
+    }
+
+    private static class updateRestListAsyncTask extends AsyncTask<List<RestaurantEntity>, Void, Void> {
+
+        private RestaurantDao mAsyncTaskDao;
+
+        updateRestListAsyncTask(RestaurantDao dao) {
+            mAsyncTaskDao = dao;
+        }
+
+        @Override
+        protected Void doInBackground(final List<RestaurantEntity>... params) {
+            mAsyncTaskDao.deleteAll();
+            mAsyncTaskDao.insertRests(params[0]);
+            return null;
+        }
+    }
+
 }

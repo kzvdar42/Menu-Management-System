@@ -10,6 +10,8 @@ import com.example.kzvda.menumanagementsystem.db.Entity.RestaurantEntity;
 
 import java.util.List;
 
+import retrofit2.http.DELETE;
+
 @Dao
 public interface RestaurantDao {
 
@@ -19,10 +21,16 @@ public interface RestaurantDao {
     @Insert
     void insert(RestaurantEntity... restaurants);
 
+    @Insert
+    void insertRests(List<RestaurantEntity> restList);
+
     @Delete
     void delete(RestaurantEntity restaurant);
 
     @Query("DELETE FROM RestaurantEntity")
     void deleteAll();
+
+    @Query("SELECT * FROM RestaurantEntity WHERE id = :id")
+    LiveData<RestaurantEntity> get(int id);
 }
 

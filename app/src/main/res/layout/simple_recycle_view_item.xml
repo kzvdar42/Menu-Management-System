@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/settings_list_item"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/recycle_view_item"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:clickable="true"
@@ -12,11 +11,9 @@
     <TextView
         android:id="@+id/textView3"
         android:layout_width="match_parent"
-        android:padding="16dp"
         android:layout_height="wrap_content"
         android:layout_alignParentStart="true"
-        android:textSize="24sp"
-        android:layout_alignParentTop="true" />
+        android:theme="@style/AppTheme.recycleViewText" />
 
     <View
         android:id="@+id/divider"

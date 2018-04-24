@@ -2,6 +2,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.kzvda.menumanagementsystem">
 
+    <uses-permission android:name="android.permission.INTERNET"/>
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -11,7 +13,7 @@
         android:theme="@style/AppTheme">
         <activity
             android:name=".MainActivity"
-            android:label="@string/restaurants_label">
+            android:theme="@style/AppTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -22,10 +24,17 @@
             android:name=".RestaurantMenuActivity"
             android:theme="@style/AppTheme" />
         <activity android:name=".RestaurantInfoActivity" />
-        <activity android:name=".RegistrationActivity" />
+        <activity
+            android:name=".RegistrationActivity"
+            android:theme="@style/AppTheme" />
         <activity android:name=".ChangePersonalInfoActivity" />
         <activity android:name=".SendNotificationActivity" />
-        <activity android:name=".EditRestaurantInformationActivity"></activity>
+        <activity android:name=".EditRestaurantInformationActivity" />
+        <activity
+            android:name=".ChangeMenuActivity"
+            android:theme="@style/AppTheme" />
+        <activity android:name=".ManageTemplatesActivity" />
+        <activity android:name=".NewDishActivity" />
     </application>
 
 </manifest>

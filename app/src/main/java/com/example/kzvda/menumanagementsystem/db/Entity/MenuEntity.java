@@ -2,16 +2,17 @@ package com.example.kzvda.menumanagementsystem.db.Entity;
 
 import android.arch.persistence.room.ColumnInfo;
 import android.arch.persistence.room.Entity;
+import android.arch.persistence.room.ForeignKey;
 import android.arch.persistence.room.PrimaryKey;
 
 import com.example.kzvda.menumanagementsystem.db.Model.MenuModel;
 
-@Entity
+@Entity()
 public class MenuEntity implements MenuModel {
     @PrimaryKey(autoGenerate = true)
     private int dishId;
 
-    @ColumnInfo(name = "restaurantId")
+    @ForeignKey(entity = RestaurantEntity.class, parentColumns = "id", childColumns = "restaurantId")
     private int restaurantId;
 
     @ColumnInfo(name = "name")
@@ -26,12 +27,16 @@ public class MenuEntity implements MenuModel {
     @ColumnInfo(name = "price")
     private int price;
 
-    public MenuEntity(int restaurantId, String name, String description, int photoSrc, int price) {
+    @ColumnInfo(name = "shown")
+    private boolean shown;
+
+    public MenuEntity(int restaurantId, String name, String description, int photoSrc, int price, boolean shown) {
         this.restaurantId = restaurantId;
         this.name = name;
         this.description = description;
         this.photoSrc = photoSrc;
         this.price = price;
+        this.shown = shown;
     }
 
     @Override
@@ -51,7 +56,6 @@ public class MenuEntity implements MenuModel {
 
     @Override
     public String getName() {
-
         return name;
     }
 
@@ -63,6 +67,11 @@ public class MenuEntity implements MenuModel {
     @Override
     public int getPrice() {
         return price;
+    }
+
+    @Override
+    public boolean isShown() {
+        return shown;
     }
 
     public void setDishId(int dishId) {
@@ -87,5 +96,9 @@ public class MenuEntity implements MenuModel {
 
     public void setPrice(int price) {
         this.price = price;
+    }
+
+    public void setShown(boolean show) {
+        this.shown = show;
     }
 }

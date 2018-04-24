@@ -1,5 +1,6 @@
 package com.example.kzvda.menumanagementsystem;
 
+import android.arch.lifecycle.ViewModelProviders;
 import android.content.Intent;
 import android.net.Uri;
 import android.support.design.widget.FloatingActionButton;
@@ -10,14 +11,14 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import java.util.HashMap;
-import java.util.Map;
+import com.example.kzvda.menumanagementsystem.ViewModel.ViewModel;
+import com.example.kzvda.menumanagementsystem.db.Entity.RestaurantEntity;
+
+import java.util.List;
 
 public class RestaurantInfoActivity extends AppCompatActivity {
     private boolean notificationsIsOn;
-    private Map<Integer, HashMap<String, Object>> mDataset;
-    private int restaurant;
-
+    private RestaurantEntity restaurant;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -26,22 +27,23 @@ public class RestaurantInfoActivity extends AppCompatActivity {
         toolbar.setTitle("");
         setSupportActionBar(toolbar);
 
-        mDataset = Data.getData();
-
-        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                finish();
-            }
-        });
+        toolbar.setNavigationOnClickListener(v -> finish());
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         ImageView imageView = findViewById(R.id.imageView);
         TextView name = findViewById(R.id.restaurant_info_name);
         TextView subname = findViewById(R.id.restaurant_info_subname);
-        restaurant = getIntent().getIntExtra(MainActivity.EXTRA_MESSAGE, 0);
-        imageView.setImageResource((int) mDataset.get(restaurant).get("icon"));
-        name.setText((String) mDataset.get(restaurant).get("name"));
-        subname.setText((String) mDataset.get(restaurant).get("subname"));
+        TextView description = findViewById(R.id.restaurant_info_description);
+
+        int restaurantId = getIntent().getIntExtra(MainActivity.EXTRA_MESSAGE, 0);
+
+        ViewModel mViewModel = ViewModelProviders.of(this).get(ViewModel.class);
+        mViewModel.getRestaurant(restaurantId).observe(this, restaurant -> {
+            this.restaurant = restaurant;
+            imageView.setImageResource(restaurant.getPhotoSrc());
+            name.setText(restaurant.getName());
+            subname.setText(restaurant.getSubname());
+            description.setText(restaurant.getDescription());
+        });
     }
 
     public void onClick(View v) {
@@ -58,19 +60,19 @@ public class RestaurantInfoActivity extends AppCompatActivity {
                 }
                 break;
             case R.id.restaurant_info_location_button:
-                Uri gmmIntentUri = Uri.parse((String) mDataset.get(restaurant).get("location"));
+                Uri gmmIntentUri = Uri.parse(restaurant.getLocation());
                 intent = new Intent(Intent.ACTION_VIEW, gmmIntentUri);
                 intent.setPackage("com.google.android.apps.maps");
                 startActivity(intent);
                 break;
             case R.id.restaurant_info_website_button:
-                String url = (String) mDataset.get(restaurant).get("website");
+                String url = restaurant.getWebsite();
                 intent = new Intent(Intent.ACTION_VIEW);
                 intent.setData(Uri.parse(url));
                 startActivity(intent);
                 break;
             case R.id.restaurant_info_call_button:
-                intent = new Intent(Intent.ACTION_DIAL, Uri.parse("tel:" + mDataset.get(restaurant).get("phone_num")));
+                intent = new Intent(Intent.ACTION_DIAL, Uri.parse("tel:" + restaurant.getPhoneNumber()));
                 startActivity(intent);
                 break;
 

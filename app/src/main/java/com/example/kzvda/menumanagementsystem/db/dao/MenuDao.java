@@ -15,8 +15,11 @@ public interface MenuDao {
     @Query("SELECT * FROM MenuEntity")
     LiveData<List<MenuEntity>> getAll();
 
+    @Query("SELECT * FROM MenuEntity WHERE restaurantId LIKE :rest_id AND shown = 1")
+    LiveData<List<MenuEntity>> getRestaurantMenu(int rest_id);
+
     @Query("SELECT * FROM MenuEntity WHERE restaurantId LIKE :rest_id")
-    LiveData<List<MenuEntity>> findByRestaurant(int rest_id);
+    LiveData<List<MenuEntity>> getRestaurantTemplates(int rest_id);
 
     @Insert
     void insert(MenuEntity... dishes);

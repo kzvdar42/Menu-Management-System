@@ -79,9 +79,7 @@ public class RestaurantListAdapter extends RecyclerView.Adapter<RestaurantListAd
     // Return the size of your dataset (invoked by the layout manager)
     @Override
     public int getItemCount() {
-        if (mDataset != null)
-            return mDataset.size();
-        else return 0;
+        return mDataset == null ? 0 : mDataset.size();
     }
 
     public static Bitmap drawableToBitmap(Drawable drawable) {

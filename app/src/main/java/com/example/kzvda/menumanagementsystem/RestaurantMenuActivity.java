@@ -7,11 +7,15 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
+
+import com.example.kzvda.menumanagementsystem.ViewModel.ViewModel;
 
 
 public class RestaurantMenuActivity extends AppCompatActivity {
-    private int restaurant;
+    private int restaurantId;
     private RestaurantMenuAdapter mAdapter;
 
     @Override
@@ -20,39 +24,48 @@ public class RestaurantMenuActivity extends AppCompatActivity {
         setContentView(R.layout.activity_restaurant_menu);
         Toolbar toolbar = findViewById(R.id.toolbar);
         Intent intent = getIntent();
-        restaurant = intent.getIntExtra(MainActivity.EXTRA_MESSAGE, 0);
-        String[] title = {"Cacio e Vino", "OMC", "Wrap & Go"};
-        toolbar.setTitle(title[restaurant]);
+        restaurantId = intent.getIntExtra(MainActivity.EXTRA_MESSAGE, 0);
+        ViewModel mViewModel = ViewModelProviders.of(this).get(ViewModel.class);
+        mViewModel.getRestaurant(restaurantId).observe(this, restaurant -> {
+            System.out.println(restaurant);
+            toolbar.setTitle(restaurant.getName());
+        });
         setSupportActionBar(toolbar);
-
-
         toolbar.setNavigationOnClickListener(v -> finish());
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        // setting up the recycler view
         RecyclerView mRecyclerView = findViewById(R.id.menu_recycler_view);
-        // use this setting to improve performance if you know that changes
-        // in content do not change the layout size of the RecyclerView
         mRecyclerView.setHasFixedSize(true);
 
-        // use a linear layout manager
         RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(this);
         mRecyclerView.setLayoutManager(mLayoutManager);
 
-        // specify an adapter
         mAdapter = new RestaurantMenuAdapter();
         mRecyclerView.setAdapter(mAdapter);
 
-        ViewModel mViewModel = ViewModelProviders.of(this).get(ViewModel.class);
-        mViewModel.getRestaurantMenu(restaurant).observe(this, words -> {
+        mViewModel.getRestaurantMenu(restaurantId).observe(this, words -> {
             mAdapter.setProductList(words);
         });
     }
 
-    public void onClick(View v) {
-        Intent intent = new Intent(this, RestaurantInfoActivity.class);
-        intent.putExtra(MainActivity.EXTRA_MESSAGE, restaurant);
-        startActivity(intent);
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.restaurant_menu, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+
+        if (id == R.id.restaurant_info_menu_item) {
+            Intent intent = new Intent(this, RestaurantInfoActivity.class);
+            intent.putExtra(MainActivity.EXTRA_MESSAGE, restaurantId);
+            startActivity(intent);
+            return true;
+        }
+
+        return super.onOptionsItemSelected(item);
     }
 
 }

@@ -71,28 +71,58 @@ public abstract class AppDatabase extends RoomDatabase {
             mMenuDao.deleteAll();
             mRestaurantDao.deleteAll();
 
-            mRestaurantDao.insert(new RestaurantEntity("Cacio e Vino", "Italian Restaurant",
+            mRestaurantDao.insert(new RestaurantEntity(7,"Cacio e Vino", "Italian Restaurant",
                     DESCRIPTION, "+78432453020", "geo:0,0?q=Cacio e Vino, Innopolis, Russia",
                     "https://t.me/CacioeVinoInno", R.drawable.cacio_e_vino));
 
-            mRestaurantDao.insert(new RestaurantEntity("Cacio e Vino", "Canteen in University builing",
+            mRestaurantDao.insert(new RestaurantEntity(8,"OMC", "Canteen in University builing",
                     DESCRIPTION, "42", "geo:0,0?q=ОМС, Innopolis, Russia",
                     "https://telegram.me/joinchat/Av77aUAFkVZKStnjfWD7NA", R.drawable.omc));
 
-            mRestaurantDao.insert(new RestaurantEntity("Wrap & Go", "Ne Shaurmichnaya",
+            mRestaurantDao.insert(new RestaurantEntity(9,"Wrap & Go", "Ne Shaurmichnaya",
                     DESCRIPTION, "42", "geo:0,0?q=Wrap and Go, Innopolis, Russia",
                     "https://telegram.me/joinchat/DA8vV0CGBulCOEpoyMK_vA", R.drawable.wrap_and_go));
+            mRestaurantDao.insert(new RestaurantEntity("Cacio e Vino2", "Italian Restaurant",
+                    DESCRIPTION, "+78432453020", "geo:0,0?q=Cacio e Vino, Innopolis, Russia",
+                    "https://t.me/CacioeVinoInno", R.drawable.ic_launcher_foreground));
+
+            mRestaurantDao.insert(new RestaurantEntity("OMC2", "Canteen in University builing",
+                    DESCRIPTION, "42", "geo:0,0?q=ОМС, Innopolis, Russia",
+                    "https://telegram.me/joinchat/Av77aUAFkVZKStnjfWD7NA", R.drawable.ic_launcher_foreground));
+
+            mRestaurantDao.insert(new RestaurantEntity("Wrap & Go2", "Ne Shaurmichnaya",
+                    DESCRIPTION, "42", "geo:0,0?q=Wrap and Go, Innopolis, Russia",
+                    "https://telegram.me/joinchat/DA8vV0CGBulCOEpoyMK_vA", R.drawable.ic_launcher_foreground));
 
 
-            mMenuDao.insert(new MenuEntity(0, "Pizza Diavola", DESCRIPTION, R.drawable.food_example, 300));
-            mMenuDao.insert(new MenuEntity(0, "Pizza Margherita", DESCRIPTION, R.drawable.food_example, 300));
-            mMenuDao.insert(new MenuEntity(0, "Noodles soup", DESCRIPTION, R.drawable.food_example, 300));
-            mMenuDao.insert(new MenuEntity(1, "Borsch", DESCRIPTION, R.drawable.food_example, 300));
-            mMenuDao.insert(new MenuEntity(1, "Salad", DESCRIPTION, R.drawable.food_example, 300));
-            mMenuDao.insert(new MenuEntity(1, "Noodles soup", DESCRIPTION, R.drawable.food_example, 300));
-            mMenuDao.insert(new MenuEntity(2, "Wrap", DESCRIPTION, R.drawable.food_example, 300));
-            mMenuDao.insert(new MenuEntity(2, "Another Wrap", DESCRIPTION, R.drawable.food_example, 300));
-            mMenuDao.insert(new MenuEntity(2, "S", DESCRIPTION, R.drawable.food_example, 300));
+            mMenuDao.insert(new MenuEntity(7, "Pizza Diavola", DESCRIPTION, R.drawable.food_example, 300,true));
+            mMenuDao.insert(new MenuEntity(7, "Pizza Margherita", DESCRIPTION, R.drawable.food_example, 300,true));
+            mMenuDao.insert(new MenuEntity(7, "Noodles soup", DESCRIPTION, R.drawable.food_example, 300,true));
+            mMenuDao.insert(new MenuEntity(7, "Pizza Diavola", DESCRIPTION, R.drawable.food_example, 300,true));
+            mMenuDao.insert(new MenuEntity(7, "Pizza Margherita", DESCRIPTION, R.drawable.food_example, 300,true));
+            mMenuDao.insert(new MenuEntity(7, "Noodles soup", DESCRIPTION, R.drawable.food_example, 300,true));
+            mMenuDao.insert(new MenuEntity(7, "Pizza Diavola", DESCRIPTION, R.drawable.food_example, 300,true));
+            mMenuDao.insert(new MenuEntity(7, "Pizza Margherita", DESCRIPTION, R.drawable.food_example, 300,true));
+            mMenuDao.insert(new MenuEntity(7, "Noodles soup", DESCRIPTION, R.drawable.food_example, 300,true));
+            mMenuDao.insert(new MenuEntity(8, "Borsch", DESCRIPTION, R.drawable.food_example, 300,true));
+            mMenuDao.insert(new MenuEntity(8, "Salad", DESCRIPTION, R.drawable.food_example, 300,true));
+            mMenuDao.insert(new MenuEntity(8, "Noodles soup", DESCRIPTION, R.drawable.food_example, 300,true));
+            mMenuDao.insert(new MenuEntity(9, "Wrap", DESCRIPTION, R.drawable.food_example, 300,true));
+            mMenuDao.insert(new MenuEntity(9, "Another Wrap", DESCRIPTION, R.drawable.food_example, 300,true));
+            mMenuDao.insert(new MenuEntity(9, "S", DESCRIPTION, R.drawable.food_example, 300,true));
+
+            mMenuDao.insert(new MenuEntity(7, "Pizza Diavola", DESCRIPTION, R.drawable.ic_launcher_background, 300, false));
+            mMenuDao.insert(new MenuEntity(7, "Pizza Margherita", DESCRIPTION, R.drawable.ic_launcher_background, 300, false));
+            mMenuDao.insert(new MenuEntity(7, "Noodles soup", DESCRIPTION, R.drawable.ic_launcher_background, 300, false));
+            mMenuDao.insert(new MenuEntity(7, "Pizza Diavola", DESCRIPTION, R.drawable.ic_launcher_background, 300, false));
+            mMenuDao.insert(new MenuEntity(7, "Pizza Margherita", DESCRIPTION, R.drawable.ic_launcher_background, 300, false));
+            mMenuDao.insert(new MenuEntity(7, "Noodles soup", DESCRIPTION, R.drawable.ic_launcher_background, 300, false));
+            mMenuDao.insert(new MenuEntity(8, "Borsch", DESCRIPTION, R.drawable.ic_launcher_background, 300, false));
+            mMenuDao.insert(new MenuEntity(8, "Salad", DESCRIPTION, R.drawable.ic_launcher_background, 300, false));
+            mMenuDao.insert(new MenuEntity(8, "Noodles soup", DESCRIPTION, R.drawable.ic_launcher_background, 300, false));
+            mMenuDao.insert(new MenuEntity(9, "Wrap", DESCRIPTION, R.drawable.ic_launcher_background, 300, false));
+            mMenuDao.insert(new MenuEntity(9, "Another Wrap", DESCRIPTION, R.drawable.ic_launcher_background, 300, false));
+            mMenuDao.insert(new MenuEntity(9, "S", DESCRIPTION, R.drawable.ic_launcher_background, 300, false));
             return null;
         }
     }

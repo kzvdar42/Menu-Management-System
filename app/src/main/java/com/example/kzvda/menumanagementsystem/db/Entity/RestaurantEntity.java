@@ -2,15 +2,16 @@ package com.example.kzvda.menumanagementsystem.db.Entity;
 
 import android.arch.persistence.room.ColumnInfo;
 import android.arch.persistence.room.Entity;
+import android.arch.persistence.room.Ignore;
 import android.arch.persistence.room.PrimaryKey;
 
 import com.example.kzvda.menumanagementsystem.db.Model.RestaurantModel;
 
-@Entity
+@Entity()
 public class RestaurantEntity implements RestaurantModel {
 
     @PrimaryKey(autoGenerate = true)
-    private int Id;
+    private int id;
 
     @ColumnInfo(name = "name")
     private String name;
@@ -33,8 +34,19 @@ public class RestaurantEntity implements RestaurantModel {
     @ColumnInfo(name = "photoSrc")
     private int photoSrc;
 
+    @Ignore
+    public RestaurantEntity(int id, String name, String subname, String description, String phoneNumber, String location, String website, int photoSrc) {
+        this.id = id;
+        this.name = name;
+        this.subname = subname;
+        this.description = description;
+        this.phoneNumber = phoneNumber;
+        this.location = location;
+        this.website = website;
+        this.photoSrc = photoSrc;
+    }
 
-    public RestaurantEntity( String name, String subname, String description, String phoneNumber, String location, String website, int photoSrc) {
+    public RestaurantEntity(String name, String subname, String description, String phoneNumber, String location, String website, int photoSrc) {
         this.name = name;
         this.subname = subname;
         this.description = description;
@@ -46,11 +58,11 @@ public class RestaurantEntity implements RestaurantModel {
 
     @Override
     public int getId() {
-        return Id;
+        return id;
     }
 
     public void setId(int id) {
-        Id = id;
+        this.id = id;
     }
 
     @Override

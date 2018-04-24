@@ -60,10 +60,7 @@ public class RestaurantMenuAdapter extends RecyclerView.Adapter<RestaurantMenuAd
 
     @Override
     public int getItemCount() {
-        if (mDataset != null)
-            return mDataset.size();
-        else return 0;
-
+        return mDataset == null ? 0 : mDataset.size();
     }
 
     public void setProductList(final List<? extends MenuModel> menuList) {

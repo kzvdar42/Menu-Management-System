@@ -10,6 +10,8 @@ import android.view.View;
 import android.widget.RadioButton;
 import android.widget.TextView;
 
+import java.util.Objects;
+
 public class SendNotificationActivity extends AppCompatActivity {
 
     @Override
@@ -27,7 +29,7 @@ public class SendNotificationActivity extends AppCompatActivity {
                 finish();
             }
         });
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
     }
 
     public void onClick(View v) {

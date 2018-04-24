@@ -10,7 +10,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-public class RecycleListFragment extends Fragment {
+import com.example.kzvda.menumanagementsystem.ViewModel.ViewModel;
+
+public class RestaurantListFragment extends Fragment {
 
     protected RecyclerView mRecyclerView;
     protected RestaurantListAdapter mAdapter;
@@ -35,7 +37,8 @@ public class RecycleListFragment extends Fragment {
 
         mAdapter = new RestaurantListAdapter(getResources());
         mRecyclerView.setAdapter(mAdapter);
-        ViewModel mViewModel = ViewModelProviders.of(this).get(ViewModel.class);
+
+        ViewModel mViewModel = ViewModelProviders.of(getActivity()).get(ViewModel.class);
         mViewModel.getRestaurantsList().observe(this, words -> {
             mAdapter.setProductList(words);
         });

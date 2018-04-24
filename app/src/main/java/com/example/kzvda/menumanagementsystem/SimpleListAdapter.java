@@ -13,8 +13,7 @@ public class SimpleListAdapter extends RecyclerView.Adapter<SimpleListAdapter.Vi
 
     private LinkedList<Object[]> mDataset;
 
-    public static class ViewHolder extends RecyclerView.ViewHolder {
-        // each data item is just a string in this case
+    static class ViewHolder extends RecyclerView.ViewHolder {
         private TextView mName;
 
         private ViewHolder(RelativeLayout v) {
@@ -24,16 +23,14 @@ public class SimpleListAdapter extends RecyclerView.Adapter<SimpleListAdapter.Vi
         }
     }
 
-    public SimpleListAdapter(LinkedList<Object[]> mDataset) {
+    SimpleListAdapter(LinkedList<Object[]> mDataset) {
         this.mDataset = mDataset;
     }
 
 
-    // Create new views (invoked by the layout manager)
     @NonNull
     @Override
     public SimpleListAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        // create a new view
         RelativeLayout v = (RelativeLayout) LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.simple_recycle_view_item, parent, false);
         return new SimpleListAdapter.ViewHolder(v);
@@ -41,8 +38,6 @@ public class SimpleListAdapter extends RecyclerView.Adapter<SimpleListAdapter.Vi
 
     @Override
     public void onBindViewHolder(@NonNull SimpleListAdapter.ViewHolder holder, int position) {
-        // - get element from your dataset at this position
-        // - replace the contents of the view with that element
         holder.mName.setText((int) mDataset.get(position)[0]);
         holder.itemView.setId((int) mDataset.get(position)[1]);
     }
