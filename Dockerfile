@@ -4,4 +4,3 @@ ADD . /mmu
 WORKDIR /mmu
 RUN pip install -r requirements.txt
 EXPOSE 5303
-CMD python -u app.py
