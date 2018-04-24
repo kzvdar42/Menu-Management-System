@@ -26,6 +26,7 @@ def is_available():
 
 @app.route('/api', methods=['POST'])
 def api_request():
+
     try:
         data = json.loads(request.data)
     except:
@@ -70,5 +71,5 @@ def pre_check():
 
 if __name__ == "__main__":
     pre_check()
-    app.run(host='0.0.0.0', port=5303, debug=True)
+    app.run(host='0.0.0.0', port=5303, debug=False)
 
