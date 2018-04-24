@@ -70,5 +70,5 @@ def pre_check():
 
 if __name__ == "__main__":
     pre_check()
-    app.run(host='0.0.0.0', port=5303, debug=False)
+    app.run(host='0.0.0.0', port=5303, debug=True)
 
