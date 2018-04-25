@@ -41,7 +41,7 @@ def rest_templates(data):
 
 
 def add_dish(data):
-    result = check_parameters_in_request(["rest_id", "dish_name", "description", "price", "onoff"])
+    result = check_parameters_in_request(["rest_id", "dish_name", "description", "price", "onoff"], data)
     if result is not None:
         return resp.value_not_exists(result)
 
@@ -49,7 +49,7 @@ def add_dish(data):
                                 data["dish_name"],
                                 data["description"],
                                 "",
-                                data["prce"],
+                                data["price"],
                                 data["onoff"])
     if res is False:
         return resp.error_response("500")
@@ -57,7 +57,7 @@ def add_dish(data):
 
 
 def set_dish_photo(data):
-    result = check_parameters_in_request(["dish_id", "photo_src"])
+    result = check_parameters_in_request(["dish_id", "photo_src"], data)
     if result is not None:
         return resp.value_not_exists(result)
     if db.set_dish_photo_src(data["dish_id"], data["photo_src"]):
@@ -67,7 +67,7 @@ def set_dish_photo(data):
 
 
 def set_dish_off(data):
-    result = check_parameters_in_request(["dish_id"])
+    result = check_parameters_in_request(["dish_id"], data)
     if result is not None:
         return resp.value_not_exists(result)
     if db.switch_dish_off(data["dish_id"]):
@@ -77,7 +77,7 @@ def set_dish_off(data):
 
 
 def set_dish_on(data):
-    result = check_parameters_in_request(["dish_id"])
+    result = check_parameters_in_request(["dish_id"], data)
     if result is not None:
         return resp.value_not_exists(result)
     if db.switch_dish_on(data["dish_id"]):

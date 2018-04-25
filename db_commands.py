@@ -523,7 +523,7 @@ def is_dish_on(dish_id):
 def get_rest_menu(rest_id):
     result = []
     try:
-        res = execute_command_fetchall("SELECT id, dish_name, description, photo_src, price "
+        res = execute_command_fetchall("SELECT id, dish_name, description, photo_src, price, onoff "
                                        "FROM dish "
                                        "WHERE rest_id = {} AND onoff = 1".format(rest_id))
         for dish in res:
@@ -532,7 +532,8 @@ def get_rest_menu(rest_id):
                            "dish_name": dish[1],
                            "description": dish[2],
                            "photo_src": dish[3],
-                           "price": dish[4]})
+                           "price": dish[4],
+                           "onoff": dish[5]})
     except Exception as e:
         print("Exception in get_rest_menu", e)
         return None
@@ -542,7 +543,7 @@ def get_rest_menu(rest_id):
 def get_rest_templates(rest_id):
     result = []
     try:
-        res = execute_command_fetchall("SELECT id, dish_name, description, photo_src, price "
+        res = execute_command_fetchall("SELECT id, dish_name, description, photo_src, price, onoff "
                                        "FROM dish "
                                        "WHERE rest_id = {} ".format(rest_id))
         for dish in res:
@@ -550,7 +551,8 @@ def get_rest_templates(rest_id):
                            "dish_name": dish[1],
                            "description": dish[2],
                            "photo_src": dish[3],
-                           "price": dish[4]})
+                           "price": dish[4],
+                           "onoff": dish[5]})
     except Exception as e:
         print("Exception in get_rest_menu", e)
         return None
