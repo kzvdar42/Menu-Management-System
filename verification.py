@@ -17,11 +17,13 @@ def registration(data):
     else:
         if not db.add_default_user(login, password):
             return s_resp.error_response("Exception in DB")
-    user_id = db.get_user_id(login)
-    if user_id is None or user_id is False:
-        return s_resp.error_response("id is not found")
+    if "phone_number" in data:
+        db.add_phone_num_to_user(login, data["phone_number"])
+    res = db.get_user_info(login)
+    if res is not False:
+        return s_resp.ok_response(parameters=res)
     else:
-        return s_resp.ok_response(parameters={"id": user_id})
+        return s_resp.error_response("User didn't found")
 
 
 def login(data):
@@ -32,28 +34,25 @@ def login(data):
     password = data["password"]
     if not db.is_user_exists(login):
         return s_resp.error_response("User doesn't exist")
-    if not db.check_user(login, password):
+    res = db.check_user(login, password)
+    if not res:
         return s_resp.error_response("Error password")
-    user_id = db.get_user_id(login)
-    if user_id is None or user_id is False:
-        return s_resp.error_response("id is not found")
-    if db.is_admin(user_id):
-        if not db.is_verified(user_id):
-            return s_resp.error_response("not verified")
-        else:
-            return s_resp.ok_response(parameters={"id": user_id, "admin": True})
-    return s_resp.ok_response(parameters={"id": user_id})
+    res = db.get_user_info(login)
+    if res is not False:
+        return s_resp.ok_response(parameters=res)
+    else:
+        return s_resp.error_response("User didn't found")
 
 
 def confirm_admin(data):
-    result = check_parameters_in_request(["id", "id_to_confirm"], data)
+    result = check_parameters_in_request(["login", "login_to_confirm"], data)
     if result is not None:
         return s_resp.value_not_exists(result)
-    id = data['id']
-    id_to_confirm = data['id_to_confirm']
-    if not db.is_moderator(id):
+    login = data['login']
+    login_to_confirm = data['login_to_confirm']
+    if not db.is_moderator(login):
         return s_resp.error_response("is not moderator")
-    if db.confirm_user(id_to_confirm):
+    if db.confirm_user(login_to_confirm):
         return s_resp.ok_response()
     else:
         return s_resp.error_response("Error in DB")

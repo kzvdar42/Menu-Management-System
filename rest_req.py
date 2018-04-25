@@ -3,6 +3,7 @@ import simple_responses as resp
 import json
 from checkers import check_parameters_in_request
 
+
 def rest_list():
     res = db.rest_list()
     result = {"result": "OK"}

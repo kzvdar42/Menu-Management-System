@@ -6,7 +6,7 @@ import time
 
 def create_connection():
     try:
-        conn = pymysql.connect("178.62.77.190", "usr", "12341234", "menuManagmentSystem", use_unicode=True, charset='utf8')
+        conn = pymysql.connect("178.62.77.190", "usr", "12341234", "mms", use_unicode=True, charset='utf8')
         return conn
     except Exception as e:
         print("ERROR in create connection:", e)
@@ -63,6 +63,17 @@ def add_default_user(login, password):
     return True
 
 
+def add_phone_num_to_user(login, phone_num):
+    try:
+        execute_command("UPDATE users "
+                        "SET phone_number = '{}' "
+                        "WHERE login = '{}'".format(phone_num, login))
+    except Exception as e:
+        print("Error in db.add_phone_num_to_user,", e)
+        return False
+    return True
+
+
 def add_admin_user(login, password):
     try:
         execute_command("INSERT INTO users(login, password, rights) "
@@ -83,6 +94,26 @@ def add_moderator_user(login, password):
     return True
 
 
+def get_user_info(login):
+    result = dict()
+    try:
+        res = execute_command("SELECT * "
+                              "FROM users "
+                              "WHERE login = '{}'".format(login))
+        if len(res) > 1:
+            result["login"] = res[0]
+            result["configrmed"] = res[2]
+            result["rights"] = res[3]
+            result["rest"] = res[4]
+            result["phone_num"] = res[5]
+            return result
+        else:
+            return False
+    except Exception as e:
+        print("Exception in get_user_info", e)
+        return False
+
+
 def is_user_exists(login):
     try:
         res = execute_command("SElECT * "
@@ -99,7 +130,11 @@ def check_user(login, password):
         res = execute_command("SELECT * "
                               "FROM users "
                               "WHERE login = '{}' AND password = '{}'".format(login, password))
-        return len(res) > 0
+        if len(res) > 0:
+            result = {"confirmed": res[2], "rights": res[3], "rest": res[4], "phone_number": res[5]}
+            return result
+        else:
+            return False
     except Exception as e:
         print("Error in check_user:", e)
         return False
@@ -119,11 +154,11 @@ def get_user_id(login):
         return False
 
 
-def confirm_user(id):
+def confirm_user(login):
     try:
         execute_command("UPDATE users "
                         "SET confirmed = TRUE "
-                        "WHERE id = {} ".format(id))
+                        "WHERE login = '{}' ".format(login))
 
     except Exception as e:
         print("ERROR in confirm user:", e)
@@ -131,11 +166,11 @@ def confirm_user(id):
     return True
 
 
-def is_admin(id):
+def is_admin(login):
     try:
         res = execute_command("SELECT id "
                               "FROM users "
-                              "WHERE id = {} AND rights = 1".format(id))
+                              "WHERE login = {} AND rights = 1".format(login))
         if res is not None and res[0] == id:
             return True
     except Exception as e:
@@ -144,12 +179,12 @@ def is_admin(id):
     return False
 
 
-def is_moderator(id):
+def is_moderator(login):
     try:
-        res = execute_command("SELECT id "
+        res = execute_command("SELECT login "
                               "FROM users "
-                              "WHERE id = {} AND rights = 2".format(id))
-        if res is not None and res[0] == id:
+                              "WHERE login = {} AND rights = 2".format(login))
+        if res is not None and res[0] == login:
             return True
     except Exception as e:
         print("ERROR in is_moderator:", e)
@@ -157,12 +192,12 @@ def is_moderator(id):
     return False
 
 
-def is_verified(id):
+def is_verified(login):
     try:
-        res = execute_command("SELECT id "
+        res = execute_command("SELECT login "
                               "FROM users "
-                              "WHERE id = {} AND rights = 1 AND confirmed = 1".format(id))
-        if res is not None and res[0] == id:
+                              "WHERE login = {} AND rights = 1 AND confirmed = 1".format(login))
+        if res is not None and res[0] == login:
             return True
     except Exception as e:
         print("ERROR in is_admin:", e)
@@ -348,7 +383,6 @@ def remove_photo_from_rest(src):
         execute_command("UPDATE photos "
                         "SET rest_id = NULL "
                         "WHERE src = '{}'".format(src))
-
     except Exception as e:
         print("ERROR in remove_photo_from_rest:", e)
         return False
@@ -501,8 +535,7 @@ def get_rest_menu(rest_id):
                            "dish_name": dish[1],
                            "description": dish[2],
                            "photo_src": dish[3],
-                           "price": dish[4],
-                           "onoff": 1})
+                           "price": dish[4]})
     except Exception as e:
         print("Exception in get_rest_menu", e)
         return None
@@ -512,7 +545,7 @@ def get_rest_menu(rest_id):
 def get_rest_templates(rest_id):
     result = []
     try:
-        res = execute_command_fetchall("SELECT id, dish_name, description, photo_src, price, onoff "
+        res = execute_command_fetchall("SELECT id, dish_name, description, photo_src, price "
                                        "FROM dish "
                                        "WHERE rest_id = {} ".format(rest_id))
         for dish in res:
@@ -520,8 +553,7 @@ def get_rest_templates(rest_id):
                            "dish_name": dish[1],
                            "description": dish[2],
                            "photo_src": dish[3],
-                           "price": dish[4],
-                           "onoff": dish[5]})
+                           "price": dish[4]})
     except Exception as e:
         print("Exception in get_rest_menu", e)
         return None
