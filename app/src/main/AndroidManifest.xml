@@ -2,7 +2,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.kzvda.menumanagementsystem">
 
-    <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.INTERNET" />
 
     <application
         android:allowBackup="true"
@@ -12,7 +12,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name=".MainActivity"
+            android:name=".activity.MainActivity"
             android:theme="@style/AppTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -21,20 +21,24 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".RestaurantMenuActivity"
+            android:name=".activity.RestaurantMenuActivity"
             android:theme="@style/AppTheme" />
-        <activity android:name=".RestaurantInfoActivity" />
+        <activity android:name=".activity.RestaurantInfoActivity" />
         <activity
-            android:name=".RegistrationActivity"
+            android:name=".activity.RegistrationActivity"
             android:theme="@style/AppTheme" />
-        <activity android:name=".ChangePersonalInfoActivity" />
-        <activity android:name=".SendNotificationActivity" />
-        <activity android:name=".EditRestaurantInformationActivity" />
+        <activity android:name=".activity.ChangePersonalInfoActivity" />
+        <activity android:name=".activity.SendNotificationActivity" />
+        <activity android:name=".activity.EditRestaurantInformationActivity" />
         <activity
-            android:name=".ChangeMenuActivity"
+            android:name=".activity.ChangeMenuActivity"
             android:theme="@style/AppTheme" />
-        <activity android:name=".ManageTemplatesActivity" />
-        <activity android:name=".NewDishActivity" />
+        <activity android:name=".activity.ManageTemplatesActivity" />
+        <activity android:name=".activity.NewDishActivity" />
+        <activity android:name=".activity.ManageActivity" />
+        <activity android:name=".activity.ManageUsersActivity" />
+        <activity android:name=".activity.ManageUsersAccountsActivity" />
+        <activity android:name=".activity.SupportActivity" />
     </application>
 
 </manifest>

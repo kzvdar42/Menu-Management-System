@@ -24,8 +24,14 @@ public interface MenuDao {
     @Insert
     void insert(MenuEntity... dishes);
 
+    @Insert
+    void insertList(List<MenuEntity> dishes);
+
     @Delete
     void delete(MenuEntity dish);
+
+    @Query("DELETE FROM MenuEntity WHERE restaurantId = :id")
+    void deleteAllFromRest(int id);
 
     @Query("DELETE FROM MenuEntity")
     void deleteAll();

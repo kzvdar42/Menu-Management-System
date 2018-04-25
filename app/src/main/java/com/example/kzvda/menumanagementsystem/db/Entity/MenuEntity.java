@@ -3,6 +3,7 @@ package com.example.kzvda.menumanagementsystem.db.Entity;
 import android.arch.persistence.room.ColumnInfo;
 import android.arch.persistence.room.Entity;
 import android.arch.persistence.room.ForeignKey;
+import android.arch.persistence.room.Ignore;
 import android.arch.persistence.room.PrimaryKey;
 
 import com.example.kzvda.menumanagementsystem.db.Model.MenuModel;
@@ -31,6 +32,17 @@ public class MenuEntity implements MenuModel {
     private boolean shown;
 
     public MenuEntity(int restaurantId, String name, String description, int photoSrc, int price, boolean shown) {
+        this.restaurantId = restaurantId;
+        this.name = name;
+        this.description = description;
+        this.photoSrc = photoSrc;
+        this.price = price;
+        this.shown = shown;
+    }
+
+    @Ignore
+    public MenuEntity(int dishId, int restaurantId, String name, String description, int photoSrc, int price, boolean shown) {
+        this.dishId = dishId;
         this.restaurantId = restaurantId;
         this.name = name;
         this.description = description;

@@ -77,4 +77,24 @@ public class Repository {
         }
     }
 
+    public void updateRestaurantMenu(List<MenuEntity> menuList) {
+        new updateMenuAsyncTask(mMenuDao).execute(menuList);
+    }
+
+    private static class updateMenuAsyncTask extends AsyncTask<List<MenuEntity>, Void, Void> {
+
+        private MenuDao mAsyncTaskDao;
+
+        updateMenuAsyncTask(MenuDao dao) {
+            mAsyncTaskDao = dao;
+        }
+
+        @Override
+        protected Void doInBackground(final List<MenuEntity>... params) {
+            mAsyncTaskDao.deleteAllFromRest(params[0].get(0).getRestaurantId());
+            mAsyncTaskDao.insertList(params[0]);
+            return null;
+        }
+    }
+
 }

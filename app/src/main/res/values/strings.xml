@@ -93,4 +93,10 @@
     <string name="update">Update</string>
 
 
+    #Manage
+    <string name="users">Users</string>
+    <string name="restaurants">Restaurants</string>
+    <string name="new_report">New report</string>
+
+
 </resources>
