@@ -355,6 +355,30 @@ def remove_photo_from_rest(src):
     return True
 
 
+def add_dish_fully(rest_id, name, description, photo_src, price, onoff):
+    try:
+        execute_command("INSERT INTO dish(rest_id, dish_name, description, photo_src, price, onoff) "
+                        "VALUES({}, '{}', '{}', '{}', {}, {})".format(rest_id,
+                                                                         name,
+                                                                         description,
+                                                                         photo_src,
+                                                                         price,
+                                                                         onoff))
+
+        res = execute_command("SELECT (id) "
+                              "FROM dish "
+                              "WHERE rest_id = {} AND dish_name = '{}' AND price = {}".format(rest_id,
+                                                                                                name,
+                                                                                                price))
+        if res is not None:
+            return True, res[0]
+        else:
+            return False
+    except Exception as e:
+        print("ERROR in add_dish_fully:", e)
+        return False
+
+
 def add_dish(rest_id):
     try:
         execute_command("INSERT INTO dish(rest_id) "
@@ -369,7 +393,6 @@ def add_dish(rest_id):
     except Exception as e:
         print("ERROR in add_dish:", e)
         return False
-    return True
 
 
 def is_dish_owner(rest_id, dish_id):
@@ -474,6 +497,7 @@ def get_rest_menu(rest_id):
                                        "WHERE rest_id = {} AND onoff = 1".format(rest_id))
         for dish in res:
             result.append({"id": dish[0],
+                           "rest_id": rest_id,
                            "dish_name": dish[1],
                            "description": dish[2],
                            "photo_src": dish[3],

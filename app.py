@@ -50,6 +50,8 @@ def api_request():
         return delete_account(data)
     elif data["type"] == "confirm_admin":
         return confirm_admin(data)
+    elif data["type"] == "add_dish":
+        return json.dumps({"result": "ok"}), 200
     else:
         return s_resp.error_response("Unknown")
 
