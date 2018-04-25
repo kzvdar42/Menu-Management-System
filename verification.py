@@ -4,10 +4,10 @@ import db_commands as db
 
 
 def registration(data):
-    result = check_parameters_in_request(["phone_number", "password"], data)
+    result = check_parameters_in_request(["login", "password"], data)
     if result is not None:
         return s_resp.value_not_exists(result)
-    login = data["phone_number"]
+    login = data["login"]
     password = data["password"]
     if db.is_user_exists(login):
         return s_resp.error_response("User already exists")

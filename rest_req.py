@@ -37,3 +37,18 @@ def rest_templates(data):
         return json.dumps(result)
     else:
         return resp.error_response()
+
+
+def add_dish(data):
+    result = check_parameters_in_request(["rest_id", "dish_name", "description", "photo_src", "price", "onoff"])
+    if result is not None:
+        return resp.value_not_exists(result)
+    res, id = db.add_dish_fully(data["rest_id"],
+                           data["dish_name"],
+                           data["description"],
+                           data["photo_src"],
+                           data["prce"],
+                           data["onoff"])
+    if res is False:
+        return resp.error_response("500")
+    return resp.ok_response(parameters={"dish_id": id})
