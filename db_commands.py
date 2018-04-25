@@ -208,20 +208,19 @@ def is_verified(login):
 def rest_list():
     result = []
     try:
-        res = execute_command_fetchall("SELECT id, owner_id, rest_name, sub_name, description, phone_num, location, web_site, open_time, close_time, main_photo_src "
-                              "FROM rest")
+        res = execute_command_fetchall("SELECT id, rest_name, sub_name, description, phone_num, location, web_site, open_time, close_time, main_photo_src "
+                                       "FROM rest")
         for rest in res:
             result.append({'id': rest[0],
-                           "owner_id": rest[1],
-                           "rest_name": rest[2],
-                           "sub_name": rest[3],
-                           "description": rest[4],
-                           "phone_num": rest[5],
-                           "location": rest[6],
-                           "web_site": rest[7],
-                           "open_time": rest[8],
-                           "close_time": rest[9],
-                           "main_photo_src": rest[10]})
+                           "rest_name": rest[1],
+                           "sub_name": rest[2],
+                           "description": rest[3],
+                           "phone_num": rest[4],
+                           "location": rest[5],
+                           "web_site": rest[6],
+                           "open_time": rest[7],
+                           "close_time": rest[8],
+                           "main_photo_src": rest[9]})
     except Exception as e:
         print("Exception in rest_list", e)
         return None

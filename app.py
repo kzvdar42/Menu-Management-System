@@ -5,6 +5,7 @@ import json
 from verification import registration, login, delete_account, confirm_admin
 
 from rest_req import rest_list, rest_menu, rest_templates
+import rest_req
 import db_commands as db
 import simple_responses as s_resp
 import random
@@ -51,7 +52,13 @@ def api_request():
     elif data["type"] == "confirm_admin":
         return confirm_admin(data)
     elif data["type"] == "add_dish":
-        return json.dumps({"result": "ok"}), 200
+        return rest_req.add_dish(data)
+    elif data["type"] == "set_dish_photo":
+        return rest_req.set_dish_photo(data)
+    elif data["type"] == "set_dish_on":
+        return rest_req.set_dish_on(data)
+    elif data["type"] == "set_dish_off":
+        return rest_req.set_dish_off(data)
     else:
         return s_resp.error_response("Unknown")
 
