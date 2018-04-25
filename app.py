@@ -3,7 +3,8 @@ from flask_cors import CORS
 import os
 import json
 from verification import registration, login, delete_account, confirm_admin
-from rest_req import rest_list, rest_menu
+
+from rest_req import rest_list, rest_menu, rest_templates
 import db_commands as db
 import simple_responses as s_resp
 import random
@@ -43,6 +44,8 @@ def api_request():
         return rest_list()
     elif data["type"] == "rest_menu":
         return rest_menu(data)
+    elif data["type"] == "rest_templates":
+        return rest_templates(data)
     elif data["type"] == "delete_acc":
         return delete_account(data)
     elif data["type"] == "confirm_admin":

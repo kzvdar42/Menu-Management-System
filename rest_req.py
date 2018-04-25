@@ -24,3 +24,16 @@ def rest_menu(data):
         return json.dumps(result)
     else:
         return resp.error_response()
+
+
+def rest_templates(data):
+    result = check_parameters_in_request(["id"], data)
+    if result is not None:
+        return resp.value_not_exists(result)
+    res = db.get_rest_templates(data["id"])
+    result = {"result": "OK"}
+    if res is not None:
+        result["rest_menu"] = res
+        return json.dumps(result)
+    else:
+        return resp.error_response()

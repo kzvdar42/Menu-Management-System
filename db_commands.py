@@ -483,3 +483,21 @@ def get_rest_menu(rest_id):
         return None
     return result
 
+
+def get_rest_templates(rest_id):
+    result = []
+    try:
+        res = execute_command_fetchall("SELECT id, dish_name, description, photo_src, price "
+                                       "FROM dish "
+                                       "WHERE rest_id = {} ".format(rest_id))
+        for dish in res:
+            result.append({"id": dish[0],
+                           "dish_name": dish[1],
+                           "description": dish[2],
+                           "photo_src": dish[3],
+                           "price": dish[4]})
+    except Exception as e:
+        print("Exception in get_rest_menu", e)
+        return None
+    return result
+
