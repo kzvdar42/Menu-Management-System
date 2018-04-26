@@ -1,0 +1,17 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Uploads</title>
+</head>
+<body>
+    <h1>Upload photo</h1>
+    <form action="/api/upload_photo" method="POST" enctype="multipart/form-data" accept="">
+        photo
+        <input type="file" name="photo">
+        user_id
+        <input type="text" name="user_id">
+        <button type="submit">Upload</button>
+    </form>
+</body>
+</html>

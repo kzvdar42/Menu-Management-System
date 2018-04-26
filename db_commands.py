@@ -355,8 +355,8 @@ def set_rest_main_photo_src(rest_id, main_photo_src):
 
 def add_photo(owner_id, src):
     try:
-        execute_command("INSERT INTO photos(owner_id, src) "
-                        "VALUES({}, '{}')".format(owner_id, src))
+        execute_command("INSERT INTO photos(owner_login, src) "
+                        "VALUES('{}', '{}')".format(owner_id, src))
 
     except Exception as e:
         print("ERROR in add_photo:", e)
@@ -432,6 +432,7 @@ def add_dish_fully(rest_id, name, description, photo_src, price, onoff):
         if res is not None:
             return True, res[0]
         else:
+            print("Error in getting dish_id")
             return False
     except Exception as e:
         print("ERROR in add_dish_fully:", e)

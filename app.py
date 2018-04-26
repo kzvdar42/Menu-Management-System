@@ -26,6 +26,11 @@ def is_available():
     return Response(response=json.dumps({"result": True, "status": "200"}), status=200)
 
 
+@app.route('/upload', methods=['GET'])
+def upload():
+    return send_from_directory('.', 'upload.html')
+
+
 @app.route('/api', methods=['POST'])
 def api_request():
 
@@ -69,10 +74,10 @@ def api_request():
 
 @app.route('/api/upload_photo', methods=['POST'])
 def upload_photo():
-    photo = request.files["photo"]
+    file = request.files["photo"]
     user_id = request.form["user_id"]
     name = get_new_name()
-    photo.save(os.path.join(".", "data", name))
+    file.save(os.path.join(".", "data", name))
     db.add_photo(user_id, name)
     return s_resp.ok_response()
 
@@ -83,6 +88,7 @@ def get_new_name():
 
 def pre_check():
     if not os.path.exists(os.path.join(".", "data")):
+        print("make dir data")
         os.makedirs(os.path.join(".", "data"))
 
 if __name__ == "__main__":
