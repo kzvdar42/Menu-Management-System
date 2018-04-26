@@ -62,6 +62,8 @@ def api_request():
         return rest_req.add_dish(data)
     elif data["type"] == "set_dish_photo":
         return rest_req.set_dish_photo(data)
+    elif data["type"] == "set_rest_photo":
+        return rest_req.set_rest_photo(data)
     elif data["type"] == "set_dish_on":
         return rest_req.set_dish_on(data)
     elif data["type"] == "set_dish_off":

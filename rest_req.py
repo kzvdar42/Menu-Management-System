@@ -82,6 +82,16 @@ def set_dish_photo(data):
         return resp.error_response()
 
 
+def set_rest_photo(data):
+    result = check_parameters_in_request(["rest_id", "photo_src"], data)
+    if result is not None:
+        return resp.value_not_exists(result)
+    if db.set_rest_main_photo_src(data["rest_id"], data["photo_src"]):
+        return resp.ok_response()
+    else:
+        return resp.error_response()
+
+
 def set_dish_off(data):
     result = check_parameters_in_request(["dish_id"], data)
     if result is not None:
