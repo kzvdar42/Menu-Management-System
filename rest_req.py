@@ -56,6 +56,22 @@ def add_dish(data):
     return resp.ok_response(parameters={"dish_id": id})
 
 
+def update_dish(data):
+    result = check_parameters_in_request(["dish_id", "rest_id", "dish_name", "description", "price", "onoff"], data)
+    if result is not None:
+        return resp.value_not_exists(result)
+
+    res, id = db.update_dish_fully(data["dish_id"],
+                                   data["rest_id"],
+                                   data["dish_name"],
+                                   data["description"],
+                                   data["price"],
+                                   data["onoff"])
+    if res is False:
+        return resp.error_response("500")
+    return resp.ok_response(parameters={"dish_id": id})
+
+
 def set_dish_photo(data):
     result = check_parameters_in_request(["dish_id", "photo_src"], data)
     if result is not None:

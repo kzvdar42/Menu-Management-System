@@ -386,6 +386,22 @@ def remove_photo_from_rest(src):
     return True
 
 
+def update_dish_fully(dish_id, rest_id, name, description, price, onoff):
+    try:
+        execute_command("UPDATE dish "
+                        "SET rest_id = {}, dish_name = '{}', description = '{}', price = {}, onoff = {} "
+                        "WHERE id = {}".format(rest_id,
+                                                    name,
+                                                    description,
+                                                    price,
+                                                    onoff,
+                                                    dish_id))
+        return True, dish_id
+    except Exception as e:
+        print("ERROR in update_dish_fully:", e)
+        return False
+
+
 def add_dish_fully(rest_id, name, description, photo_src, price, onoff):
     try:
         execute_command("INSERT INTO dish(rest_id, dish_name, description, photo_src, price, onoff) "
@@ -548,6 +564,7 @@ def get_rest_templates(rest_id):
                                        "WHERE rest_id = {} ".format(rest_id))
         for dish in res:
             result.append({"id": dish[0],
+                           "rest_id": rest_id,
                            "dish_name": dish[1],
                            "description": dish[2],
                            "photo_src": dish[3],
