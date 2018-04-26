@@ -129,12 +129,15 @@ public class MainActivity extends AppCompatActivity {
                 break;
             case R.id.restaurant_list_item:
                 mViewModel.getRestaurantsList().observe(this, restaurants -> {
-                    int itemPosition = ((RestaurantListFragment) currentFragment).mRecyclerView.getChildAdapterPosition(v);
-                    RestaurantEntity restaurant = restaurants.get(itemPosition);
-                    Intent i = new Intent(this, RestaurantMenuActivity.class);
-                    i.putExtra(MainActivity.EXTRA_MESSAGE, restaurant.getId());
-                    i.putExtra("restaurantName", restaurant.getName());
-                    startActivity(i);
+                    try {
+                        int itemPosition = ((RestaurantListFragment) currentFragment).mRecyclerView.getChildAdapterPosition(v);
+                        RestaurantEntity restaurant = restaurants.get(itemPosition);
+                        Intent i = new Intent(this, RestaurantMenuActivity.class);
+                        i.putExtra(MainActivity.EXTRA_MESSAGE, restaurant.getId());
+                        i.putExtra("restaurantName", restaurant.getName());
+                        startActivity(i);
+                    } catch (Exception e) {
+                    }
                 });
                 break;
             case R.id.settings_change_personal_info:
@@ -241,12 +244,12 @@ public class MainActivity extends AppCompatActivity {
         drawerToggle.onConfigurationChanged(newConfig);
     }
 
-//    @Override
-//    protected void onPostResume() {
-//        super.onPostResume();
-//        mViewModel.downloadRestaurants();
-//    }
 
+    @Override
+    protected void onPostResume() {
+        super.onPostResume();
+        mViewModel.downloadRestaurants();
+    }
 }
 
 
