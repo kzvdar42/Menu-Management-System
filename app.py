@@ -70,6 +70,11 @@ def api_request():
         return rest_req.update_dish(data)
     elif data["type"] == "delete_dish":
         return rest_req.delete_dish(data)
+    elif data["type"] == "get_users":
+        return get_users()
+    elif data["type"] == "get_managers":
+        return get_managers()
+
     else:
         return s_resp.error_response("Unknown request type")
 

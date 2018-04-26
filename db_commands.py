@@ -215,6 +215,34 @@ def is_moderator(login):
     return False
 
 
+def get_users():
+    result = []
+    try:
+        res = execute_command_fetchall("SELECT login, phone_number "
+                              "FROM users "
+                              "WHERE rights = 0")
+        for usr in res:
+            result.append({"login": usr[0], "phone_number": usr[1]})
+        return result
+    except Exception as e:
+        print("Exception in get_users ", e)
+        return False
+
+
+def get_managers():
+    result = []
+    try:
+        res = execute_command_fetchall("SELECT login, phone_number, confirmed "
+                                       "FROM users "
+                                       "WHERE rights = 1")
+        for usr in res:
+            result.append({"login": usr[0], "phone_number": usr[1], "verified": usr[2]})
+        return result
+    except Exception as e:
+        print("Exception in get_users ", e)
+        return False
+
+
 def is_verified(login):
     try:
         res = execute_command("SELECT login "

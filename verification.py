@@ -93,3 +93,18 @@ def delete_account(data):
     else:
         return s_resp.error_response()
 
+
+def get_users():
+    result = db.get_users()
+    if result is not None:
+        return s_resp.ok_response(result)
+    else:
+        return s_resp.error_response()
+
+
+def get_managers():
+    result = db.get_managers()
+    if result is not None:
+        return s_resp.ok_response(result)
+    else:
+        return s_resp.error_response()
