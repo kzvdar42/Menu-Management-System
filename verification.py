@@ -62,8 +62,14 @@ def change_personal_info(data):
     result = check_parameters_in_request(["login"], data)
     if result is not None:
         return s_resp.value_not_exists(result)
+    if not db.is_user_exists(data["login"]):
+        return s_resp.error_response("User doesn't exists")
+
     if "phone_number" in data:
         if not db.add_phone_num_to_user(data['login'], data['phone_number']):
+            pass
+    if "password" in data:
+        if not db.change_password(data['login'], data['password']):
             pass
     if "new_login" in data:
         if db.is_user_exists(data["new_login"]):

@@ -376,6 +376,17 @@ def set_rest_main_photo_src(rest_id, main_photo_src):
     return True
 
 
+def change_password(login, password):
+    try:
+        execute_command("UPDATE users "
+                        "SET password = '{}' "
+                        "WHERE login = '{}' ".format(password, login))
+        return True
+    except Exception as e:
+        print("Error in change password", e)
+        return False
+
+
 def add_photo(src):
     try:
         execute_command("INSERT INTO photos(src) "
