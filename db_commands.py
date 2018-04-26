@@ -402,6 +402,18 @@ def update_dish_fully(dish_id, rest_id, name, description, price, onoff):
         return False
 
 
+def delete_dish(dish_id):
+    try:
+        execute_command("DELETE "
+                        "FROM dish "
+                        "WHERE id = {} ".format(dish_id))
+
+        return True
+    except Exception as e:
+        print("ERROR in delete dish:", e)
+        return False
+
+
 def add_dish_fully(rest_id, name, description, photo_src, price, onoff):
     try:
         execute_command("INSERT INTO dish(rest_id, dish_name, description, photo_src, price, onoff) "

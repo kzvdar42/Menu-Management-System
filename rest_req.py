@@ -101,3 +101,12 @@ def set_dish_on(data):
     else:
         return resp.error_response()
 
+
+def delete_dish(data):
+    result = check_parameters_in_request(["dish_id"], data)
+    if result is not None:
+        return resp.value_not_exists(result)
+    if db.delete_dish(data["dish_id"]):
+        return resp.ok_response()
+    else:
+        return resp.error_response()
