@@ -99,4 +99,9 @@
     <string name="new_report">New report</string>
 
 
+    <string name="restaurant_image">Restaurant Image</string>
+    <string name="dish_image">Dish Image</string>
+    <string name="something_is_wrong">Something is wrong…\n</string>
+    <string name="ruble"> ₽</string>
+    <string name="delete">Delete</string>
 </resources>

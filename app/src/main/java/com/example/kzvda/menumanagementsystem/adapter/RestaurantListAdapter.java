@@ -79,7 +79,7 @@ public class RestaurantListAdapter extends RecyclerView.Adapter<RestaurantListAd
         return mDataset == null ? 0 : mDataset.size();
     }
 
-    public static Bitmap drawableToBitmap(Drawable drawable) {
+    private static Bitmap drawableToBitmap(Drawable drawable) {
         Bitmap bitmap;
 
         if (drawable instanceof BitmapDrawable) {

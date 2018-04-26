@@ -5,6 +5,7 @@ import android.arch.lifecycle.AndroidViewModel;
 import android.support.annotation.NonNull;
 
 import com.example.kzvda.menumanagementsystem.serverApi.Interfaces.ServerApi;
+import com.example.kzvda.menumanagementsystem.serverApi.Models.LoginModel;
 import com.example.kzvda.menumanagementsystem.serverApi.Models.RegistrationModel;
 import com.example.kzvda.menumanagementsystem.serverApi.RequestBodies.RegRequest;
 import com.example.kzvda.menumanagementsystem.serverApi.RetrofitInstance;
@@ -22,5 +23,9 @@ public class RegistrationViewModel<View> extends AndroidViewModel {
 
     public Call<RegistrationModel> register(RegRequest regRequest) {
         return serverApi.register(regRequest);
+    }
+
+    public Call<LoginModel> login(RegRequest regRequest) {
+        return serverApi.login(regRequest);
     }
 }

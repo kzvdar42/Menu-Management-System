@@ -1,56 +1,65 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/settings_fragment"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    tools:context=".activity.ManageUsersActivity">
+    android:layout_height="match_parent"
+    android:orientation="vertical">
 
-    <LinearLayout
+    <include layout="@layout/toolbar" />
+
+    <ScrollView
+        android:id="@+id/settings_fragment"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:divider="@color/colorPrimaryDark">
+        tools:context=".activity.ManageUsersActivity">
 
-        <RelativeLayout
-            android:id="@+id/manage_accounts"
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:onClick="onClick"
-            android:theme="@style/AppTheme.recycleViewItem">
+            android:divider="@color/colorPrimaryDark"
+            android:orientation="vertical">
 
-            <TextView
-                android:id="@+id/manage_accounts_text"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentStart="true"
-                android:text="@string/change_personal_info"
-                android:theme="@style/AppTheme.recycleViewText" />
-
-
-        </RelativeLayout>
-
-        <RelativeLayout
-            android:id="@+id/send_notiication"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:onClick="onClick"
-            android:theme="@style/AppTheme.recycleViewItem">
-
-            <TextView
-                android:id="@+id/send_notiication_text"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentStart="true"
-                android:text="@string/support"
-                android:theme="@style/AppTheme.recycleViewText" />
-
-            <View
+            <RelativeLayout
+                android:id="@+id/manage_accounts"
                 android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:layout_below="@id/send_notiication_text"
-                android:background="?android:attr/listDivider" />
-        </RelativeLayout>
+                android:layout_height="wrap_content"
+                android:onClick="onClick"
+                android:theme="@style/AppTheme.recycleViewItem">
 
-    </LinearLayout>
-</ScrollView>
+                <TextView
+                    android:id="@+id/manage_accounts_text"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentStart="true"
+                    android:text="@string/change_personal_info"
+                    android:theme="@style/AppTheme.recycleViewText" />
+
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/send_notiication"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:onClick="onClick"
+                android:theme="@style/AppTheme.recycleViewItem">
+
+                <TextView
+                    android:id="@+id/send_notiication_text"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentStart="true"
+                    android:text="@string/support"
+                    android:theme="@style/AppTheme.recycleViewText" />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_below="@id/send_notiication_text"
+                    android:background="?android:attr/listDivider" />
+            </RelativeLayout>
+
+        </LinearLayout>
+    </ScrollView>
+</LinearLayout>
+

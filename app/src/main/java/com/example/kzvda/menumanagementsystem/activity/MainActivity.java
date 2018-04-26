@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.Configuration;
+import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.Fragment;
@@ -15,7 +16,6 @@ import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -23,8 +23,10 @@ import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.example.kzvda.menumanagementsystem.fragment.AdministratorPageFragment;
 import com.example.kzvda.menumanagementsystem.R;
+import com.example.kzvda.menumanagementsystem.db.Entity.RestaurantEntity;
+import com.example.kzvda.menumanagementsystem.fragment.AdministratorPageFragment;
+import com.example.kzvda.menumanagementsystem.fragment.ManageFragment;
 import com.example.kzvda.menumanagementsystem.fragment.RestaurantListFragment;
 import com.example.kzvda.menumanagementsystem.fragment.SettingsListFragment;
 import com.example.kzvda.menumanagementsystem.viewModel.MainViewModel;
@@ -65,7 +67,6 @@ public class MainActivity extends AppCompatActivity {
         sharedPref = this.getSharedPreferences("user", Context.MODE_PRIVATE);
         updateView();
         mViewModel = ViewModelProviders.of(this).get(MainViewModel.class);
-
         mViewModel.downloadRestaurants();
 
     }
@@ -88,6 +89,9 @@ public class MainActivity extends AppCompatActivity {
         switch (menuItem.getItemId()) {
             case R.id.nav_restaurants:
                 fragmentClass = RestaurantListFragment.class;
+                break;
+            case R.id.nav_manage:
+                fragmentClass = ManageFragment.class;
                 break;
             case R.id.nav_administrator_page:
                 fragmentClass = AdministratorPageFragment.class;
@@ -126,20 +130,22 @@ public class MainActivity extends AppCompatActivity {
             case R.id.restaurant_list_item:
                 mViewModel.getRestaurantsList().observe(this, restaurants -> {
                     int itemPosition = ((RestaurantListFragment) currentFragment).mRecyclerView.getChildAdapterPosition(v);
+                    RestaurantEntity restaurant = restaurants.get(itemPosition);
                     Intent i = new Intent(this, RestaurantMenuActivity.class);
-                    i.putExtra(MainActivity.EXTRA_MESSAGE, restaurants.get(itemPosition).getId());
+                    i.putExtra(MainActivity.EXTRA_MESSAGE, restaurant.getId());
+                    i.putExtra("restaurantName", restaurant.getName());
                     startActivity(i);
                 });
                 break;
-            case 1:
+            case R.id.settings_change_personal_info:
                 intent = new Intent(this, ChangePersonalInfoActivity.class);
                 startActivity(intent);
                 break;
-            case 3:
+            case R.id.settings_support:
                 intent = new Intent(this, SupportActivity.class);
                 startActivity(intent);
                 break;
-            case 4:
+            case R.id.settings_delete_account:
                 new AlertDialog.Builder(this)
                         .setTitle(getString(R.string.are_you_sure))
                         .setMessage(getString(R.string.delete_account_comfirmation))
@@ -153,7 +159,7 @@ public class MainActivity extends AppCompatActivity {
                         .setNegativeButton("No", null)
                         .show();
                 break;
-            case 5:
+            case R.id.settings_logout:
                 new AlertDialog.Builder(this)
                         .setTitle(getString(R.string.are_you_sure))
                         .setCancelable(true)
@@ -166,21 +172,27 @@ public class MainActivity extends AppCompatActivity {
                         .setNegativeButton("No", null)
                         .show();
                 break;
-            case 6:
+            case R.id.change_menu:
                 intent = new Intent(this, ChangeMenuActivity.class);
                 startActivity(intent);
                 break;
-            case 7:
+            case R.id.send_notification:
                 intent = new Intent(this, SendNotificationActivity.class);
                 startActivity(intent);
                 break;
-            case 8:
+            case R.id.edit_restaurant_info:
                 intent = new Intent(this, EditRestaurantInformationActivity.class);
                 startActivity(intent);
                 break;
-            case 9:
+            case R.id.manage_templates:
                 intent = new Intent(this, ManageTemplatesActivity.class);
                 startActivity(intent);
+                break;
+            case R.id.manage_users:
+                intent = new Intent(this, ManageUsersActivity.class);
+                startActivity(intent);
+                break;
+            case R.id.manage_restaurants:
                 break;
         }
     }
@@ -196,6 +208,7 @@ public class MainActivity extends AppCompatActivity {
         for (int i = 0; i < 4; i++) {
             menu.getItem(i).setVisible(DRAWER_MENU[usertype][i]);
         }
+        menu.getItem(1).setEnabled(sharedPref.getBoolean("verified", false));
     }
 
     @Override

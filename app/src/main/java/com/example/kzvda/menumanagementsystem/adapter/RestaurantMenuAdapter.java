@@ -54,7 +54,7 @@ public class RestaurantMenuAdapter extends RecyclerView.Adapter<RestaurantMenuAd
             holder.mImageView.setImageResource(currentDish.getPhotoSrc());
             holder.mName.setText(currentDish.getName());
             holder.mDescription.setText(currentDish.getDescription());
-            holder.mPrice.setText(currentDish.getPrice() + " P");
+            holder.mPrice.setText(currentDish.getPrice() + " \u20BD");
         }
 
     }

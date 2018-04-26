@@ -1,124 +1,104 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/settings_fragment"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:layout_height="wrap_content"
+    android:layout_below="@id/toolbar"
+    tools:context=".activity.MainActivity">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:onClick="onClick"
-        android:orientation="vertical"
-        android:theme="@style/AppTheme.recycleViewItem">
+        android:orientation="vertical">
 
         <RelativeLayout
-            android:id="@+id/settings_change_personal_info"
+            android:id="@+id/change_menu"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:onClick="onClick"
             android:theme="@style/AppTheme.recycleViewItem">
 
             <TextView
-                android:id="@+id/settings_change_personal_info_text"
+                android:id="@+id/change_menu_text"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_alignParentStart="true"
-                android:text="@string/change_personal_info"
+                android:text="@string/change_menu"
                 android:theme="@style/AppTheme.recycleViewText" />
 
             <View
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
-                android:layout_below="@id/settings_change_personal_info_text"
+                android:layout_below="@id/change_menu_text"
                 android:background="?android:attr/listDivider" />
+
 
         </RelativeLayout>
 
         <RelativeLayout
-            android:id="@+id/settings_notifications"
+            android:id="@+id/send_notification"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:onClick="onClick"
             android:theme="@style/AppTheme.recycleViewItem">
 
             <TextView
-                android:id="@+id/settings_notifications_text"
+                android:id="@+id/send_notification_text"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_alignParentStart="true"
-                android:text="@string/support"
+                android:text="@string/send_notification"
                 android:theme="@style/AppTheme.recycleViewText" />
 
             <View
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
-                android:layout_below="@id/settings_notifications_text"
+                android:layout_below="@id/send_notification_text"
                 android:background="?android:attr/listDivider" />
         </RelativeLayout>
 
         <RelativeLayout
-            android:id="@+id/settings_support"
+            android:id="@+id/edit_restaurant_info"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:onClick="onClick"
             android:theme="@style/AppTheme.recycleViewItem">
 
             <TextView
-                android:id="@+id/settings_support_text"
+                android:id="@+id/edit_restaurant_info_text"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_alignParentStart="true"
-                android:text="@string/support"
+                android:text="@string/edit_restaurant_info"
                 android:theme="@style/AppTheme.recycleViewText" />
 
             <View
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
-                android:layout_below="@id/settings_support_text"
+                android:layout_below="@id/edit_restaurant_info_text"
                 android:background="?android:attr/listDivider" />
         </RelativeLayout>
 
         <RelativeLayout
-            android:id="@+id/settings_delete_account"
+            android:id="@+id/manage_templates"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:onClick="onClick"
             android:theme="@style/AppTheme.recycleViewItem">
 
             <TextView
-                android:id="@+id/settings_delete_account_text"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_alignParentTop="true"
-                android:text="@string/delete_account"
-                android:theme="@style/AppTheme.recycleViewText" />
-
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:layout_below="@id/settings_delete_account_text"
-                android:background="?android:attr/listDivider" />
-        </RelativeLayout>
-
-        <RelativeLayout
-            android:id="@+id/settings_logout"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:onClick="onClick"
-            android:theme="@style/AppTheme.recycleViewItem">
-
-            <TextView
-                android:id="@+id/settings_logout_text"
+                android:id="@+id/manage_templates_text"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_alignParentStart="true"
-                android:text="@string/log_out"
+                android:text="@string/manage_templates"
                 android:theme="@style/AppTheme.recycleViewText" />
 
             <View
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
-                android:layout_below="@id/settings_logout_text"
+                android:layout_below="@id/manage_templates_text"
                 android:background="?android:attr/listDivider" />
         </RelativeLayout>
 

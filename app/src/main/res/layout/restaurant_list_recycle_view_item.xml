@@ -23,7 +23,8 @@
             android:layout_height="128dp"
             android:layout_weight="1"
             android:elevation="6dp"
-            android:padding="16dp" />
+            android:padding="16dp"
+            android:contentDescription="@string/restaurant_image" />
 
         <TextView
             android:id="@+id/restaurant_list_item_name"

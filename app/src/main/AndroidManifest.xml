@@ -35,10 +35,10 @@
             android:theme="@style/AppTheme" />
         <activity android:name=".activity.ManageTemplatesActivity" />
         <activity android:name=".activity.NewDishActivity" />
-        <activity android:name=".activity.ManageActivity" />
         <activity android:name=".activity.ManageUsersActivity" />
         <activity android:name=".activity.ManageUsersAccountsActivity" />
         <activity android:name=".activity.SupportActivity" />
+        <activity android:name=".activity.ChangeTemplateActivity"></activity>
     </application>
 
 </manifest>

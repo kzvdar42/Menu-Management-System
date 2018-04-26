@@ -10,7 +10,7 @@ import com.example.kzvda.menumanagementsystem.db.Model.MenuModel;
 
 @Entity()
 public class MenuEntity implements MenuModel {
-    @PrimaryKey(autoGenerate = true)
+    @PrimaryKey(autoGenerate = false)
     private int dishId;
 
     @ForeignKey(entity = RestaurantEntity.class, parentColumns = "id", childColumns = "restaurantId")

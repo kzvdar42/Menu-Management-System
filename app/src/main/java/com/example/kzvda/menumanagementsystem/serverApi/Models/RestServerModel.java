@@ -1,8 +1,9 @@
 package com.example.kzvda.menumanagementsystem.serverApi.Models;
 
-import java.util.List;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
+
+import java.util.List;
 
 public class RestServerModel {
 
@@ -11,7 +12,7 @@ public class RestServerModel {
     private String result;
     @SerializedName("rest_list")
     @Expose
-    private List<RestList> restList;
+    private List<RestList> restList = null;
 
     public String getResult() {
         return result;

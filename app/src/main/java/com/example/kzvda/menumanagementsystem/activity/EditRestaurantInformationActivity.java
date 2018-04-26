@@ -10,8 +10,8 @@ import android.view.View;
 import android.widget.EditText;
 
 import com.example.kzvda.menumanagementsystem.R;
-import com.example.kzvda.menumanagementsystem.viewModel.ViewModel;
 import com.example.kzvda.menumanagementsystem.db.Entity.RestaurantEntity;
+import com.example.kzvda.menumanagementsystem.viewModel.EditRestaurantInfoViewModel;
 
 import java.util.Objects;
 
@@ -19,7 +19,7 @@ public class EditRestaurantInformationActivity extends AppCompatActivity {
 
     RestaurantEntity restaurant;
     int restaurantId;
-    ViewModel mViewModel;
+    EditRestaurantInfoViewModel mViewModel;
     EditText restaurantName;
     EditText subtitle;
     EditText description;
@@ -43,7 +43,7 @@ public class EditRestaurantInformationActivity extends AppCompatActivity {
 
         SharedPreferences sharedPref = this.getSharedPreferences("user", Context.MODE_PRIVATE);
         restaurantId = sharedPref.getInt("restaurantId", 0);
-        mViewModel = ViewModelProviders.of(this).get(ViewModel.class);
+        mViewModel = ViewModelProviders.of(this).get(EditRestaurantInfoViewModel.class);
         mViewModel.getRestaurant(restaurantId).observe(this, restaurant -> {
             this.restaurant = restaurant;
             restaurantName.setText(restaurant.getName());

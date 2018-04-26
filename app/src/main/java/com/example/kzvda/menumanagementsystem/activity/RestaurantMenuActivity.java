@@ -26,11 +26,8 @@ public class RestaurantMenuActivity extends AppCompatActivity {
         Toolbar toolbar = findViewById(R.id.toolbar);
         Intent intent = getIntent();
         restaurantId = intent.getIntExtra(MainActivity.EXTRA_MESSAGE, 0);
-        MenuListViewModel mViewModel = ViewModelProviders.of(this).get(MenuListViewModel.class);
-        mViewModel.getRestaurant(restaurantId).observe(this, restaurant -> {
-            System.out.println(restaurant);
-            toolbar.setTitle(restaurant.getName());
-        });
+        String restaurantName = intent.getStringExtra("restaurantName");
+        toolbar.setTitle(restaurantName);
         setSupportActionBar(toolbar);
         toolbar.setNavigationOnClickListener(v -> finish());
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
@@ -43,6 +40,7 @@ public class RestaurantMenuActivity extends AppCompatActivity {
 
         mAdapter = new RestaurantMenuAdapter();
         mRecyclerView.setAdapter(mAdapter);
+        MenuListViewModel mViewModel = ViewModelProviders.of(this).get(MenuListViewModel.class);
         mViewModel.downloadMenu(restaurantId);
         mViewModel.getRestaurantMenu(restaurantId).observe(this, words -> {
             mAdapter.setProductList(words);

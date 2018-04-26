@@ -17,10 +17,11 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.kzvda.menumanagementsystem.R;
+import com.example.kzvda.menumanagementsystem.db.Entity.RestaurantEntity;
+import com.example.kzvda.menumanagementsystem.serverApi.Models.LoginModel;
 import com.example.kzvda.menumanagementsystem.serverApi.Models.RegistrationModel;
 import com.example.kzvda.menumanagementsystem.serverApi.RequestBodies.RegRequest;
 import com.example.kzvda.menumanagementsystem.viewModel.RegistrationViewModel;
-import com.example.kzvda.menumanagementsystem.db.Entity.RestaurantEntity;
 
 import java.util.List;
 import java.util.Objects;
@@ -76,35 +77,58 @@ public class RegistrationActivity extends AppCompatActivity {
         boolean isUser = isUserField.isChecked();
         boolean isRegister = findViewById(R.id.inputLayoutRepeatPassword).getVisibility() == View.VISIBLE;
         if (isRegister) {
-            RegRequest regRequest = (isUser) ? new RegRequest("registration", username, password) : new RegRequest("registration", username, password, phoneNumber);
-            mViewModel.register(regRequest).enqueue(new Callback<RegistrationModel>() {
+            if (checkInput()) {
+                RegRequest regRequest = (isUser) ? new RegRequest("registration", username, password) : new RegRequest("registration", username, password, phoneNumber);
+                mViewModel.register(regRequest).enqueue(new Callback<RegistrationModel>() {
+                    @Override
+                    public void onResponse(@NonNull Call<RegistrationModel> call, @NonNull Response<RegistrationModel> response) {
+                        if (response.body().getResult().equals("OK")) {
+                            registration(response.body().getId());
+                        } else {
+                            Toast.makeText(getApplication().getBaseContext(), "NO: " + response.body().getResult() + " " + response.body().getInfo(), Toast.LENGTH_LONG).show();
+                        }
+                    }
+
+                    @Override
+                    public void onFailure(@NonNull Call<RegistrationModel> call, @NonNull Throwable t) {
+                        Toast.makeText(getApplication().getBaseContext(), getString(R.string.something_is_wrong) + t.getMessage(), Toast.LENGTH_LONG).show();
+                    }
+                });
+            } else {
+                Toast.makeText(getApplication().getBaseContext(), "Incorrect input", Toast.LENGTH_LONG).show();
+            }
+
+        } else {
+            RegRequest regRequest = new RegRequest("login", username, password);
+            mViewModel.login(regRequest).enqueue(new Callback<LoginModel>() {
                 @Override
-                public void onResponse(@NonNull Call<RegistrationModel> call, @NonNull Response<RegistrationModel> response) {
-                    if (response.body().getResult().equals("OK")) {
-                        registration(response.body().getId());
-                        Toast.makeText(getApplication().getBaseContext(), response.body().getResult() + " " + response.body().getInfo() + " " + response.body().getResult(), Toast.LENGTH_LONG).show();
+                public void onResponse(Call<LoginModel> call, Response<LoginModel> response) {
+                    LoginModel body = response.body();
+                    if (body.getResult().equals("OK")) {
+                        login(body.getLogin(), body.getRights(), body.getConfigrmed(), body.getRest(), body.getPhoneNum());
                     } else {
-                        Toast.makeText(getApplication().getBaseContext(), "NO " + response.body().getResult() + " " + response.body().getInfo() + " " + response.body().getResult(), Toast.LENGTH_LONG).show();
+                        Toast.makeText(getApplication().getBaseContext(), "NO: " + response.body().getResult() + " " + response.body().getInfo(), Toast.LENGTH_LONG).show();
                     }
                 }
 
                 @Override
-                public void onFailure(@NonNull Call<RegistrationModel> call, @NonNull Throwable t) {
-                    Toast.makeText(getApplication().getBaseContext(), "Блэт. Something is wrong..." + t.getMessage(), Toast.LENGTH_LONG).show();
+                public void onFailure(Call<LoginModel> call, Throwable t) {
+                    Toast.makeText(getApplication().getBaseContext(), getString(R.string.something_is_wrong) + t.getMessage(), Toast.LENGTH_LONG).show();
                 }
             });
-        } else {
-            RegRequest regRequest = new RegRequest("login",username,password);
         }
     }
 
     public void onRadioButtonClick(View v) {
         boolean isUser = ((RadioButton) findViewById(R.id.isUser)).isChecked();
         View restaurantName = findViewById(R.id.inputLayoutRestaurantName);
+        View phoneNumber = findViewById(R.id.inputLayoutPhoneNumber);
         if (isUser) {
             restaurantName.setVisibility(View.GONE);
+            phoneNumber.setVisibility(View.GONE);
         } else {
             restaurantName.setVisibility(View.VISIBLE);
+            phoneNumber.setVisibility(View.VISIBLE);
         }
     }
 
@@ -150,31 +174,41 @@ public class RegistrationActivity extends AppCompatActivity {
         boolean isUser = isUserField.isChecked();
         SharedPreferences sharedPref = this.getSharedPreferences("user", Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPref.edit();
-        if (isUser) {
-            editor.putInt("usertype", 0);
-        } else {
-            editor.putInt("usertype", 1);
-        }
-        editor.putInt("user_id", userId);
-        editor.putBoolean("verified", false);
         editor.putString("username", username);
+        editor.putInt("usertype", (isUser) ? 0 : 1);
+        editor.putBoolean("verified", false);
         editor.putString("phone_num", phoneNumber);
         editor.apply();
 
         goToMain();
     }
 
-    private void login(int userId, String username, int usertype, boolean verified, String phoneNumber) {
+    private void login(String username, int usertype, boolean verified, Integer restaurant, String phoneNumber) {
         SharedPreferences sharedPref = this.getSharedPreferences("user", Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPref.edit();
-        editor.putInt("usertype", usertype);
-        editor.putInt("user_id", userId);
-        editor.putBoolean("verified", verified);
         editor.putString("username", username);
+        editor.putInt("usertype", usertype);
+        if (usertype == 1) {
+            editor.putBoolean("verified", verified);
+            editor.putInt("restaurantId", restaurant);
+        }
         editor.putString("phone_num", phoneNumber);
         editor.apply();
 
         goToMain();
+    }
+
+    private boolean checkInput() {
+        String username = usernameField.getText().toString();
+        String password = passwordField.getText().toString();
+        String repeatedPassword = repeatedPasswordField.getText().toString();
+        String phoneNumber = phoneNumberField.getText().toString();
+        boolean isUser = isUserField.isChecked();
+        boolean result = true;
+        result = username.length() <= 16;
+        result = password.length() >= 8 && password.equals(repeatedPassword);
+        result = isUser || (!phoneNumber.isEmpty() && phoneNumber.matches("\\(?\\+[0-9]{1,3}\\)? ?-?[0-9]{1,3} ?-?[0-9]{3,5} ?-?[0-9]{4}( ?-?[0-9]{3})?"));
+        return result;
     }
 
     private void goToMain() {

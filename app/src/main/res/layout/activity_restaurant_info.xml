@@ -25,7 +25,8 @@
                 android:id="@+id/imageView"
                 android:layout_width="match_parent"
                 android:layout_height="250dp"
-                android:paddingBottom="30dp" />
+                android:paddingBottom="30dp"
+                android:contentDescription="@string/restaurant_image" />
 
             <android.support.design.widget.FloatingActionButton
                 android:id="@+id/floatingActionButton"

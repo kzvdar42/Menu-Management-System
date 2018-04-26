@@ -16,7 +16,7 @@ public class RestMenu {
     private String dishName;
     @SerializedName("description")
     @Expose
-    private String description;
+    private String description = "";
     @SerializedName("photo_src")
     @Expose
     private String photoSrc;
@@ -25,7 +25,7 @@ public class RestMenu {
     private Integer price;
     @SerializedName("onoff")
     @Expose
-    private Integer onoff;
+    private Integer onoff = 0;
 
     public Integer getId() {
         return id;

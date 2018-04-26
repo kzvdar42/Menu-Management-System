@@ -8,9 +8,6 @@ public class RestList {
     @SerializedName("id")
     @Expose
     private Integer id;
-    @SerializedName("owner_id")
-    @Expose
-    private Integer ownerId;
     @SerializedName("rest_name")
     @Expose
     private String restName;
@@ -29,15 +26,9 @@ public class RestList {
     @SerializedName("web_site")
     @Expose
     private String webSite;
-    @SerializedName("open_time")
-    @Expose
-    private String openTime;
-    @SerializedName("close_time")
-    @Expose
-    private String closeTime;
     @SerializedName("main_photo_src")
     @Expose
-    private String mainPhotoSrc;
+    private Object mainPhotoSrc;
 
     public Integer getId() {
         return id;
@@ -45,14 +36,6 @@ public class RestList {
 
     public void setId(Integer id) {
         this.id = id;
-    }
-
-    public Integer getOwnerId() {
-        return ownerId;
-    }
-
-    public void setOwnerId(Integer ownerId) {
-        this.ownerId = ownerId;
     }
 
     public String getRestName() {
@@ -103,27 +86,11 @@ public class RestList {
         this.webSite = webSite;
     }
 
-    public String getOpenTime() {
-        return openTime;
-    }
-
-    public void setOpenTime(String openTime) {
-        this.openTime = openTime;
-    }
-
-    public String getCloseTime() {
-        return closeTime;
-    }
-
-    public void setCloseTime(String closeTime) {
-        this.closeTime = closeTime;
-    }
-
-    public String getMainPhotoSrc() {
+    public Object getMainPhotoSrc() {
         return mainPhotoSrc;
     }
 
-    public void setMainPhotoSrc(String mainPhotoSrc) {
+    public void setMainPhotoSrc(Object mainPhotoSrc) {
         this.mainPhotoSrc = mainPhotoSrc;
     }
 

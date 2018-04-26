@@ -3,17 +3,17 @@ package com.example.kzvda.menumanagementsystem.activity;
 import android.arch.lifecycle.ViewModelProviders;
 import android.content.Intent;
 import android.net.Uri;
+import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.kzvda.menumanagementsystem.R;
-import com.example.kzvda.menumanagementsystem.viewModel.ViewModel;
 import com.example.kzvda.menumanagementsystem.db.Entity.RestaurantEntity;
+import com.example.kzvda.menumanagementsystem.viewModel.RestaurantInfoViewModel;
 
 public class RestaurantInfoActivity extends AppCompatActivity {
     private boolean notificationsIsOn;
@@ -35,7 +35,7 @@ public class RestaurantInfoActivity extends AppCompatActivity {
 
         int restaurantId = getIntent().getIntExtra(MainActivity.EXTRA_MESSAGE, 0);
 
-        ViewModel mViewModel = ViewModelProviders.of(this).get(ViewModel.class);
+        RestaurantInfoViewModel mViewModel = ViewModelProviders.of(this).get(RestaurantInfoViewModel.class);
         mViewModel.getRestaurant(restaurantId).observe(this, restaurant -> {
             this.restaurant = restaurant;
             imageView.setImageResource(restaurant.getPhotoSrc());

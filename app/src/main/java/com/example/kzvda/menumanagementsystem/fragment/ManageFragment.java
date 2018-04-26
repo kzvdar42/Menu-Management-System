@@ -9,12 +9,12 @@ import android.view.ViewGroup;
 
 import com.example.kzvda.menumanagementsystem.R;
 
-public class AdministratorPageFragment extends Fragment {
+public class ManageFragment extends Fragment {
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
-        View rootView = inflater.inflate(R.layout.fragment_administrator_page, container, false);
+        View rootView = inflater.inflate(R.layout.fragment_manage, container, false);
         return rootView;
     }
 }

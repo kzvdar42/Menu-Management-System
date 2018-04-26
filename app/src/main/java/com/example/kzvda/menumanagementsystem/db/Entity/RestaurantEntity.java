@@ -10,7 +10,7 @@ import com.example.kzvda.menumanagementsystem.db.Model.RestaurantModel;
 @Entity()
 public class RestaurantEntity implements RestaurantModel {
 
-    @PrimaryKey(autoGenerate = true)
+    @PrimaryKey(autoGenerate = false)
     private int id;
 
     @ColumnInfo(name = "name")

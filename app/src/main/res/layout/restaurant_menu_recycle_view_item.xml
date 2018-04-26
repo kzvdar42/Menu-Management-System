@@ -22,7 +22,8 @@
             android:layout_height="128dp"
             android:layout_weight="1"
             android:elevation="6dp"
-            android:paddingStart="16dp" />
+            android:paddingStart="16dp"
+            android:contentDescription="@string/dish_image" />
 
         <TextView
             android:id="@+id/recycleName"

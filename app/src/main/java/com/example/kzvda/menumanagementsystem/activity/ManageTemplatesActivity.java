@@ -4,8 +4,8 @@ import android.arch.lifecycle.ViewModelProviders;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
@@ -13,7 +13,7 @@ import android.view.View;
 
 import com.example.kzvda.menumanagementsystem.R;
 import com.example.kzvda.menumanagementsystem.adapter.RestaurantMenuAdapter;
-import com.example.kzvda.menumanagementsystem.viewModel.ViewModel;
+import com.example.kzvda.menumanagementsystem.viewModel.ManageTemplatesViewModel;
 
 public class ManageTemplatesActivity extends AppCompatActivity {
     private RestaurantMenuAdapter mAdapter;
@@ -39,7 +39,7 @@ public class ManageTemplatesActivity extends AppCompatActivity {
 
         SharedPreferences sharedPref = this.getSharedPreferences("user", Context.MODE_PRIVATE);
         int restaurantId = sharedPref.getInt("restaurantId",0);
-        ViewModel mViewModel = ViewModelProviders.of(this).get(ViewModel.class);
+        ManageTemplatesViewModel mViewModel = ViewModelProviders.of(this).get(ManageTemplatesViewModel.class);
         mViewModel.downloadTemplates(restaurantId);
         mViewModel.getTemplates(restaurantId).observe(this, words -> {
             mAdapter.setProductList(words);
