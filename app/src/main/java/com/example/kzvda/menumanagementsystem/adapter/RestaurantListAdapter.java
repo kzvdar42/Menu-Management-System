@@ -3,9 +3,7 @@ package com.example.kzvda.menumanagementsystem.adapter;
 import android.content.Context;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
-import android.graphics.Canvas;
 import android.graphics.drawable.BitmapDrawable;
-import android.graphics.drawable.Drawable;
 import android.support.annotation.NonNull;
 import android.support.v4.graphics.drawable.RoundedBitmapDrawable;
 import android.support.v4.graphics.drawable.RoundedBitmapDrawableFactory;
@@ -66,15 +64,9 @@ public class RestaurantListAdapter extends RecyclerView.Adapter<RestaurantListAd
 
     }
 
-    // Replace the contents of a view (invoked by the layout manager)
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        // - get element from your dataset at this position
-        // - replace the contents of the view with that element
-//        RoundedBitmapDrawable dr =
-//                RoundedBitmapDrawableFactory.create(res, drawableToBitmap(res.getDrawable(mDataset.get(position).getPhotoSrc())));
-//        dr.setCircular(true);
-        Picasso.with(context).load(Constants.BASE_URL + mDataset.get(position).getPhotoSrc())
+        Picasso.with(context).load(Constants.BASE_URL + mDataset.get(position).getPhotoSrc()).resize(128, 128)
                 .into(holder.mImageView, new Callback() {
                     @Override
                     public void onSuccess() {
@@ -90,7 +82,6 @@ public class RestaurantListAdapter extends RecyclerView.Adapter<RestaurantListAd
                         holder.mImageView.setImageResource(R.drawable.food_example);
                     }
                 });
-//        holder.mImageView.setImageDrawable(dr);
         holder.mName.setText(mDataset.get(position).getName());
 
     }
@@ -99,28 +90,6 @@ public class RestaurantListAdapter extends RecyclerView.Adapter<RestaurantListAd
     @Override
     public int getItemCount() {
         return mDataset == null ? 0 : mDataset.size();
-    }
-
-    private static Bitmap drawableToBitmap(Drawable drawable) {
-        Bitmap bitmap;
-
-        if (drawable instanceof BitmapDrawable) {
-            BitmapDrawable bitmapDrawable = (BitmapDrawable) drawable;
-            if (bitmapDrawable.getBitmap() != null) {
-                return bitmapDrawable.getBitmap();
-            }
-        }
-
-        if (drawable.getIntrinsicWidth() <= 0 || drawable.getIntrinsicHeight() <= 0) {
-            bitmap = Bitmap.createBitmap(1, 1, Bitmap.Config.ARGB_8888); // Single color bitmap will be created of 1x1 pixel
-        } else {
-            bitmap = Bitmap.createBitmap(drawable.getIntrinsicWidth(), drawable.getIntrinsicHeight(), Bitmap.Config.ARGB_8888);
-        }
-
-        Canvas canvas = new Canvas(bitmap);
-        drawable.setBounds(0, 0, canvas.getWidth(), canvas.getHeight());
-        drawable.draw(canvas);
-        return bitmap;
     }
 
     public void setProductList(final List<? extends RestaurantModel> menuList) {
