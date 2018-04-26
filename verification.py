@@ -71,12 +71,14 @@ def change_personal_info(data):
     if "password" in data:
         if not db.change_password(data['login'], data['password']):
             pass
+
     if "new_login" in data:
-        if db.is_user_exists(data["new_login"]):
-            return s_resp.error_response("User already exists")
-        else:
-            if not db.change_user_login(data['login'], data['new_login']):
-                return s_resp.error_response()
+        if data["new_login"] != data["login"]:
+            if db.is_user_exists(data["new_login"]):
+                return s_resp.error_response("User already exists")
+            else:
+                if not db.change_user_login(data['login'], data['new_login']):
+                    return s_resp.error_response()
     return s_resp.ok_response()
 
 
