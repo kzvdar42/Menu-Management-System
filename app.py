@@ -87,7 +87,7 @@ def upload_photo():
 
     name = get_new_name()
     file.save(os.path.join(".", "data", name))
-    # db.add_photo(name)
+    db.add_photo(name)
     return s_resp.ok_response(parameters={"filename": name})
 
 
