@@ -378,8 +378,8 @@ def set_rest_main_photo_src(rest_id, main_photo_src):
 
 def add_photo(owner_id, src):
     try:
-        execute_command("INSERT INTO photos(owner_login, src) "
-                        "VALUES('{}', '{}')".format(owner_id, src))
+        execute_command("INSERT INTO photos(src) "
+                        "VALUES ('{}')".format(src))
 
     except Exception as e:
         print("ERROR in add_photo:", e)

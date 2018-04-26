@@ -77,10 +77,9 @@ def api_request():
 @app.route('/api/upload_photo', methods=['POST'])
 def upload_photo():
     file = request.files["photo"]
-    user_id = request.form["user_id"]
     name = get_new_name()
     file.save(os.path.join(".", "data", name))
-    db.add_photo(user_id, name)
+    db.add_photo(name)
     return s_resp.ok_response()
 
 
