@@ -376,7 +376,7 @@ def set_rest_main_photo_src(rest_id, main_photo_src):
     return True
 
 
-def add_photo(owner_id, src):
+def add_photo(src):
     try:
         execute_command("INSERT INTO photos(src) "
                         "VALUES ('{}')".format(src))
