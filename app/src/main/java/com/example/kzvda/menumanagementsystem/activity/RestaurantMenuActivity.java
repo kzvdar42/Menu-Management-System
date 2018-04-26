@@ -27,7 +27,7 @@ public class RestaurantMenuActivity extends AppCompatActivity {
         setContentView(R.layout.activity_restaurant_menu);
         Toolbar toolbar = findViewById(R.id.toolbar);
         Intent intent = getIntent();
-        restaurantId = intent.getIntExtra(MainActivity.EXTRA_MESSAGE, 0);
+        restaurantId = intent.getIntExtra(MainActivity.EXTRA_MESSAGE, -1);
         String restaurantName = intent.getStringExtra("restaurantName");
         toolbar.setTitle(restaurantName);
         setSupportActionBar(toolbar);
@@ -40,7 +40,7 @@ public class RestaurantMenuActivity extends AppCompatActivity {
         RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(this);
         mRecyclerView.setLayoutManager(mLayoutManager);
 
-        mAdapter = new RestaurantMenuAdapter();
+        mAdapter = new RestaurantMenuAdapter(this);
         mRecyclerView.setAdapter(mAdapter);
         mViewModel = ViewModelProviders.of(this).get(MenuListViewModel.class);
         mViewModel.downloadMenu(restaurantId);

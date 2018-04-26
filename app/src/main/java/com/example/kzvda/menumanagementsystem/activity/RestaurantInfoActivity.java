@@ -13,7 +13,9 @@ import android.widget.TextView;
 
 import com.example.kzvda.menumanagementsystem.R;
 import com.example.kzvda.menumanagementsystem.db.Entity.RestaurantEntity;
+import com.example.kzvda.menumanagementsystem.serverApi.Constants;
 import com.example.kzvda.menumanagementsystem.viewModel.RestaurantInfoViewModel;
+import com.squareup.picasso.Picasso;
 
 public class RestaurantInfoActivity extends AppCompatActivity {
     private boolean notificationsIsOn;
@@ -38,7 +40,7 @@ public class RestaurantInfoActivity extends AppCompatActivity {
         RestaurantInfoViewModel mViewModel = ViewModelProviders.of(this).get(RestaurantInfoViewModel.class);
         mViewModel.getRestaurant(restaurantId).observe(this, restaurant -> {
             this.restaurant = restaurant;
-            imageView.setImageResource(restaurant.getPhotoSrc());
+            Picasso.with(this).load(Constants.BASE_URL + restaurant.getPhotoSrc()).fit().into(imageView);
             name.setText(restaurant.getName());
             subname.setText(restaurant.getSubname());
             description.setText(restaurant.getDescription());

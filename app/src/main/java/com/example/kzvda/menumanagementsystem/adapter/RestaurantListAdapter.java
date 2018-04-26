@@ -1,5 +1,6 @@
 package com.example.kzvda.menumanagementsystem.adapter;
 
+import android.content.Context;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
@@ -18,12 +19,16 @@ import android.widget.TextView;
 
 import com.example.kzvda.menumanagementsystem.R;
 import com.example.kzvda.menumanagementsystem.db.Model.RestaurantModel;
+import com.example.kzvda.menumanagementsystem.serverApi.Constants;
+import com.squareup.picasso.Callback;
+import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
 public class RestaurantListAdapter extends RecyclerView.Adapter<RestaurantListAdapter.ViewHolder> {
     private Resources res;
     private List<? extends RestaurantModel> mDataset;
+    private Context context;
 
     // Provide a reference to the views for each data item
     // Complex data items may need more than one view per item, and
@@ -43,8 +48,9 @@ public class RestaurantListAdapter extends RecyclerView.Adapter<RestaurantListAd
     }
 
     // Provide a suitable constructor (depends on the kind of dataset)
-    public RestaurantListAdapter(Resources res) {
-        this.res = res;
+    public RestaurantListAdapter(Context context) {
+        this.context = context;
+        this.res = context.getResources();
     }
 
     // Create new views (invoked by the layout manager)
@@ -65,10 +71,26 @@ public class RestaurantListAdapter extends RecyclerView.Adapter<RestaurantListAd
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         // - get element from your dataset at this position
         // - replace the contents of the view with that element
-        RoundedBitmapDrawable dr =
-                RoundedBitmapDrawableFactory.create(res, drawableToBitmap(res.getDrawable(mDataset.get(position).getPhotoSrc())));
-        dr.setCircular(true);
-        holder.mImageView.setImageDrawable(dr);
+//        RoundedBitmapDrawable dr =
+//                RoundedBitmapDrawableFactory.create(res, drawableToBitmap(res.getDrawable(mDataset.get(position).getPhotoSrc())));
+//        dr.setCircular(true);
+        Picasso.with(context).load(Constants.BASE_URL + mDataset.get(position).getPhotoSrc())
+                .into(holder.mImageView, new Callback() {
+                    @Override
+                    public void onSuccess() {
+                        Bitmap imageBitmap = ((BitmapDrawable) holder.mImageView.getDrawable()).getBitmap();
+                        RoundedBitmapDrawable imageDrawable = RoundedBitmapDrawableFactory.create(res, imageBitmap);
+                        imageDrawable.setCircular(true);
+                        imageDrawable.setCornerRadius(Math.max(imageBitmap.getWidth(), imageBitmap.getHeight()) / 2.0f);
+                        holder.mImageView.setImageDrawable(imageDrawable);
+                    }
+
+                    @Override
+                    public void onError() {
+                        holder.mImageView.setImageResource(R.drawable.food_example);
+                    }
+                });
+//        holder.mImageView.setImageDrawable(dr);
         holder.mName.setText(mDataset.get(position).getName());
 
     }

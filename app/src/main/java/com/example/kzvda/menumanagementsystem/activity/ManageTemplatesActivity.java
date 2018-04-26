@@ -40,7 +40,7 @@ public class ManageTemplatesActivity extends AppCompatActivity {
         RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(this);
         mRecyclerView.setLayoutManager(mLayoutManager);
 
-        mAdapter = new RestaurantMenuAdapter();
+        mAdapter = new RestaurantMenuAdapter(this);
         mRecyclerView.setAdapter(mAdapter);
 
         SharedPreferences sharedPref = this.getSharedPreferences("user", Context.MODE_PRIVATE);

@@ -8,5 +8,6 @@ public interface RestaurantModel {
     String getPhoneNumber();
     String getLocation();
     String getWebsite();
-    int getPhotoSrc();
+
+    String getPhotoSrc();
 }

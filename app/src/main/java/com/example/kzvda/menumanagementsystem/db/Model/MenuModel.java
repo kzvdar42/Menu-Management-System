@@ -5,7 +5,8 @@ public interface MenuModel {
     int getRestaurantId();
     String getName();
     String getDescription();
-    int getPhotoSrc();
+
+    String getPhotoSrc();
     int getPrice();
     boolean isShown();
 }

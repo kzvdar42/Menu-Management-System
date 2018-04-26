@@ -67,7 +67,7 @@ public class MainViewModel extends ViewModel {
 
             @Override
             public void onFailure(@NonNull Call<RestServerModel> call, @NonNull Throwable t) {
-                Toast.makeText(getApplication().getBaseContext(), "Блэт. Something is wrong..." + t.getMessage(), Toast.LENGTH_LONG).show();
+                Toast.makeText(getApplication().getBaseContext(), getApplication().getString(R.string.something_is_wrong) + t.getMessage(), Toast.LENGTH_LONG).show();
             }
         });
     }
@@ -75,7 +75,7 @@ public class MainViewModel extends ViewModel {
     private List<RestaurantEntity> servRestToLocal(List<RestList> restLists) {
         ArrayList<RestaurantEntity> answer = new ArrayList<RestaurantEntity>(restLists.size());
         for (RestList restList : restLists) {
-            RestaurantEntity restaurant = new RestaurantEntity(restList.getId(), restList.getRestName(), restList.getSubName(), restList.getDescription(), restList.getPhoneNum(), restList.getLocation(), restList.getWebSite(), R.drawable.ic_launcher_foreground);
+            RestaurantEntity restaurant = new RestaurantEntity(restList.getId(), restList.getRestName(), restList.getSubName(), restList.getDescription(), restList.getPhoneNum(), restList.getLocation(), restList.getWebSite(), restList.getMainPhotoSrc());
             answer.add(restaurant);
         }
         return answer;

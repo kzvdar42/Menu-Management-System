@@ -17,6 +17,17 @@ public class SimpleResponceModel {
     @SerializedName("dish_id")
     @Expose
     private Integer dish_id;
+    @SerializedName("filename")
+    @Expose
+    private String filename;
+
+    public String getFilename() {
+        return filename;
+    }
+
+    public void setFilename(String filename) {
+        this.filename = filename;
+    }
 
     public String getResult() {
         return result;

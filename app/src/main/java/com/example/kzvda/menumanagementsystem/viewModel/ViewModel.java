@@ -5,6 +5,7 @@ import android.arch.lifecycle.AndroidViewModel;
 import android.support.annotation.NonNull;
 import android.widget.Toast;
 
+import com.example.kzvda.menumanagementsystem.R;
 import com.example.kzvda.menumanagementsystem.db.Repository;
 import com.example.kzvda.menumanagementsystem.serverApi.Interfaces.ServerApi;
 import com.example.kzvda.menumanagementsystem.serverApi.Models.SimpleResponceModel;
@@ -41,7 +42,7 @@ public class ViewModel extends AndroidViewModel {
 
             @Override
             public void onFailure(@NonNull Call<SimpleResponceModel> call, @NonNull Throwable t) {
-                Toast.makeText(getApplication().getBaseContext(), "Блэт. Something is wrong..." + t.getMessage(), Toast.LENGTH_LONG).show();
+                Toast.makeText(getApplication().getBaseContext(), getApplication().getString(R.string.something_is_wrong) + t.getMessage(), Toast.LENGTH_LONG).show();
             }
         });
     }

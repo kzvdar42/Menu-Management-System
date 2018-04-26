@@ -106,4 +106,6 @@
     <string name="delete">Delete</string>
     <string name="show_in_menu">Show in menu</string>
     <string name="wrong_input">Wrong input</string>
+    <string name="read_file">Read file</string>
+    <string name="edit_template">Edit template</string>
 </resources>

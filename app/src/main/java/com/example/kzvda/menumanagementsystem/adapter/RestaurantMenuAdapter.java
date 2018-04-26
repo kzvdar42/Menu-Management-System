@@ -1,5 +1,6 @@
 package com.example.kzvda.menumanagementsystem.adapter;
 
+import android.content.Context;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
@@ -11,12 +12,15 @@ import android.widget.TextView;
 
 import com.example.kzvda.menumanagementsystem.R;
 import com.example.kzvda.menumanagementsystem.db.Model.MenuModel;
+import com.example.kzvda.menumanagementsystem.serverApi.Constants;
+import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
 public class RestaurantMenuAdapter extends RecyclerView.Adapter<RestaurantMenuAdapter.ViewHolder> {
 
     private List<? extends MenuModel> mDataset;
+    private Context context;
 
     static class ViewHolder extends RecyclerView.ViewHolder {
         private ImageView mImageView;
@@ -35,7 +39,8 @@ public class RestaurantMenuAdapter extends RecyclerView.Adapter<RestaurantMenuAd
         }
     }
 
-    public RestaurantMenuAdapter() {
+    public RestaurantMenuAdapter(Context context) {
+        this.context = context;
     }
 
 
@@ -51,7 +56,7 @@ public class RestaurantMenuAdapter extends RecyclerView.Adapter<RestaurantMenuAd
     public void onBindViewHolder(@NonNull RestaurantMenuAdapter.ViewHolder holder, int position) {
         if (mDataset != null) {
             MenuModel currentDish = mDataset.get(position);
-            holder.mImageView.setImageResource(currentDish.getPhotoSrc());
+            Picasso.with(context).load(Constants.BASE_URL + mDataset.get(position).getPhotoSrc()).fit().into(holder.mImageView);
             holder.mName.setText(currentDish.getName());
             holder.mDescription.setText(currentDish.getDescription());
             holder.mPrice.setText(currentDish.getPrice() + " \u20BD");

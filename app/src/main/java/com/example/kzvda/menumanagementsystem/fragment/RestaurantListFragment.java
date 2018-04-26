@@ -39,7 +39,7 @@ public class RestaurantListFragment extends Fragment {
 
         // specify an adapter (see also next example)
 
-        mAdapter = new RestaurantListAdapter(getResources());
+        mAdapter = new RestaurantListAdapter(getContext());
         mRecyclerView.setAdapter(mAdapter);
 
         MainViewModel mViewModel = ViewModelProviders.of(Objects.requireNonNull(getActivity())).get(MainViewModel.class);

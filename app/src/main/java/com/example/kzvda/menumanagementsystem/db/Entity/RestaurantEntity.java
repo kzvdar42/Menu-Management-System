@@ -32,10 +32,10 @@ public class RestaurantEntity implements RestaurantModel {
     private String website;
 
     @ColumnInfo(name = "photoSrc")
-    private int photoSrc;
+    private String photoSrc;
 
     @Ignore
-    public RestaurantEntity(int id, String name, String subname, String description, String phoneNumber, String location, String website, int photoSrc) {
+    public RestaurantEntity(int id, String name, String subname, String description, String phoneNumber, String location, String website, String photoSrc) {
         this.id = id;
         this.name = name;
         this.subname = subname;
@@ -46,7 +46,7 @@ public class RestaurantEntity implements RestaurantModel {
         this.photoSrc = photoSrc;
     }
 
-    public RestaurantEntity(String name, String subname, String description, String phoneNumber, String location, String website, int photoSrc) {
+    public RestaurantEntity(String name, String subname, String description, String phoneNumber, String location, String website, String photoSrc) {
         this.name = name;
         this.subname = subname;
         this.description = description;
@@ -120,11 +120,11 @@ public class RestaurantEntity implements RestaurantModel {
     }
 
     @Override
-    public int getPhotoSrc() {
+    public String getPhotoSrc() {
         return photoSrc;
     }
 
-    public void setPhotoSrc(int photoSrc) {
+    public void setPhotoSrc(String photoSrc) {
         this.photoSrc = photoSrc;
     }
 }

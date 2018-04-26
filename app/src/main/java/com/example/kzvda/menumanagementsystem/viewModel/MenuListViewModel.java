@@ -5,6 +5,7 @@ import android.arch.lifecycle.LiveData;
 import android.support.annotation.NonNull;
 import android.widget.Toast;
 
+import com.example.kzvda.menumanagementsystem.R;
 import com.example.kzvda.menumanagementsystem.db.Entity.MenuEntity;
 import com.example.kzvda.menumanagementsystem.db.Repository;
 import com.example.kzvda.menumanagementsystem.serverApi.Interfaces.ServerApi;
@@ -22,7 +23,6 @@ import retrofit2.Response;
 public class MenuListViewModel extends ViewModel {
     private Repository mRepository;
     private static ServerApi serverApi;
-    private LiveData<List<MenuEntity>> menu;
 
     public MenuListViewModel(Application application) {
         super(application);
@@ -31,10 +31,7 @@ public class MenuListViewModel extends ViewModel {
     }
 
     public LiveData<List<MenuEntity>> getRestaurantMenu(int id) {
-        if (menu == null) {
-            menu = mRepository.getRestaurantMenu(id);
-        }
-        return menu;
+        return mRepository.getRestaurantMenu(id);
     }
 
     public void downloadMenu(int id) {
@@ -51,7 +48,7 @@ public class MenuListViewModel extends ViewModel {
 
             @Override
             public void onFailure(@NonNull Call<MenuServerModel> call, @NonNull Throwable t) {
-                Toast.makeText(getApplication().getBaseContext(), "Блэт. Something is wrong..." + t.getMessage(), Toast.LENGTH_LONG).show();
+                Toast.makeText(getApplication().getBaseContext(), getApplication().getString(R.string.something_is_wrong) + t.getMessage(), Toast.LENGTH_LONG).show();
             }
         });
     }

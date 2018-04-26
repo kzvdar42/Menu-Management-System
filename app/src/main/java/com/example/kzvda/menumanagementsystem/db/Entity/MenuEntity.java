@@ -23,7 +23,7 @@ public class MenuEntity implements MenuModel {
     private String description;
 
     @ColumnInfo(name = "photoSrc")
-    private int photoSrc;
+    private String photoSrc;
 
     @ColumnInfo(name = "price")
     private int price;
@@ -31,7 +31,7 @@ public class MenuEntity implements MenuModel {
     @ColumnInfo(name = "shown")
     private boolean shown;
 
-    public MenuEntity(int restaurantId, String name, String description, int photoSrc, int price, boolean shown) {
+    public MenuEntity(int restaurantId, String name, String description, String photoSrc, int price, boolean shown) {
         this.restaurantId = restaurantId;
         this.name = name;
         this.description = description;
@@ -41,7 +41,7 @@ public class MenuEntity implements MenuModel {
     }
 
     @Ignore
-    public MenuEntity(int dishId, int restaurantId, String name, String description, int photoSrc, int price, boolean shown) {
+    public MenuEntity(int dishId, int restaurantId, String name, String description, String photoSrc, int price, boolean shown) {
         this.dishId = dishId;
         this.restaurantId = restaurantId;
         this.name = name;
@@ -62,7 +62,7 @@ public class MenuEntity implements MenuModel {
     }
 
     @Override
-    public int getPhotoSrc() {
+    public String getPhotoSrc() {
         return photoSrc;
     }
 
@@ -102,7 +102,7 @@ public class MenuEntity implements MenuModel {
         this.description = description;
     }
 
-    public void setPhotoSrc(int photoSrc) {
+    public void setPhotoSrc(String photoSrc) {
         this.photoSrc = photoSrc;
     }
 

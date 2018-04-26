@@ -4,7 +4,6 @@ import android.app.Application;
 import android.arch.lifecycle.LiveData;
 import android.os.AsyncTask;
 
-import com.example.kzvda.menumanagementsystem.R;
 import com.example.kzvda.menumanagementsystem.db.Entity.MenuEntity;
 import com.example.kzvda.menumanagementsystem.db.Entity.RestaurantEntity;
 import com.example.kzvda.menumanagementsystem.db.dao.MenuDao;
@@ -87,7 +86,7 @@ public class Repository {
     private List<MenuEntity> servMenuToLocal(List<RestMenu> menuList) {
         ArrayList<MenuEntity> answer = new ArrayList<MenuEntity>(menuList.size());
         for (RestMenu restMenu : menuList) {
-            MenuEntity restaurant = new MenuEntity(restMenu.getId(), restMenu.getRestId(), restMenu.getDishName(), restMenu.getDescription(), R.drawable.food_example, restMenu.getPrice(), restMenu.getOnoff());
+            MenuEntity restaurant = new MenuEntity(restMenu.getId(), restMenu.getRestId(), restMenu.getDishName(), restMenu.getDescription(), restMenu.getPhotoSrc(), restMenu.getPrice(), restMenu.getOnoff());
             answer.add(restaurant);
         }
         return answer;

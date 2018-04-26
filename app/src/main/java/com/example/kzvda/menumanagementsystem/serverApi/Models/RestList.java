@@ -28,7 +28,7 @@ public class RestList {
     private String webSite;
     @SerializedName("main_photo_src")
     @Expose
-    private Object mainPhotoSrc;
+    private String mainPhotoSrc;
 
     public Integer getId() {
         return id;
@@ -86,11 +86,11 @@ public class RestList {
         this.webSite = webSite;
     }
 
-    public Object getMainPhotoSrc() {
+    public String getMainPhotoSrc() {
         return mainPhotoSrc;
     }
 
-    public void setMainPhotoSrc(Object mainPhotoSrc) {
+    public void setMainPhotoSrc(String mainPhotoSrc) {
         this.mainPhotoSrc = mainPhotoSrc;
     }
 

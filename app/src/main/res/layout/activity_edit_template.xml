@@ -27,6 +27,7 @@
                 android:layout_width="100dp"
                 android:layout_height="100dp"
                 android:scaleType="fitCenter"
+                android:onClick="onClick"
                 android:layout_centerHorizontal="true"
                 android:contentDescription="@string/dish_image" />
 
