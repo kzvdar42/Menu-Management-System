@@ -245,11 +245,11 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
-    @Override
-    protected void onPostResume() {
-        super.onPostResume();
-        mViewModel.downloadRestaurants();
-    }
+//    @Override
+//    protected void onPostResume() {
+//        super.onPostResume();
+//        mViewModel.downloadRestaurants();
+//    }
 }
 
 

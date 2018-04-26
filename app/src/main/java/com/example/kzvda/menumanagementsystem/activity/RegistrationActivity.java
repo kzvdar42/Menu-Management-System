@@ -83,7 +83,7 @@ public class RegistrationActivity extends AppCompatActivity {
                     @Override
                     public void onResponse(@NonNull Call<RegistrationModel> call, @NonNull Response<RegistrationModel> response) {
                         if (response.body().getResult().equals("OK")) {
-                            registration(response.body().getId());
+                            registration();
                         } else {
                             Toast.makeText(getApplication().getBaseContext(), "NO: " + response.body().getResult() + " " + response.body().getInfo(), Toast.LENGTH_LONG).show();
                         }
@@ -166,7 +166,7 @@ public class RegistrationActivity extends AppCompatActivity {
         }
     }
 
-    private void registration(int userId) {
+    private void registration() {
         String username = usernameField.getText().toString();
         String password = passwordField.getText().toString();
         String repeatedPassword = repeatedPasswordField.getText().toString();

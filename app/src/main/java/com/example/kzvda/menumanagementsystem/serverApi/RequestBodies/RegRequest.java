@@ -5,7 +5,7 @@ public class RegRequest {
     private String login;
     private String password;
     private String phoneNumber;
-    private int admin;
+    private String admin = null;
 
     public RegRequest(String type, String login, String password) {
         this.type = type;
@@ -18,6 +18,6 @@ public class RegRequest {
         this.login = login;
         this.password = password;
         this.phoneNumber = phoneNumber;
-        this.admin = 1;
+        this.admin = "";
     }
 }
