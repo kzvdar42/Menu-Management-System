@@ -140,6 +140,29 @@ def check_user(login, password):
         return False
 
 
+def change_user_login(login, new_login):
+    try:
+        execute_command("UPDATE users "
+                        "SET login = '{}' "
+                        "WHERE login = '{}' ".format(new_login, login))
+        return True
+    except Exception as e:
+        print("err in change user login", e)
+        return False
+
+
+def delete_account(login):
+    try:
+        execute_command("DELETE "
+                        "FROM users "
+                        "WHERE login = '{}' ".format(login))
+
+        return True
+    except Exception as e:
+        print("Error in delete account", e)
+        return False
+
+
 def get_user_id(login):
     try:
         res = execute_command("SELECT id "

@@ -2,7 +2,7 @@ from flask import Flask, request, Response, send_from_directory
 from flask_cors import CORS
 import os
 import json
-from verification import registration, login, delete_account, confirm_admin
+from verification import *
 
 from rest_req import rest_list, rest_menu, rest_templates
 import rest_req
@@ -52,8 +52,10 @@ def api_request():
         return rest_menu(data)
     elif data["type"] == "rest_templates":
         return rest_templates(data)
-    elif data["type"] == "delete_acc":
+    elif data["type"] == "delete_user":
         return delete_account(data)
+    elif data["type"] == "change_personal_info":
+        return change_personal_info(data)
     elif data["type"] == "confirm_admin":
         return confirm_admin(data)
     elif data["type"] == "add_dish":
