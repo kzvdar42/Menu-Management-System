@@ -1,7 +1,9 @@
 package com.example.kzvda.menumanagementsystem.viewModel;
 
 import android.app.Application;
+import android.widget.Toast;
 
+import com.example.kzvda.menumanagementsystem.R;
 import com.example.kzvda.menumanagementsystem.serverApi.Interfaces.ServerApi;
 import com.example.kzvda.menumanagementsystem.serverApi.Models.SimpleResponceModel;
 import com.example.kzvda.menumanagementsystem.serverApi.RequestBodies.DishRequest;
@@ -33,7 +35,7 @@ public class EditTemplateViewModel extends ViewModel {
 
             @Override
             public void onFailure(Call<SimpleResponceModel> call, Throwable t) {
-
+                Toast.makeText(getApplication().getBaseContext(), getApplication().getString(R.string.something_is_wrong) + t.getMessage(), Toast.LENGTH_LONG).show();
             }
         });
     }

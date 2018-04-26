@@ -45,7 +45,6 @@ public class ManageTemplatesViewModel extends ViewModel {
                 List<RestMenu> restMenu = response.body().getRestMenu();
                 if (restMenu != null) {
                     mRepository.updateRestaurantMenu(restMenu);
-                    Toast.makeText(getApplication().getBaseContext(), "Yeah! " + response.message(), Toast.LENGTH_LONG).show();
                 } else {
                     Toast.makeText(getApplication().getBaseContext(), "Menu List is null, message: " + response.message(), Toast.LENGTH_LONG).show();
                 }

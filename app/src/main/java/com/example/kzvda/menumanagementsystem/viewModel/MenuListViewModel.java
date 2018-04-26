@@ -44,7 +44,6 @@ public class MenuListViewModel extends ViewModel {
                 List<RestMenu> restMenu = response.body().getRestMenu();
                 if (restMenu != null) {
                     mRepository.updateRestaurantMenu(restMenu);
-                    Toast.makeText(getApplication().getBaseContext(), "Yeah! Downloaded menu for " + id, Toast.LENGTH_LONG).show();
                 } else {
                     Toast.makeText(getApplication().getBaseContext(), "Menu List is null, message: " + response.message(), Toast.LENGTH_LONG).show();
                 }

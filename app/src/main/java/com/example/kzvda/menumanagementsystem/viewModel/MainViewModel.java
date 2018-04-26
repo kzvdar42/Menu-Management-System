@@ -48,7 +48,7 @@ public class MainViewModel extends ViewModel {
 
             @Override
             public void onFailure(Call<SimpleResponceModel> call, Throwable t) {
-
+                Toast.makeText(getApplication().getBaseContext(), getApplication().getString(R.string.something_is_wrong) + t.getMessage(), Toast.LENGTH_LONG).show();
             }
         });
     }
