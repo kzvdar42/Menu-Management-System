@@ -59,7 +59,7 @@
 
     <Button
         android:id="@+id/button"
-        style="@style/AppTheme.RoundButton"
+        style="@style/AppTheme.RoundBlueButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom|end"

@@ -9,6 +9,7 @@ import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 
 import com.example.kzvda.menumanagementsystem.R;
 import com.example.kzvda.menumanagementsystem.adapter.RestaurantMenuAdapter;
@@ -18,6 +19,7 @@ import com.example.kzvda.menumanagementsystem.viewModel.MenuListViewModel;
 public class RestaurantMenuActivity extends AppCompatActivity {
     private int restaurantId;
     private RestaurantMenuAdapter mAdapter;
+    private MenuListViewModel mViewModel;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,11 +42,14 @@ public class RestaurantMenuActivity extends AppCompatActivity {
 
         mAdapter = new RestaurantMenuAdapter();
         mRecyclerView.setAdapter(mAdapter);
-        MenuListViewModel mViewModel = ViewModelProviders.of(this).get(MenuListViewModel.class);
+        mViewModel = ViewModelProviders.of(this).get(MenuListViewModel.class);
         mViewModel.downloadMenu(restaurantId);
         mViewModel.getRestaurantMenu(restaurantId).observe(this, words -> {
             mAdapter.setProductList(words);
         });
+    }
+
+    public void onClick(View v) {
     }
 
     @Override
@@ -65,6 +70,12 @@ public class RestaurantMenuActivity extends AppCompatActivity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    protected void onPostResume() {
+        super.onPostResume();
+        mViewModel.downloadMenu(restaurantId);
     }
 
 }

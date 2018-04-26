@@ -1,15 +1,22 @@
 package com.example.kzvda.menumanagementsystem.activity;
 
+import android.arch.lifecycle.ViewModelProviders;
 import android.content.Context;
-import android.content.Intent;
 import android.content.SharedPreferences;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.kzvda.menumanagementsystem.R;
+import com.example.kzvda.menumanagementsystem.serverApi.Models.SimpleResponceModel;
+import com.example.kzvda.menumanagementsystem.viewModel.ChangePersonalInfoViewModel;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class ChangePersonalInfoActivity extends AppCompatActivity {
 
@@ -18,6 +25,7 @@ public class ChangePersonalInfoActivity extends AppCompatActivity {
     private TextView passwordField;
     private TextView repeatedPasswordField;
     private SharedPreferences sharedPref;
+    private ChangePersonalInfoViewModel mViewModel;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,8 +50,11 @@ public class ChangePersonalInfoActivity extends AppCompatActivity {
 
         sharedPref = this.getSharedPreferences("user", Context.MODE_PRIVATE);
 
-        usernameField.setText(sharedPref.getString("username","Username"));
-        phoneNumberField.setText(sharedPref.getString("phone_num","Phone number"));
+        usernameField.setText(sharedPref.getString("username", "Username"));
+        String phone_num = sharedPref.getString("phone_num", "");
+        phoneNumberField.setText(sharedPref.getString("phone_num", ""));
+
+        mViewModel = ViewModelProviders.of(this).get(ChangePersonalInfoViewModel.class);
     }
 
     public void onClick(View v) {
@@ -52,16 +63,45 @@ public class ChangePersonalInfoActivity extends AppCompatActivity {
         String repeatedPassword = repeatedPasswordField.getText().toString();
         String phoneNumber = phoneNumberField.getText().toString();
 
+        if (checkInput()) {
+            Callback<SimpleResponceModel> callback = new Callback<SimpleResponceModel>() {
+                @Override
+                public void onResponse(Call<SimpleResponceModel> call, Response<SimpleResponceModel> response) {
+                    if (response.body().getResult().equals("OK")) {
+                        SharedPreferences.Editor editor = sharedPref.edit();
+                        editor.putString("username", username);
+                        editor.putString("phone_num", phoneNumber);
+                        editor.commit();
+                        finish();
+                    } else {
+                        Toast.makeText(getApplication().getBaseContext(), "NO: " + response.body().getResult() + " " + response.body().getInfo(), Toast.LENGTH_LONG).show();
+                    }
+                }
 
-        SharedPreferences.Editor editor = sharedPref.edit();
-        if (password.length() != 6 && password.equals(repeatedPassword)) {
-            editor.putString("username", username);
-            editor.putString("phone_num", phoneNumber);
-            editor.apply();
-
-            Intent intent = new Intent(this, MainActivity.class);
-            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-            startActivity(intent);
+                @Override
+                public void onFailure(Call<SimpleResponceModel> call, Throwable t) {
+                    Toast.makeText(getApplication().getBaseContext(), getString(R.string.something_is_wrong) + t.getMessage(), Toast.LENGTH_LONG).show();
+                }
+            };
+            if (password.isEmpty()) {
+                mViewModel.changePersonalInfo(sharedPref.getString("username", ""), username, phoneNumber).enqueue(callback);
+            } else {
+                mViewModel.changePersonalInfo(sharedPref.getString("username", ""), username, password, phoneNumber).enqueue(callback);
+            }
+        } else {
+            Toast.makeText(this, getString(R.string.wrong_input), Toast.LENGTH_LONG).show();
         }
+    }
+
+
+    private boolean checkInput() {
+        String username = usernameField.getText().toString();
+        String password = passwordField.getText().toString();
+        String repeatedPassword = repeatedPasswordField.getText().toString();
+        String phoneNumber = phoneNumberField.getText().toString();
+        boolean result = username.length() <= 16;
+        result = result && (password.isEmpty() || (password.length() >= 6 && password.equals(repeatedPassword)));
+        result = result && (phoneNumber.isEmpty() || phoneNumber.matches("^((\\+7|7|8)+([0-9]){10})$"));
+        return result;
     }
 }

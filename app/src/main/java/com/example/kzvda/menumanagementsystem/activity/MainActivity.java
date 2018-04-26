@@ -151,6 +151,7 @@ public class MainActivity extends AppCompatActivity {
                         .setMessage(getString(R.string.delete_account_comfirmation))
                         .setCancelable(true)
                         .setPositiveButton("Yes", (dialog, id) -> {
+                            mViewModel.deleteAccount(sharedPref.getString("username", ""));
                             sharedPref.edit().clear().apply();
                             Intent intent1 = new Intent(getApplicationContext(), MainActivity.class);
                             intent1.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
@@ -239,6 +240,12 @@ public class MainActivity extends AppCompatActivity {
         // Pass any configuration change to the drawer toggles
         drawerToggle.onConfigurationChanged(newConfig);
     }
+
+//    @Override
+//    protected void onPostResume() {
+//        super.onPostResume();
+//        mViewModel.downloadRestaurants();
+//    }
 
 }
 

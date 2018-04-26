@@ -204,10 +204,9 @@ public class RegistrationActivity extends AppCompatActivity {
         String repeatedPassword = repeatedPasswordField.getText().toString();
         String phoneNumber = phoneNumberField.getText().toString();
         boolean isUser = isUserField.isChecked();
-        boolean result = true;
-        result = username.length() <= 16;
-        result = password.length() >= 8 && password.equals(repeatedPassword);
-        result = isUser || (!phoneNumber.isEmpty() && phoneNumber.matches("\\(?\\+[0-9]{1,3}\\)? ?-?[0-9]{1,3} ?-?[0-9]{3,5} ?-?[0-9]{4}( ?-?[0-9]{3})?"));
+        boolean result = username.length() <= 16;
+        result = result && password.length() >= 6 && password.equals(repeatedPassword);
+        result = result && isUser || (!phoneNumber.isEmpty() && phoneNumber.matches("\\(?\\+[0-9]{1,3}\\)? ?-?[0-9]{1,3} ?-?[0-9]{3,5} ?-?[0-9]{4}( ?-?[0-9]{3})?"));
         return result;
     }
 

@@ -7,13 +7,13 @@ public class RegRequest {
     private String phoneNumber;
     private int admin;
 
-    public RegRequest(String type,String login, String password) {
+    public RegRequest(String type, String login, String password) {
         this.type = type;
         this.login = login;
         this.password = password;
     }
 
-    public RegRequest(String type,String login, String password, String phoneNumber) {
+    public RegRequest(String type, String login, String password, String phoneNumber) {
         this.type = type;
         this.login = login;
         this.password = password;

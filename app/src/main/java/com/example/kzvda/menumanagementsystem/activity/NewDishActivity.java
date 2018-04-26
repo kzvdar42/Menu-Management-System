@@ -12,7 +12,7 @@ import android.widget.CheckBox;
 import android.widget.TextView;
 
 import com.example.kzvda.menumanagementsystem.R;
-import com.example.kzvda.menumanagementsystem.serverApi.RequestBodies.AddDishRequest;
+import com.example.kzvda.menumanagementsystem.serverApi.RequestBodies.DishRequest;
 import com.example.kzvda.menumanagementsystem.viewModel.NewDishViewModel;
 
 import java.util.Objects;
@@ -38,7 +38,7 @@ public class NewDishActivity extends AppCompatActivity {
         boolean addToMenu = ((CheckBox) findViewById(R.id.add_to_templates)).isChecked();
         int price = Integer.parseInt(((TextView) findViewById(R.id.setPrice)).getText().toString());
         SharedPreferences sharedPref = this.getSharedPreferences("user", Context.MODE_PRIVATE);
-        AddDishRequest menuEntity = new AddDishRequest(sharedPref.getInt("restaurantId", -1), name, description, price, addToMenu);
+        DishRequest menuEntity = new DishRequest(sharedPref.getInt("restaurantId", -1), name, description, price, addToMenu);
         NewDishViewModel mViewModel = ViewModelProviders.of(this).get(NewDishViewModel.class);
         mViewModel.uploadToMenu(menuEntity);
         finish();

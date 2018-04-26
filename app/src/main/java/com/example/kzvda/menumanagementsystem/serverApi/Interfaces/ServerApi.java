@@ -5,9 +5,11 @@ import com.example.kzvda.menumanagementsystem.serverApi.Models.MenuServerModel;
 import com.example.kzvda.menumanagementsystem.serverApi.Models.RegistrationModel;
 import com.example.kzvda.menumanagementsystem.serverApi.Models.RestServerModel;
 import com.example.kzvda.menumanagementsystem.serverApi.Models.SimpleResponceModel;
-import com.example.kzvda.menumanagementsystem.serverApi.RequestBodies.AddDishRequest;
+import com.example.kzvda.menumanagementsystem.serverApi.RequestBodies.ChangePersonalInfoRequest;
+import com.example.kzvda.menumanagementsystem.serverApi.RequestBodies.DishRequest;
 import com.example.kzvda.menumanagementsystem.serverApi.RequestBodies.RegRequest;
 import com.example.kzvda.menumanagementsystem.serverApi.RequestBodies.RestRequest;
+import com.example.kzvda.menumanagementsystem.serverApi.RequestBodies.SimpleRequest;
 
 import retrofit2.Call;
 import retrofit2.http.Body;
@@ -31,6 +33,12 @@ public interface ServerApi {
     Call<LoginModel> login(@Body RegRequest regRequest);
 
     @POST("api")
-    Call<SimpleResponceModel> addDish(@Body AddDishRequest addDishRequest);
+    Call<SimpleResponceModel> addDish(@Body DishRequest DishRequest);
+
+    @POST("api")
+    Call<SimpleResponceModel> removeAccount(@Body SimpleRequest simpleRequest);
+
+    @POST("api")
+    Call<SimpleResponceModel> changePersonalInfo(@Body ChangePersonalInfoRequest changePersonalInfoRequest);
 
 }

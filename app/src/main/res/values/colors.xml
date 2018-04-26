@@ -6,4 +6,5 @@
     <color name="colorAccent">#4285F4</color>
     <color name="colorImageDisable">#727272</color>
     <color name="colorTextDisable">#000000</color>
+    <color name="red">#FE3A3A</color>
 </resources>

@@ -8,7 +8,7 @@ import com.example.kzvda.menumanagementsystem.db.Entity.MenuEntity;
 import com.example.kzvda.menumanagementsystem.db.Repository;
 import com.example.kzvda.menumanagementsystem.serverApi.Interfaces.ServerApi;
 import com.example.kzvda.menumanagementsystem.serverApi.Models.SimpleResponceModel;
-import com.example.kzvda.menumanagementsystem.serverApi.RequestBodies.AddDishRequest;
+import com.example.kzvda.menumanagementsystem.serverApi.RequestBodies.DishRequest;
 import com.example.kzvda.menumanagementsystem.serverApi.RetrofitInstance;
 
 import retrofit2.Call;
@@ -29,7 +29,7 @@ public class NewDishViewModel extends ViewModel {
         mRepository.insertToMenu(dish);
     }
 
-    public void uploadToMenu(AddDishRequest dish) {
+    public void uploadToMenu(DishRequest dish) {
         serverApi.addDish(dish).enqueue(new Callback<SimpleResponceModel>() {
             @Override
             public void onResponse(Call<SimpleResponceModel> call, Response<SimpleResponceModel> response) {

@@ -38,7 +38,7 @@
         <activity android:name=".activity.ManageUsersActivity" />
         <activity android:name=".activity.ManageUsersAccountsActivity" />
         <activity android:name=".activity.SupportActivity" />
-        <activity android:name=".activity.ChangeTemplateActivity"></activity>
+        <activity android:name=".activity.EditTemplateActivity"></activity>
     </application>
 
 </manifest>

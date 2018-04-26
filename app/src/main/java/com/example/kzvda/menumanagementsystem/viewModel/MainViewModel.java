@@ -6,13 +6,15 @@ import android.support.annotation.NonNull;
 import android.widget.Toast;
 
 import com.example.kzvda.menumanagementsystem.R;
+import com.example.kzvda.menumanagementsystem.db.Entity.RestaurantEntity;
+import com.example.kzvda.menumanagementsystem.db.Repository;
 import com.example.kzvda.menumanagementsystem.serverApi.Interfaces.ServerApi;
 import com.example.kzvda.menumanagementsystem.serverApi.Models.RestList;
 import com.example.kzvda.menumanagementsystem.serverApi.Models.RestServerModel;
+import com.example.kzvda.menumanagementsystem.serverApi.Models.SimpleResponceModel;
 import com.example.kzvda.menumanagementsystem.serverApi.RequestBodies.RestRequest;
+import com.example.kzvda.menumanagementsystem.serverApi.RequestBodies.SimpleRequest;
 import com.example.kzvda.menumanagementsystem.serverApi.RetrofitInstance;
-import com.example.kzvda.menumanagementsystem.db.Entity.RestaurantEntity;
-import com.example.kzvda.menumanagementsystem.db.Repository;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -35,6 +37,20 @@ public class MainViewModel extends ViewModel {
 
     public LiveData<List<RestaurantEntity>> getRestaurantsList() {
         return mRestaurantsList;
+    }
+
+    public void deleteAccount(String username) {
+        serverApi.removeAccount(new SimpleRequest("delete_user", username)).enqueue(new Callback<SimpleResponceModel>() {
+            @Override
+            public void onResponse(Call<SimpleResponceModel> call, Response<SimpleResponceModel> response) {
+
+            }
+
+            @Override
+            public void onFailure(Call<SimpleResponceModel> call, Throwable t) {
+
+            }
+        });
     }
 
     public void downloadRestaurants() {

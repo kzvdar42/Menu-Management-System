@@ -5,6 +5,7 @@ import android.arch.lifecycle.LiveData;
 import android.support.annotation.NonNull;
 import android.widget.Toast;
 
+import com.example.kzvda.menumanagementsystem.R;
 import com.example.kzvda.menumanagementsystem.db.Entity.MenuEntity;
 import com.example.kzvda.menumanagementsystem.db.Repository;
 import com.example.kzvda.menumanagementsystem.serverApi.Interfaces.ServerApi;
@@ -52,7 +53,7 @@ public class ManageTemplatesViewModel extends ViewModel {
 
             @Override
             public void onFailure(@NonNull Call<MenuServerModel> call, @NonNull Throwable t) {
-
+                Toast.makeText(getApplication().getBaseContext(), getApplication().getString(R.string.something_is_wrong) + t.getMessage(), Toast.LENGTH_LONG).show();
             }
         });
     }
