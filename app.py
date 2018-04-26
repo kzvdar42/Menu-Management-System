@@ -81,10 +81,11 @@ def api_request():
 
 @app.route('/api/upload_photo', methods=['POST'])
 def upload_photo():
+    print("request", request)
+    print("request.files", request.files)
     file = request.files["photo"]
     print(file)
     print(file.name)
-
     name = get_new_name()
     file.save(os.path.join(".", "data", name))
     db.add_photo(name)
